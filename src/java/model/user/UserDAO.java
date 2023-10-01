@@ -1,0 +1,70 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package model.user;
+
+import config.Config;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import model.DAO;
+
+/**
+ *
+ * @author Yanna
+ */
+public class UserDAO implements DAO<User> {
+    
+    
+    public boolean validateAccess(String login, String password) {
+        boolean success = false;
+        try {
+            Class.forName(Config.JDBC_DRIVER);
+            Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
+            PreparedStatement ps = c.prepareStatement("SELECT * FROM public.user WHERE login = ? AND password = ?");
+            ps.setString(1, login);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                success = true;
+            }
+            rs.close();
+            ps.close();
+            c.close();
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
+            return false;
+        }
+        return success;
+    }
+
+    @Override
+    public boolean insert(User t) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public User getOne(long id) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public List<User> getAll() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean update(User t) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean delete(long id) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+}
