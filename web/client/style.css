@@ -162,6 +162,7 @@ li a {
 
 li a:hover {
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .active {
@@ -248,6 +249,7 @@ button {
 
 button:hover {
     background: #7fd3df;
+    cursor: pointer;
 }
 
 .text_link {
@@ -345,6 +347,7 @@ footer {
 
 #footer .links:hover {
     text-decoration: underline;
+    cursor: pointer;
 }
 
 #footer .logo {

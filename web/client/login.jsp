@@ -24,7 +24,7 @@
                     New Here?
                     <div class="divider"></div>
                 </div>
-                <a>
+                <a href="register.jsp">
                     <button>Create Account</button>
                 </a>
             </div>

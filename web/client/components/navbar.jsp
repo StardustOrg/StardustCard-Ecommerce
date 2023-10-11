@@ -30,7 +30,7 @@
                 </a>
                 <div class="new-account-div">
                     <p>New here?</p>
-                    <a href="register.html">Create Account</a>
+                    <a href="register.jsp">Create Account</a>
                 </div>
             </div>
         </div>
