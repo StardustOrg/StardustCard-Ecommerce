@@ -8,7 +8,7 @@
             <% request.setAttribute("activePage", "login");%>
             <%@include file="./components/navbar.jsp" %>
             <div class="login_form">
-                <form method="POST" action="./Login" onsubmit="return validateLoginForm()">
+                <form method="POST" action="${pageContext.request.contextPath}/Login" onsubmit="return validateLoginForm()">
                     <h2>Sign in</h2>
                     <label>Login:</label>
                     <input type="text" name="login" id="login" placeholder="Login" required>
@@ -30,7 +30,7 @@
                     New Here?
                     <div class="divider"></div>
                 </div>
-                <a href="../Register">
+                <a href="${pageContext.request.contextPath}/Register">
                     <button>Create Account</button>
                 </a>
             </div>

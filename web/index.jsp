@@ -15,7 +15,7 @@
         <script>
             window.onload = function () {
                 setTimeout(function () {
-                    window.location.href = '/Login';
+                    window.location.href = '${pageContext.request.contextPath}/Login';
                 }, 2000);
             };
         </script>

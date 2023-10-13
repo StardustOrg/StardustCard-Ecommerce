@@ -14,7 +14,7 @@
             <% request.setAttribute("activePage", "register");%>
             <%@include file="./components/navbar.jsp" %>
             <div class="register_form">
-                <form method="POST" action="./Register" onsubmit="return validateRegisterForm()">
+                <form method="POST" action="${pageContext.request.contextPath}/Register" onsubmit="return validateRegisterForm()">
                     <h2>Create account</h2>
                     <label>Your Name:</label>
                     <input type="text" name="name" id="name" placeholder="First and last name" required>
@@ -38,7 +38,7 @@
                     Already have an account?
                     <div class="divider"></div>
                 </div>
-                <a href="./Login">
+                <a href="${pageContext.request.contextPath}/Login">
                     <button>Sign in</button>
                 </a>
             </div>
