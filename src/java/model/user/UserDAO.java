@@ -46,12 +46,12 @@ public class UserDAO implements DAO<User> {
         try {
             Class.forName(Config.JDBC_DRIVER);
             Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
-            PreparedStatement ps = c.prepareStatement("INSERT INTO public.user (login, email, admin, password, address, name) VALUES (?, ?, ?, ?, ?, ?)");
+            PreparedStatement ps = c.prepareStatement("INSERT INTO stardust_user (login, email, admin, password, address, name) VALUES (?, ?, ?, ?, ?, ?)");
 
             // Define os valores para os parâmetros do PreparedStatement
             ps.setString(1, t.getLogin());
             ps.setString(2, t.getEmail());
-            ps.setBoolean(3, t.isAdmin());
+            ps.setBoolean(3, false);
             ps.setString(4, t.getPassword());
             ps.setString(5, t.getAddress());
             ps.setString(6, t.getName());
@@ -73,7 +73,7 @@ public class UserDAO implements DAO<User> {
         try {
             Class.forName(Config.JDBC_DRIVER);
             Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
-            PreparedStatement ps = c.prepareStatement("SELECT * FROM public.user WHERE id = ?");
+            PreparedStatement ps = c.prepareStatement("SELECT * FROM stardust_user WHERE id = ?");
             ps.setLong(1, id);
             ResultSet rs = ps.executeQuery();
             
