@@ -8,10 +8,10 @@
             <% request.setAttribute("activePage", "login");%>
             <%@include file="./components/navbar.jsp" %>
             <div class="login_form">
-                <form method="post">
+                <form method="POST" action="./Login" onsubmit="return validateLoginForm()">
                     <h2>Sign in</h2>
-                    <label>Email:</label>
-                    <input type="email" name="email" id="email" placeholder="Email" required>
+                    <label>Login:</label>
+                    <input type="text" name="login" id="login" placeholder="Login" required>
                     <label>Password:</label>
                     <input type="password" name="password" id="password" placeholder="Password" required>
                     <a class="text_link">Forgot password?</a>

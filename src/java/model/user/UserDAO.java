@@ -18,13 +18,13 @@ import model.DAO;
  * @author Yanna
  */
 public class UserDAO implements DAO<User> {
-    
+
     public boolean validateAccess(String login, String password) {
         boolean success = false;
         try {
             Class.forName(Config.JDBC_DRIVER);
             Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
-            PreparedStatement ps = c.prepareStatement("SELECT * FROM public.user WHERE login = ? AND password = ?");
+            PreparedStatement ps = c.prepareStatement("SELECT * FROM stardust_user WHERE login = ? AND password = ?");
             ps.setString(1, login);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
@@ -40,7 +40,7 @@ public class UserDAO implements DAO<User> {
         }
         return success;
     }
-    
+
     @Override
     public boolean insert(User t) {
         try {
@@ -55,19 +55,19 @@ public class UserDAO implements DAO<User> {
             ps.setString(4, t.getPassword());
             ps.setString(5, t.getAddress());
             ps.setString(6, t.getName());
-            
+
             int rowsAffected = ps.executeUpdate();
-            
+
             ps.close();
             c.close();
-            
+
             return rowsAffected > 0;
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex);
             return false;
         }
     }
-    
+
     @Override
     public User getOne(long id) {
         try {
@@ -76,7 +76,7 @@ public class UserDAO implements DAO<User> {
             PreparedStatement ps = c.prepareStatement("SELECT * FROM stardust_user WHERE id = ?");
             ps.setLong(1, id);
             ResultSet rs = ps.executeQuery();
-            
+
             User user = null;
             if (rs.next()) {
                 String login = rs.getString("login");
@@ -85,34 +85,65 @@ public class UserDAO implements DAO<User> {
                 String password = rs.getString("password");
                 String address = rs.getString("address");
                 String name = rs.getString("name");
-                
+
                 user = new User(id, login, email, admin, address, name);
             }
-            
+
             rs.close();
             ps.close();
             c.close();
-            
+
             return user;
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex);
             return null;
         }
     }
-    
+
+    public User getOne(String login) {
+        try {
+            Class.forName(Config.JDBC_DRIVER);
+            Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
+            PreparedStatement ps = c.prepareStatement("SELECT * FROM stardust_user WHERE login = ?");
+            ps.setString(1, login);
+            ResultSet rs = ps.executeQuery();
+
+            User user = null;
+            if (rs.next()) {
+                String email = rs.getString("email");
+                long id = rs.getLong("id");
+                boolean admin = rs.getBoolean("admin");
+                String password = rs.getString("password");
+                String address = rs.getString("address");
+                String name = rs.getString("name");
+
+                user = new User(id, login, email, admin, address, name);
+            }
+
+            rs.close();
+            ps.close();
+            c.close();
+
+            return user;
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
+
     @Override
     public List<User> getAll() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public boolean update(User t) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public boolean delete(long id) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
 }

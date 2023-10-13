@@ -134,3 +134,17 @@ function validateRegisterForm() {
   }
   return true;
 }
+
+function validateLoginForm() {
+  var login = document.getElementById('login').value;
+  var password = document.getElementById('password').value;
+
+  if (!validateTextFieldLength(login)) {
+    alert('Your Login has at least 6 characters.');
+    return false;
+  } else if (!validateTextFieldLength(password)) {
+    alert('Your Password has at least 6 characters.');
+    return false;
+  } 
+  return true;
+}
