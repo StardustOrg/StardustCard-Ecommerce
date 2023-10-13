@@ -44,7 +44,8 @@ public class UserServlet extends HttpServlet {
         request.setAttribute("registered", cadastrado);
 
         // Redireciona para login.jsp
-        RequestDispatcher dispatcher = request.getRequestDispatcher("client/login.jsp");
-        dispatcher.forward(request, response);
+        // RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+        // dispatcher.forward(request, response);
+        response.sendRedirect("Login");
     }
 }
