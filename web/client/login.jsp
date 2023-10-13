@@ -17,6 +17,12 @@
                     <a class="text_link">Forgot password?</a>
                     <button>Sign In</button>
                 </form>
+                <!-- Adicione a condicional para exibir a mensagem -->
+                <% if (request.getAttribute("registered") != null && (boolean) request.getAttribute("registered")) { %>
+                <div class="registered-message">
+                    Agora você pode fazer login.
+                </div>
+                <% }%>
             </div>
             <div class="secondary-action">
                 <div class="secondary-message">
@@ -30,6 +36,6 @@
             </div>
         </div>
         <%@include file="./components/footer.jsp" %>
-        <script src="script.js"></script>
+        <script src="client/script.js"></script>
     </body>
 </html>

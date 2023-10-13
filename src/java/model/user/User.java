@@ -12,14 +12,16 @@ public class User {
 
     private long id;
     private String login;
+    private String password;
     private String email;
     private boolean admin;
     private String address;
     private String name;
 
-    public User(long id, String login, String email, boolean admin, String address, String name) {
+    public User(long id, String login, String password, String email, boolean admin, String address, String name) {
         this.id = id;
         this.login = login;
+        this.password = password;
         this.email = email;
         this.admin = admin;
         this.address = address;
@@ -40,6 +42,14 @@ public class User {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {

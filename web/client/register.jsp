@@ -14,7 +14,7 @@
             <% request.setAttribute("activePage", "register");%>
             <%@include file="./components/navbar.jsp" %>
             <div class="register_form">
-                <form method="post" onsubmit="return validateRegisterForm()">
+                <form method="POST" action="../user" onsubmit="return validateRegisterForm()">
                     <h2>Create account</h2>
                     <label>Your Name:</label>
                     <input type="text" name="name" id="name" placeholder="First and last name" required>

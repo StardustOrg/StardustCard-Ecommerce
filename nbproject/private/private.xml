@@ -3,14 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/web/client/test_for_components.jsp</file>
-            <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/web/client/components/simple_photocard.jsp</file>
-            <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/web/client/login.jsp</file>
-            <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/web/client/style.css</file>
-            <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/src/java/controller/Placeholder.java</file>
-            <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/web/client/components/head.jsp</file>
-            <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/web/client/register.jsp</file>
-            <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/web/client/components/navbar.jsp</file>
+            <file>file:/C:/Users/joaov/StardustCard-Ecommerce/.env</file>
+            <file>file:/C:/Users/joaov/StardustCard-Ecommerce/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/joaov/StardustCard-Ecommerce/src/java/config/Config.java</file>
+            <file>file:/C:/Users/joaov/StardustCard-Ecommerce/src/java/model/user/UserDAO.java</file>
+            <file>file:/C:/Users/joaov/StardustCard-Ecommerce/web/client/register.jsp</file>
+            <file>file:/C:/Users/joaov/StardustCard-Ecommerce/web/client/script.js</file>
+            <file>file:/C:/Users/joaov/StardustCard-Ecommerce/src/java/model/DAO.java</file>
+            <file>file:/C:/Users/joaov/StardustCard-Ecommerce/src/java/model/user/User.java</file>
+            <file>file:/C:/Users/joaov/StardustCard-Ecommerce/web/client/login.jsp</file>
         </group>
     </open-files>
 </project-private>

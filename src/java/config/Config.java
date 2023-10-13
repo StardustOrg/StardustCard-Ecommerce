@@ -9,8 +9,9 @@ package config;
  * @author Yanna
  */
 public class Config {
+
     public static final String JDBC_DRIVER = "org.postgresql.Driver";
     public static final String JDBC_URL = "jdbc:postgresql://localhost:5432/stardust_db";
     public static final String USER = "postgres";
-    public static final String PASSWORD = "ufc123";
+    public static final String PASSWORD = "Jv4984538171";
 }
