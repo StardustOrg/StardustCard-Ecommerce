@@ -15,10 +15,17 @@ import model.user.UserDAO;
 
 /**
  *
- * @author joaov
+ * @author Yanna
  */
-public class UserServlet extends HttpServlet {
+public class RegisterServlet extends HttpServlet {
 
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/client/register.jsp");
+        dispatcher.forward(request, response);
+    }
+    
     /**
      * Register a User
      *
@@ -36,16 +43,16 @@ public class UserServlet extends HttpServlet {
         String address = request.getParameter("address");
         String name = request.getParameter("name");
 
-        User user = new User(0, login, password, email, admin, address, name);
+        User user = new User(login, password, email, admin, address, name);
         UserDAO userDAO = new UserDAO();
         boolean cadastrado = userDAO.insert(user);
 
-        // Adiciona uma propriedade ao objeto request
-        request.setAttribute("registered", cadastrado);
-
-        // Redireciona para login.jsp
-        // RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-        // dispatcher.forward(request, response);
-        response.sendRedirect("Login");
+        if (cadastrado) {
+            response.sendRedirect("Login");
+        } else {
+            String alertMessage = "Registration failed. Please try again.";
+            String redirectScript = "<script>alert('" + alertMessage + "'); window.location.href = 'Register';</script>";
+            response.getWriter().write(redirectScript);
+        }
     }
 }

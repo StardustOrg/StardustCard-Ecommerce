@@ -1,3 +1,10 @@
+<%-- 
+    Document   : index
+    Created on : 13 de out. de 2023, 15:00:17
+    Author     : Yanna
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,7 +16,7 @@
             window.onload = function () {
                 setTimeout(function () {
                     window.location.href = '/Login';
-                }, 1000);
+                }, 2000);
             };
         </script>
         <style>

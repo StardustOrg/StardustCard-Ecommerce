@@ -30,7 +30,7 @@
                     New Here?
                     <div class="divider"></div>
                 </div>
-                <a href="register.jsp">
+                <a href="../Register">
                     <button>Create Account</button>
                 </a>
             </div>

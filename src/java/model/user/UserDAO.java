@@ -86,7 +86,7 @@ public class UserDAO implements DAO<User> {
                 String address = rs.getString("address");
                 String name = rs.getString("name");
                 
-                user = new User(id, login, password, email, admin, address, name);
+                user = new User(id, login, email, admin, address, name);
             }
             
             rs.close();

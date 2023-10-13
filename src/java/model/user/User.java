@@ -18,7 +18,16 @@ public class User {
     private String address;
     private String name;
 
-    public User(long id, String login, String password, String email, boolean admin, String address, String name) {
+    public User(long id, String login, String email, boolean admin, String address, String name) {
+        this.id = id;
+        this.login = login;
+        this.email = email;
+        this.admin = admin;
+        this.address = address;
+        this.name = name;
+    }
+
+    public User(String login, String password, String email, boolean admin, String address, String name) {
         this.id = id;
         this.login = login;
         this.password = password;
