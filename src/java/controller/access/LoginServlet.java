@@ -42,14 +42,11 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("name", myUser.getName());
             session.setAttribute("isAdmin", myUser.isAdmin());
 
-            String alertMessage;
             if (myUser.isAdmin()) {
-                alertMessage = "Hello, Admin: " + session.getAttribute("login");
+                response.sendRedirect("admin");
             } else {
-                alertMessage = "Hello, Client: " + session.getAttribute("login");
+                response.sendRedirect("client");
             }
-            String redirectScript = "<script>alert('" + alertMessage + "'); window.location.href = 'Login';</script>";
-            response.getWriter().write(redirectScript);
         } else {
             String alertMessage = "Login failed. Wrong Login/Password. Please try again.";
             String redirectScript = "<script>alert('" + alertMessage + "');  window.location.href = 'Login';</script>";
