@@ -16,7 +16,7 @@
         <!-- Styles and icons -->
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/style.css">
     </head>
 
     <body>
@@ -25,7 +25,7 @@
             <!-- User info -->
             <div class="user-info">
                 <a class="link-img" href="user.html">
-                    <img src="./assets/user.jpg" alt="Foto do Usuário">
+                    <img src="${pageContext.request.contextPath}/admin/assets/user.jpg" alt="Foto do Usuário">
                     <h4>Vládia Helen</h4>
                     <h5>Stardust Manager</h5>
                 </a>
@@ -144,7 +144,7 @@
             </main>
         </div>
 
-        <script src="main.js"></script>
+        <script src="${pageContext.request.contextPath}/admin/main.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </body>
 

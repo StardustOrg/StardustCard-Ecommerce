@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
         boolean success = userDAO.validateAccess(login, password);
         response.setContentType("text/html;charset=UTF-8");
         if (success) {
-            User myUser = userDAO.getOne(login);
+            User myUser = userDAO.getOne(login);    
             /**
              * Cria uma sessão de usuário com Login, Nome se o usuário é Admin
              */
@@ -43,9 +43,9 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("isAdmin", myUser.isAdmin());
 
             if (myUser.isAdmin()) {
-                response.sendRedirect("admin");
+                response.sendRedirect("Admin");
             } else {
-                response.sendRedirect("client");
+                response.sendRedirect("Home");
             }
         } else {
             String alertMessage = "Login failed. Wrong Login/Password. Please try again.";
