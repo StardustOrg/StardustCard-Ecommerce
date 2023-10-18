@@ -284,7 +284,7 @@
                 </div>
             </div>
         </footer>
-        <script src="script.js"></script>
+        <script src="${pageContext.request.contextPath}/client/script.js"></script>
     </body>
 
 </html>

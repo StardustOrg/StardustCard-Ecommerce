@@ -41,7 +41,7 @@ const artistCards = document.querySelectorAll(".artist-card");
 const prevButton = document.querySelector(".arrow-back-ios-new");
 const nextButton = document.querySelector(".arrow-forward-ios");
 
-const cardsPerPage = 6;
+const cardsPerPage = 4;
 let currentPage = 0;
 
 // Carousel of artists

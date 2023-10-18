@@ -2,7 +2,7 @@
     <% String activePage = (String) request.getAttribute("activePage"); %>
     <div class="logo">StardustCard</div>
     <ul class="navbar_pages">
-        <li><a class=<%= activePage.equals("home") ? "active" : "" %>>Home</a></li>
+        <li><a href="Home" class=<%= activePage.equals("home") ? "active" : "" %>>Home</a></li>
         <li><a class=<%= activePage.equals("artists") ? "active" : "" %>>Artists</a></li>
         <li><a class=<%= activePage.equals("trending") ? "active" : "" %>>Trending</a></li>
         <li><a class=<%= activePage.equals("newadditions") ? "active" : "" %>>New additions</a></li>
@@ -25,12 +25,12 @@
                 person
             </span>
             <div class="dropdown-content">
-                <a href="login.jsp">
+                <a href="Login">
                     <button>Sign in</button>
                 </a>
                 <div class="new-account-div">
                     <p>New here?</p>
-                    <a href="register.jsp">Create Account</a>
+                    <a href="Register">Create Account</a>
                 </div>
             </div>
         </div>

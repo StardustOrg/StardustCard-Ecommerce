@@ -17,7 +17,7 @@ public class ClientHomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/client/index.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/client/home.jsp");
         dispatcher.forward(request, response);
     }
 }
