@@ -34,7 +34,6 @@ function autoSlide() {
 }
 
 autoSlide();
-
 // CAROUSEL OF ARTISTS
 const carrousel = document.querySelector(".carrousel");
 const artistCards = document.querySelectorAll(".artist-card");
@@ -44,13 +43,11 @@ const nextButton = document.querySelector(".arrow-forward-ios");
 const cardsPerPage = 4;
 let currentPage = 0;
 
-// Carousel of artists
 function updateCarousel() {
   const startIndex = currentPage * cardsPerPage;
-  const endIndex = startIndex + cardsPerPage;
 
   artistCards.forEach((card, index) => {
-    if (index >= startIndex && index < endIndex) {
+    if (index >= startIndex && index < startIndex + cardsPerPage) {
       card.style.display = "block";
     } else {
       card.style.display = "none";

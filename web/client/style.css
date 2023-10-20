@@ -449,7 +449,7 @@ footer {
 
 .carrousel {
     display: flex;
-    gap: 56px;
+    /*gap: 56px;*/
     transition: transform 0.3s ease;
     justify-content: space-between;
 }
@@ -490,6 +490,7 @@ footer {
 
 .artist-card {
     box-shadow: 0px 0px 10px 0px rgba(77, 77, 77, 0.25);
+    margin-right: 56px;
     width: 155px;
     height: 155px;
     position: relative;
