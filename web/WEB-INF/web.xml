@@ -26,7 +26,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminServlet</servlet-name>
-        <url-pattern>/Admin</url-pattern>
+        <url-pattern>/Admin/Dashboard</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ClientHomeServlet</servlet-name>

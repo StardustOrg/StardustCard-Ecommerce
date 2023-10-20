@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("isAdmin", myUser.isAdmin());
 
             if (myUser.isAdmin()) {
-                response.sendRedirect("Admin");
+                response.sendRedirect("Admin/Dashboard");
             } else {
                 response.sendRedirect("Home");
             }
