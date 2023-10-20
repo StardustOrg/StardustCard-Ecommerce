@@ -24,9 +24,7 @@ public class AdminServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/dashboard.jsp");
             dispatcher.forward(request, response);
         } else {
-            String alertMessage = "You don't have permission to access this page. Please login";
-            String redirectScript = "<script>alert('" + alertMessage + "');  window.location.href = 'Login';</script>";
-            response.getWriter().write(redirectScript);
+            response.sendRedirect("../Login");
         }
     }
 
