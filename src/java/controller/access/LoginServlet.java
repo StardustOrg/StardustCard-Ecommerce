@@ -18,7 +18,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         RequestDispatcher dispatcher = request.getRequestDispatcher("/client/login.jsp");
         dispatcher.forward(request, response);
@@ -26,7 +26,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String login = request.getParameter("login");
         String password = request.getParameter("password");
@@ -35,14 +35,12 @@ public class LoginServlet extends HttpServlet {
         boolean success = userDAO.validateAccess(login, password);
         response.setContentType("text/html;charset=UTF-8");
         if (success) {
-            User myUser = userDAO.getOne(login);    
+            User myUser = userDAO.getOne(login);
             /**
              * Cria uma sessão de usuário com Login, Nome se o usuário é Admin
              */
             HttpSession session = request.getSession();
-            session.setAttribute("login", myUser.getLogin());
-            session.setAttribute("name", myUser.getName());
-            session.setAttribute("isAdmin", myUser.isAdmin());
+            session.setAttribute("stardust_user", myUser);
 
             if (myUser.isAdmin()) {
                 response.sendRedirect("Admin/Dashboard");
