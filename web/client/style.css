@@ -11,7 +11,7 @@ body {
 .material-symbols-rounded {
     color: #6622CC;
     cursor: pointer;
-    margin: 0 10px;
+    margin: 0;
 }
 
 .material-symbols-rounded:hover {
@@ -51,6 +51,7 @@ body {
 
 .navbar_actions {
     display: flex;
+    gap: 10px;
     flex-direction: row;
 }
 
@@ -958,4 +959,31 @@ hr.rounded {
 
 .cart-total h3 {
     margin: 0;
+}
+#cart {
+    position: relative; /* Set the cart container to relative position */
+}
+
+.shopping-cart-value {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    align-items: center;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    transform: translate(50%, -50%);
+    transform-origin: 100% 0%;
+    height: 20px;
+    border-radius: 50px;
+    padding: 0px 6px;
+    background: #8EDCE6;
+    opacity: 1;
+    color: var(--main, #62C);
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: uppercase;
 }

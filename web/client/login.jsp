@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <% request.setAttribute("pageTitle", "StardustCard - Login");%>
     <%@include file="./components/head.jsp" %>
     <body>

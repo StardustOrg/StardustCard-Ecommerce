@@ -18,6 +18,7 @@
                 <span class="material-symbols-rounded">
                     shopping_cart
                 </span>
+                <span class="shopping-cart-value">1</span>
             </a>
         </div>
         <div class="dropdown-account not-logged">
