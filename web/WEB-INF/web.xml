@@ -16,6 +16,10 @@
         <servlet-name>ClientHomeServlet</servlet-name>
         <servlet-class>controller.client.ClientHomeServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ArtistPageServlet</servlet-name>
+        <servlet-class>controller.artist.ArtistPageServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>ClientHomeServlet</servlet-name>
         <url-pattern>/Home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ArtistPageServlet</servlet-name>
+        <url-pattern>/Artists/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -3,8 +3,7 @@
     String pageURL = (String)request.getAttribute("pageURL");
     Artist artist = (Artist)request.getAttribute("artist");
 %>
-
-<a href="<%= pageURL%>">
+<a href="Artists/<%= artist.getName()%>">
     <div class="artist-card">
         <div class="artist-image">
             <img src="<%= artist.getIcon()%>" />

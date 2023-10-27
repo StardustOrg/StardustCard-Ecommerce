@@ -67,12 +67,11 @@
                         arrow_back_ios_new
                     </span>
                     <div class="carrousel">
-                        <%                            
+                        <%
                             List<Artist> artistList = (List<Artist>) request.getAttribute("artistsList");
                             for (int i = 0; i < artistList.size(); i++) {
+                                request.setAttribute("artist", artistList.get(i));
                         %>
-                        <% request.setAttribute("pageURL", "");%>
-                        <% request.setAttribute("artist", artistList.get(i));%>
                         <%@include file="./components/artist_icon_comp.jsp" %>
                         <%
                             }
