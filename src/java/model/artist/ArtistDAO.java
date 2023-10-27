@@ -44,7 +44,7 @@ public class ArtistDAO implements DAO<Artist> {
     public Artist getOne(long id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
     public List<Artist> getAllIdols(long group_id) {
         List<Artist> artists = new ArrayList<>();
         try {
@@ -104,7 +104,38 @@ public class ArtistDAO implements DAO<Artist> {
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex);
         }
-        
+
+        return artists;
+    }
+
+    public List<Artist> getSoloArtistsAndGroups() {
+        List<Artist> artists = new ArrayList<>();
+        try {
+            Class.forName(Config.JDBC_DRIVER);
+            Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
+            Statement stmt = c.createStatement();
+
+            String query = "SELECT id, name, icon_url, cover_url, group_id FROM artist WHERE group_id IS NULL";
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                long id = rs.getLong("id");
+                String name = rs.getString("name");
+                String iconURL = rs.getString("icon_url");
+                String coverURL = rs.getString("cover_url");
+                long groupId = rs.getLong("group_id");
+
+                Artist artist = new Artist(id, name, iconURL, coverURL, groupId);
+                artists.add(artist);
+            }
+
+            rs.close();
+            stmt.close();
+            c.close();
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
+        }
+
         return artists;
     }
 

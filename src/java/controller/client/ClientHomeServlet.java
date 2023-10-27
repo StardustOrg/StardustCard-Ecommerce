@@ -25,7 +25,7 @@ public class ClientHomeServlet extends HttpServlet {
 
         List<Artist> artistsList = new ArrayList();
         try {
-            artistsList = artistDAO.getAll();
+            artistsList = artistDAO.getSoloArtistsAndGroups();
         } catch (Exception ex) {
         }
         request.setAttribute("artistsList", artistsList);
