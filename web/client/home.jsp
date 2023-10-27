@@ -4,6 +4,8 @@
     Author     : joaov
 --%>
 
+<%@page import="model.artist.Artist"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,118 +67,16 @@
                         arrow_back_ios_new
                     </span>
                     <div class="carrousel">
-                        <a href="newjeans_page.html">
-                            <div class="artist-card">
-                                <div class="artist-image">
-                                    <img src="../assets/idols/newjeans.jpg" />
-                                    <div class="overlay"></div>
-                                    <div class="image-caption">
-                                        NEWJEANS
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="artist-card">
-                            <div class="artist-image">
-                                <img src="../assets/idols/redvelvet.png" />
-                                <div class="overlay"></div>
-                                <div class="image-caption">
-                                    red velvet
-                                </div>
-                            </div>
-                        </div>
-                        <div class="artist-card">
-                            <div class="artist-image">
-                                <img src="../assets/idols/bts.jpg" />
-                                <div class="overlay"></div>
-                                <div class="image-caption">
-                                    bts
-                                </div>
-                            </div>
-                        </div>
-                        <div class="artist-card">
-                            <div class="artist-image">
-                                <img src="../assets/idols/twice.jpg" />
-                                <div class="overlay"></div>
-                                <div class="image-caption">
-                                    twice
-                                </div>
-                            </div>
-                        </div>
-                        <div class="artist-card">
-                            <div class="artist-image">
-                                <img src="../assets/idols/txt.jpg" />
-                                <div class="overlay"></div>
-                                <div class="image-caption">
-                                    txt
-                                </div>
-                            </div>
-                        </div>
-                        <a href="iu_page.html">
-                            <div class="artist-card">
-                                <div class="artist-image">
-                                    <img src="../assets/idols/iu.jpg" />
-                                    <div class="overlay"></div>
-                                    <div class="image-caption">
-                                        iu
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="artist-card">
-                            <div class="artist-image">
-                                <img src="../assets/idols/lesserafim.jpg" />
-                                <div class="overlay"></div>
-                                <div class="image-caption">
-                                    le sserafim
-                                </div>
-                            </div>
-                        </div>
-                        <div class="artist-card">
-                            <div class="artist-image">
-                                <img src="../assets/idols/seventeen.jpg" />
-                                <div class="overlay"></div>
-                                <div class="image-caption">
-                                    seventeen
-                                </div>
-                            </div>
-                        </div>
-                        <div class="artist-card">
-                            <div class="artist-image">
-                                <img src="../assets/idols/ive.jpg" />
-                                <div class="overlay"></div>
-                                <div class="image-caption">
-                                    ive
-                                </div>
-                            </div>
-                        </div>
-                        <div class="artist-card">
-                            <div class="artist-image">
-                                <img src="../assets/idols/aespa.jpg" />
-                                <div class="overlay"></div>
-                                <div class="image-caption">
-                                    aespa
-                                </div>
-                            </div>
-                        </div>
-                        <div class="artist-card">
-                            <div class="artist-image">
-                                <img src="../assets/idols/bp.jpg" />
-                                <div class="overlay"></div>
-                                <div class="image-caption">
-                                    blackpink
-                                </div>
-                            </div>
-                        </div>
-                        <div class="artist-card">
-                            <div class="artist-image">
-                                <img src="../assets/idols/itzy.png" />
-                                <div class="overlay"></div>
-                                <div class="image-caption">
-                                    itzy
-                                </div>
-                            </div>
-                        </div>
+                        <%                            
+                            List<Artist> artistList = (List<Artist>) request.getAttribute("artistsList");
+                            for (int i = 0; i < artistList.size(); i++) {
+                        %>
+                        <% request.setAttribute("pageURL", "");%>
+                        <% request.setAttribute("artist", artistList.get(i));%>
+                        <%@include file="./components/artist_icon_comp.jsp" %>
+                        <%
+                            }
+                        %>
                     </div>
                     <span class="material-symbols-rounded" onclick="moveCarousel(1)">
                         arrow_forward_ios

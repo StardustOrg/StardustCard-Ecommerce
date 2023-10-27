@@ -2,23 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package model.category;
+package model.artist;
 
 /**
  *
  * @author Yanna
  */
-public class Category {
+public class Artist {
 
     private long id;
     private long groupId;
     private String name;
-    private String picture;
+    private String iconURL;
+    private String coverURL;
 
-    public Category(long id, String name, String picture) {
+    public Artist(long id, String name, String iconURL, String coverURL, long groupId) {
         this.id = id;
         this.name = name;
-        this.picture = picture;
+        this.iconURL = iconURL;
+        this.coverURL = coverURL;
+        this.groupId = groupId;
     }
 
     public long getId() {
@@ -45,12 +48,20 @@ public class Category {
         this.name = name;
     }
 
-    public String getPicture() {
-        return picture;
+    public String getIcon() {
+        return iconURL;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public void setIcon(String iconURL) {
+        this.iconURL = iconURL;
+    }
+    
+    public String getCover() {
+        return coverURL;
+    }
+    
+    public void setCover(String coverURL) {
+        this.coverURL = coverURL;
     }
 
 }
