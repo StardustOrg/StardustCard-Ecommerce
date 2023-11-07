@@ -70,11 +70,21 @@
                         <%
                             List<Artist> artistList = (List<Artist>) request.getAttribute("artistsList");
                             for (int i = 0; i < artistList.size(); i++) {
-                                request.setAttribute("artist", artistList.get(i));
+                                Artist artist = artistList.get(i);
                         %>
-                        <%@include file="./components/artist_icon_comp.jsp" %>
-                        <%
-                            }
+                        <form action="Artists/<%= artist.getName()%>" method="post">
+                            <input type="hidden" name="artistId" value="<%= artist.getId()%>" />
+                            <div class="artist-card" onclick="submitForm()">
+                                <div class="artist-image">
+                                    <img src="<%= artist.getIcon()%>" />
+                                    <div class="overlay"></div>
+                                    <div class="image-caption">
+                                        <%= artist.getName()%>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <%                            }
                         %>
                     </div>
                     <span class="material-symbols-rounded" onclick="moveCarousel(1)">
