@@ -42,7 +42,28 @@ public class ArtistDAO implements DAO<Artist> {
 
     @Override
     public Artist getOne(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Artist result = new Artist();
+        try {
+            Class.forName(Config.JDBC_DRIVER);
+            Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
+            Statement stmt = c.createStatement();
+
+            String query = "SELECT id, name, icon_url, cover_url, group_id FROM artist WHERE id = " + id;
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                result.setName(rs.getString("name"));
+                result.setIcon(rs.getString("icon_url"));
+                result.setCover(rs.getString("cover_url"));
+                result.setGroupId(rs.getLong("group_id"));
+            }
+            rs.close();
+            stmt.close();
+            c.close();
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
+        }
+        return result;
     }
 
     public List<Artist> getAllIdols(long group_id) {

@@ -146,6 +146,6 @@ function validateLoginForm() {
     return true;
 }
 
-function submitForm() {
-    document.querySelector('form').submit();
+function submitForm(formId) {
+    document.getElementById(formId).submit();
 }

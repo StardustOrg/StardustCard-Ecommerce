@@ -16,6 +16,9 @@ public class Artist {
     private String iconURL;
     private String coverURL;
 
+    public Artist() {
+    }
+
     public Artist(long id, String name, String iconURL, String coverURL, long groupId) {
         this.id = id;
         this.name = name;

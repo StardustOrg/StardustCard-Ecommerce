@@ -28,6 +28,8 @@ public class ArtistPageServlet extends HttpServlet {
         List<Artist> idols = new ArrayList<>();
         ArtistDAO artistDAO = new ArtistDAO();
         
+        Artist artist = artistDAO.getOne(artistId);
+        
         idols = artistDAO.getAllIdols(artistId);
         if (idols.isEmpty()) {
             request.setAttribute("group", false);
@@ -35,6 +37,8 @@ public class ArtistPageServlet extends HttpServlet {
             request.setAttribute("group", true);
             request.setAttribute("idols", idols);
         }
+        
+        request.setAttribute("artistInfo", artist);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/client/artist_page.jsp");
         dispatcher.forward(request, response);

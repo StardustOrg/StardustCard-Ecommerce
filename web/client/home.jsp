@@ -72,9 +72,9 @@
                             for (int i = 0; i < artistList.size(); i++) {
                                 Artist artist = artistList.get(i);
                         %>
-                        <form action="Artists/<%= artist.getName()%>" method="post">
+                        <form id="form_<%= i%>" action="Artists/<%= artist.getName()%>" method="post">
                             <input type="hidden" name="artistId" value="<%= artist.getId()%>" />
-                            <div class="artist-card" onclick="submitForm()">
+                            <div class="artist-card" onclick="submitForm('form_<%= i%>')">
                                 <div class="artist-image">
                                     <img src="<%= artist.getIcon()%>" />
                                     <div class="overlay"></div>
@@ -95,104 +95,39 @@
             <div class="bundles" id="last-units">
                 <h2>last units</h2>
                 <div class="photocards">
+                    <%
+                        for (int i = 0; i < 5; i++) {
+                    %>
                     <div class="card">
                         <div id="photo">
-                            <img src="../assets/photocard/bts_proof_rm.png" alt="Avatar">
+                            <img src="" alt="Avatar">
                         </div>
                         <div class="card-title">BTS Proof RM Photocard</div>
                         <div class="card-detail">5 units left</div>
                     </div>
-                    <div class="card">
-                        <div id="photo">
-                            <img src="../assets/photocard/hannie_bunnie_tokkis.png" alt="Avatar">
-                        </div>
-                        <div class="card-title">Official New Jeans Lightstick Photocards / Bunnies Tokkis</div>
-                        <div class="card-detail">4 units left</div>
-                    </div>
-                    <div class="card">
-                        <div id="photo">
-                            <img src="../assets/photocard/ive_love_dive_wooyoung.png" alt="Avatar">
-                        </div>
-                        <div class="card-title">IVE Love Dive Wooyoung</div>
-                        <div class="card-detail">1 units left</div>
-                    </div>
-                    <div class="card">
-                        <div id="photo">
-                            <img src="../assets/photocard/bp_ice_cream_jennie.png" alt="Avatar">
-                        </div>
-                        <div class="card-title">Ice Cream Physical Release Jennie</div>
-                        <div class="card-detail">5 units left</div>
-                    </div>
-                    <div class="card">
-                        <div id="photo">
-                            <img src="../assets/photocard/txt_blue_hour_kai.png" alt="Avatar">
-                        </div>
-                        <div class="card-title">Blue Hour Version 01 Hueningkai</div>
-                        <div class="card-detail">3 units left</div>
-                    </div>
+                    <%                            }
+                    %>
                 </div>
             </div>
             <div class="bundles" id="new-additions">
                 <h2>new additions</h2>
                 <div class="photocards">
+                    <%
+                        for (int i = 0; i < 5; i++) {
+                    %>
                     <div class="card">
                         <div id="photo">
-                            <img src="../assets/photocard/twice_alchool_free_nayeon.png" alt="Avatar">
+                            <img src="" alt="Avatar">
                         </div>
                         <div class="card-title">Taste of Love Version 03 Nayeon</div>
                     </div>
-                    <div class="card">
-                        <div id="photo">
-                            <img src="../assets/photocard/attacca_the_8.png" alt="Avatar">
-                        </div>
-                        <div class="card-title">Attacca 9th Mini Album Op 1 The8</div>
-                    </div>
-                    <a href="product_page.html">
-                        <div class="card">
-                            <div id="photo">
-                                <img src="../assets/photocard/hanni_bunnyland.png" alt="Avatar">
-                            </div>
-                            <div class="card-title">NewJeans Photocard 'Bunnyland' Version</div>
-                        </div>
-                    </a>
-                    <div class="card">
-                        <div id="photo">
-                            <img src="../assets/photocard/attacca_the_8.png" alt="Avatar">
-                        </div>
-                        <div class="card-title">Attacca 9th Mini Album Op 1 The8</div>
-                    </div>
-                    <div class="card">
-                        <div id="photo">
-                            <img src="../assets/photocard/attacca_the_8.png" alt="Avatar">
-                        </div>
-                        <div class="card-title">Attacca 9th Mini Album Op 1 The8</div>
-                    </div>
+                    <%                            }
+                    %>  
                 </div>
             </div>
         </div>
 
-        <footer>
-            <div class="container" id="footer">
-                <div class="footer-column">
-                    <h3>Contact Us</h3>
-                    <p>contact@stardustcard.org</p>
-                    <div class="logo">StardustCard</div>
-                    <p>© 2023, StardustCard</p>
-                </div>
-                <div class="footer-column">
-                    <h3>Quick links</h3>
-                    <p class="links">Terms of Service</p>
-                    <p class="links">Privacy Policy</p>
-                    <p class="links">Refund Policy</p>
-                </div>
-                <div class="footer-column">
-                    <h3>Our mission</h3>
-                    <p>We offer only the best and highest quality products of
-                        your favorite idols.</p>
-                    <p>A touch of Stardust</p>
-                </div>
-            </div>
-        </footer>
+        <%@include file="./components/footer.jsp" %>
         <script src="${pageContext.request.contextPath}/client/script.js"></script>
     </body>
 
