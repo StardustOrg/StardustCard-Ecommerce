@@ -45,7 +45,7 @@
                     person
                 </span>
                 <div class="dropdown-content">
-                    <a href="">Your Profile</a>
+                    <a href="${pageContext.request.contextPath}/Profile">Your Profile</a>
                     <a href="">Your Orders</a>
                     <a href="${pageContext.request.contextPath}/LogOut" class="logout">Log Out</a>
                 </div>
