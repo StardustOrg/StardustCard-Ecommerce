@@ -1,11 +1,14 @@
+<%@page import="model.user.User"%>
 <div class="navbar">
-    <% String activePage = (String) request.getAttribute("activePage"); %>
+    <% String activePage = (String) request.getAttribute("activePage");
+        User myUser = (User) request.getAttribute("user");
+    %>
     <div class="logo">StardustCard</div>
     <ul class="navbar_pages">
-        <li><a href="${pageContext.request.contextPath}/Home" class=<%= activePage.equals("home") ? "active" : "" %>>Home</a></li>
-        <li><a class=<%= activePage.equals("artists") ? "active" : "" %>>Artists</a></li>
-        <li><a class=<%= activePage.equals("trending") ? "active" : "" %>>Trending</a></li>
-        <li><a class=<%= activePage.equals("newadditions") ? "active" : "" %>>New additions</a></li>
+        <li><a href="${pageContext.request.contextPath}/Home" class=<%= activePage.equals("home") ? "active" : ""%>>Home</a></li>
+        <li><a class=<%= activePage.equals("artists") ? "active" : ""%>>Artists</a></li>
+        <li><a class=<%= activePage.equals("trending") ? "active" : ""%>>Trending</a></li>
+        <li><a class=<%= activePage.equals("newadditions") ? "active" : ""%>>New additions</a></li>
     </ul>
     <div class="navbar_actions">
         <div id="search">
@@ -21,7 +24,8 @@
                 <span class="shopping-cart-value">1</span>
             </a>
         </div>
-        <div class="dropdown-account not-logged">
+        <% if (myUser == null) { %> 
+        <div class="not-logged dropdown-account">
             <span class="material-symbols-rounded">
                 person
             </span>
@@ -34,6 +38,19 @@
                     <a href="Register">Create Account</a>
                 </div>
             </div>
+            <% } else {
+            %>
+            <div class="logged dropdown-account">
+                <span class="material-symbols-rounded">
+                    person
+                </span>
+                <div class="dropdown-content">
+                    <a href="">Your Profile</a>
+                    <a href="">Your Orders</a>
+                    <a href="${pageContext.request.contextPath}/LogOut" class="logout">Log Out</a>
+                </div>
+                <% }
+                %>
+            </div>
         </div>
     </div>
-</div>
