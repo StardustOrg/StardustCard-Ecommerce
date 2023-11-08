@@ -138,12 +138,45 @@ public class UserDAO implements DAO<User> {
 
     @Override
     public boolean update(User t) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try {
+            Class.forName(Config.JDBC_DRIVER);
+            Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
+            PreparedStatement ps = c.prepareStatement("UPDATE stardust_user SET email=?, address=?, name=? WHERE id=?");
+            ps.setString(1, t.getEmail());
+            ps.setString(2, t.getAddress());
+            ps.setString(3, t.getName());
+            ps.setLong(4, t.getId());
+
+            int rowsAffected = ps.executeUpdate();
+
+            ps.close();
+            c.close();
+
+            return rowsAffected > 0;
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
+            return false;
+        }
     }
 
     @Override
     public boolean delete(long id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try {
+            Class.forName(Config.JDBC_DRIVER);
+            Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
+            PreparedStatement ps = c.prepareStatement("DELETE FROM stardust_user WHERE id=?");
+            ps.setLong(1, id);
+
+            int rowsAffected = ps.executeUpdate();
+
+            ps.close();
+            c.close();
+
+            return rowsAffected > 0;
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
+            return false;
+        }
     }
 
 }
