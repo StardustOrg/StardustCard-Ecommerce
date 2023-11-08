@@ -988,3 +988,102 @@ hr.rounded {
     line-height: normal;
     text-transform: uppercase;
 }
+
+.profile-heading {
+    text-align: left;
+}
+
+.profile-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 5%;
+}
+
+.profile-options-cont {
+    display: flex;
+    width: 25%;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.profile-option {
+    display: flex;
+    padding: 15px 0px 15px 5%;
+    align-items: flex-start;
+    gap: 10px;
+    border-radius: 15px;
+
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.profile-option:hover {
+    background: rgba(142, 220, 230, 0.50);
+    cursor: pointer;
+}
+
+.profile-option .material-symbols-rounded {
+    color: #000;
+}
+
+.selected {
+    background: rgba(142, 220, 230, 0.50);
+    color: #62C;
+}
+
+.selected.profile-option span {
+    color: #62C;
+}
+
+.profile-info-cont {
+    display: flex;
+    width: 70%;
+    padding: 51px 43px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10%;
+    border-radius: 10px;
+    background: #FFF;
+    box-shadow: 0px 0px 10px 2px rgba(103, 103, 103, 0.20);
+}
+
+.profile-container h3 {
+    color: #000;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.info-row {
+    display: flex;
+    gap: 20%;
+}
+
+.info-subt {
+    display: flex;
+    width: 45%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#delete-account {
+    color: #CC224B;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+#delete-account:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+a {
+    text-decoration: none;
+}

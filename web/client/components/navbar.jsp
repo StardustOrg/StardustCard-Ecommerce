@@ -30,12 +30,12 @@
                 person
             </span>
             <div class="dropdown-content">
-                <a href="Login">
+                <a href="${pageContext.request.contextPath}/Login">
                     <button>Sign in</button>
                 </a>
                 <div class="new-account-div">
                     <p>New here?</p>
-                    <a href="Register">Create Account</a>
+                    <a href="${pageContext.request.contextPath}/Register">Create Account</a>
                 </div>
             </div>
             <% } else {
