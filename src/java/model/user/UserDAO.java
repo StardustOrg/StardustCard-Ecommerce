@@ -161,7 +161,22 @@ public class UserDAO implements DAO<User> {
 
     @Override
     public boolean delete(long id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try {
+            Class.forName(Config.JDBC_DRIVER);
+            Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
+            PreparedStatement ps = c.prepareStatement("DELETE FROM stardust_user WHERE id=?");
+            ps.setLong(1, id);
+
+            int rowsAffected = ps.executeUpdate();
+
+            ps.close();
+            c.close();
+
+            return rowsAffected > 0;
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
+            return false;
+        }
     }
 
 }

@@ -41,12 +41,12 @@
                         <div class="info-subt">
                             <p>This is your personal information. If you want to update, change the specific value and the
                                 save it.</p>
-                            <a id="delete-account">DELETE ACCOUNT</a>
+                            <div id="delete-account" onclick="confirmDelete()">DELETE ACCOUNT</div>
                         </div>
                         <div class="details-form">
                             <form method="post">
                                 <label>Your Name:</label>
-                                <input type="text" name="name" id="name" placeholder="First and last name" value="<%= myUser.getName() %>" required>
+                                <input type="text" name="name" id="name" placeholder="First and last name" value="<%= myUser.getName()%>" required>
                                 <label>Address:</label>
                                 <input type="text" name="address" id="address" placeholder="Your address" value="<%= myUser.getAddress()%>" required>
                                 <label>Email:</label>
@@ -58,5 +58,14 @@
                 </div>
             </div> 
         </div>
+        <%@include file="./components/footer.jsp" %>
+        <script>
+            function confirmDelete() {
+                var confirmation = confirm("Are you sure you want to delete your account?");
+                if (confirmation) {
+                    window.location.href = "DeleteAccount";
+                }
+            }
+        </script>
     </body>
 </html>
