@@ -3,9 +3,24 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/joaov/StardustCardEcommerce/src/java/controller/admin/AdminServlet.java</file>
+            <file>file:/C:/Users/joaov/StardustCardEcommerce/web/client/index.jsp</file>
+            <file>file:/C:/Users/joaov/StardustCardEcommerce/web/admin/sellings.jsp</file>
+            <file>file:/C:/Users/joaov/StardustCardEcommerce/src/java/controller/admin/AdminSellingsServlet.java</file>
+            <file>file:/C:/Users/joaov/StardustCardEcommerce/web/client/components/navbar.jsp</file>
+            <file>file:/C:/Users/joaov/StardustCardEcommerce/src/java/controller/access/LoginServlet.java</file>
+            <file>file:/C:/Users/joaov/StardustCardEcommerce/web/admin/photocards.jsp</file>
+            <file>file:/C:/Users/joaov/StardustCardEcommerce/src/java/config/Config.java</file>
+            <file>file:/C:/Users/joaov/StardustCardEcommerce/web/client/login.jsp</file>
             <file>file:/C:/Users/joaov/StardustCardEcommerce/web/admin/components/sidebar.jsp</file>
             <file>file:/C:/Users/joaov/StardustCardEcommerce/web/admin/index.jsp</file>
-            <file>file:/C:/Users/joaov/StardustCardEcommerce/src/java/config/Config.java</file>
+            <file>file:/C:/Users/joaov/StardustCardEcommerce/src/java/controller/admin/AdminUserServlet.java</file>
+            <file>file:/C:/Users/joaov/StardustCardEcommerce/web/admin/artists.jsp</file>
+            <file>file:/C:/Users/joaov/StardustCardEcommerce/src/java/controller/client/ClientHomeServlet.java</file>
+            <file>file:/C:/Users/joaov/StardustCardEcommerce/src/java/controller/admin/AdminArtistsServlet.java</file>
+            <file>file:/C:/Users/joaov/StardustCardEcommerce/src/java/controller/admin/AdminPhotocardsServlet.java</file>
+            <file>file:/C:/Users/joaov/StardustCardEcommerce/web/admin/user.jsp</file>
+            <file>file:/C:/Users/joaov/StardustCardEcommerce/web/WEB-INF/web.xml</file>
         </group>
     </open-files>
 </project-private>
