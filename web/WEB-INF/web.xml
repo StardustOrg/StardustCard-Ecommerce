@@ -16,6 +16,22 @@
         <servlet-name>ClientHomeServlet</servlet-name>
         <servlet-class>controller.client.ClientHomeServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminSellingsServlet</servlet-name>
+        <servlet-class>controller.admin.AdminSellingsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminPhotocardsServlet</servlet-name>
+        <servlet-class>controller.admin.AdminPhotocardsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminArtistsServlet</servlet-name>
+        <servlet-class>controller.admin.AdminArtistsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminUserServlet</servlet-name>
+        <servlet-class>controller.admin.AdminUserServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -26,11 +42,27 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminServlet</servlet-name>
-        <url-pattern>/Admin</url-pattern>
+        <url-pattern>/Dashboard</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ClientHomeServlet</servlet-name>
         <url-pattern>/Home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminSellingsServlet</servlet-name>
+        <url-pattern>/Sellings</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminPhotocardsServlet</servlet-name>
+        <url-pattern>/Photocards</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminArtistsServlet</servlet-name>
+        <url-pattern>/Artists</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminUserServlet</servlet-name>
+        <url-pattern>/Profile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

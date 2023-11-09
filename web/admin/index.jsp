@@ -21,49 +21,9 @@
 
     <body>
         <!-- Sidebar -->
-        <div class="sidebar" id="sidebar">
-            <!-- User info -->
-            <div class="user-info">
-                <a class="link-img" href="user.html">
-                    <img src="${pageContext.request.contextPath}/admin/assets/user.jpg" alt="Foto do Usuário">
-                    <h4>Vládia Helen</h4>
-                    <h5>Stardust Manager</h5>
-                </a>
-            </div>
-            <!-- Navegation -->
-            <nav>
-                <a href="index.html" class="active">
-                    <span class="material-symbols-outlined small">
-                        monitoring
-                    </span>
-                    <span>Dashboard</span>
-                </a>
-                <a href="sellings.html">
-                    <span class="material-symbols-outlined small">
-                        payments
-                    </span>
-                    <span class="link-text">Sellings</span>
-                </a>
-                <a href="photocards.html">
-                    <span class="material-symbols-outlined small">
-                        playing_cards
-                    </span>
-                    <span class="link-text">Photocards</span>
-                </a>
-                <a href="artists.html">
-                    <span class="material-symbols-outlined small">
-                        groups
-                    </span>
-                    <span class="link-text">Artists</span>
-                </a>
-            </nav>
-        </div>
-        <!-- Menu Hamburguer -->
-        <div class="menu-icon" onclick="toggleSidebar()">
-            <span class="material-symbols-outlined">
-                menu
-            </span>
-        </div>
+        <%request.setAttribute("activePage", "dashboard");%>
+        <%@include file="./components/sidebar.jsp" %>
+
         <!-- Content Page -->
         <div class="content">
             <!-- Message -->
