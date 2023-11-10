@@ -12,7 +12,7 @@
 
     <body>
         <!-- Sidebar -->
-        <%request.setAttribute("activePage", "artists");%>
+        <%request.setAttribute("activePage", "");%>
         <%@include file="./components/sidebar.jsp" %>
 
         <!-- Content Page -->
@@ -37,13 +37,14 @@
                                     <input type="file" id="file-upload" style="display:none;">
                                 </div>
                             </div>
+                       
                             <div class="group-data-user">
                                 <label>Name:</label>
-                                <input type="text" name="name" id="name" placeholder="Name">
+                                <input type="text" name="name" id="name" placeholder="Name" value="<%=user.getName()%>">
                                 <label>Login:</label>
-                                <input type="email" name="email" id="email" placeholder="Email">
+                                <input type="email" name="email" id="email" placeholder="Email" value="<%=user.getEmail()%>">
                                 <label>Password:</label>
-                                <input type="password" name="password" id="password" placeholder="Password">
+                                <input type="password" name="password" id="password" placeholder="Password" value="<%=user.getPassword()%>">
                                 <button>Save</button>
                             </div>
 

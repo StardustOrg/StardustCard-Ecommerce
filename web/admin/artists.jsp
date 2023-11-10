@@ -20,7 +20,7 @@
             <%request.setAttribute("title", "Artists");%>
             <%request.setAttribute("subtitle", "Let's see your artists.");%>
             <%@include file="./components/message.jsp" %>
-           
+
             <!-- Content -->
             <main>
                 <!-- Search -->
@@ -35,6 +35,7 @@
                         <button onclick="myFunction()" class="dropbtn">Mais populares</button>
                     </section>
                     <section class="artists">
+                        <%//TODO: Fazer card para adicionar artista%>
                         <!-- Single Product -->
                         <div class="artist-card">
                             <div class="artist-image">
@@ -46,146 +47,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="artist-card">
-                            <div class="artist-image">
-                                <img src="./assets/newdjeans.webp" />
-                                <div class="overlay"></div>
-                                <button onclick="myFunction()" class="edit"> Edit </button>
-                                <div class="image-caption">
-                                    New Jeans
-                                </div>
-                            </div>
-                        </div>
-                        <div class="artist-card">
-                            <div class="artist-image">
-                                <img src="./assets/blackpink.jpg" />
-                                <div class="overlay"></div>
-                                <button onclick="myFunction()" class="edit"> Edit </button>
-                                <div class="image-caption">
-                                    Black Pink
-                                </div>
-                            </div>
-                        </div>
-                        <div class="artist-card">
-                            <div class="artist-image">
-                                <img src="./assets/txt.jpeg" />
-                                <div class="overlay"></div>
-                                <button onclick="myFunction()" class="edit"> Edit </button>
-                                <div class="image-caption">
-                                    TXT
-                                </div>
-                            </div>
-                        </div>
-                        <div class="artist-card">
-                            <div class="artist-image">
-                                <img src="./assets/bts.webp" />
-                                <div class="overlay"></div>
-                                <button onclick="myFunction()" class="edit"> Edit </button>
-                                <div class="image-caption">
-                                    BTS
-                                </div>
-                            </div>
-                        </div>
-                        <div class="artist-card">
-                            <div class="artist-image">
-                                <img src="./assets/newdjeans.webp" />
-                                <div class="overlay"></div>
-                                <button onclick="myFunction()" class="edit"> Edit </button>
-                                <div class="image-caption">
-                                    New Jeans
-                                </div>
-                            </div>
-                        </div>
-                        <div class="artist-card">
-                            <div class="artist-image">
-                                <img src="./assets/blackpink.jpg" />
-                                <div class="overlay"></div>
-                                <button onclick="myFunction()" class="edit"> Edit </button>
-                                <div class="image-caption">
-                                    Black Pink
-                                </div>
-                            </div>
-                        </div>
-                        <div class="artist-card">
-                            <div class="artist-image">
-                                <img src="./assets/txt.jpeg" />
-                                <div class="overlay"></div>
-                                <button onclick="myFunction()" class="edit"> Edit </button>
-                                <div class="image-caption">
-                                    TXT
-                                </div>
-                            </div>
-                        </div>
-                        <div class="artist-card">
-                            <div class="artist-image">
-                                <img src="./assets/bts.webp" />
-                                <div class="overlay"></div>
-                                <button onclick="myFunction()" class="edit"> Edit </button>
-                                <div class="image-caption">
-                                    BTS
-                                </div>
-                            </div>
-                        </div>
-                        <div class="artist-card">
-                            <div class="artist-image">
-                                <img src="./assets/newdjeans.webp" />
-                                <div class="overlay"></div>
-                                <button onclick="myFunction()" class="edit"> Edit </button>
-                                <div class="image-caption">
-                                    New Jeans
-                                </div>
-                            </div>
-                        </div>
-                        <div class="artist-card">
-                            <div class="artist-image">
-                                <img src="./assets/blackpink.jpg" />
-                                <div class="overlay"></div>
-                                <button onclick="myFunction()" class="edit"> Edit </button>
-                                <div class="image-caption">
-                                    Black Pink
-                                </div>
-                            </div>
-                        </div>
-                        <div class="artist-card">
-                            <div class="artist-image">
-                                <img src="./assets/txt.jpeg" />
-                                <div class="overlay"></div>
-                                <button onclick="myFunction()" class="edit"> Edit </button>
-                                <div class="image-caption">
-                                    TXT
-                                </div>
-                            </div>
-                        </div>
-                        <div class="artist-card">
-                            <div class="artist-image">
-                                <img src="./assets/bts.webp" />
-                                <div class="overlay"></div>
-                                <button onclick="myFunction()" class="edit"> Edit </button>
-                                <div class="image-caption">
-                                    BTS
-                                </div>
-                            </div>
-                        </div>
-                        <div class="artist-card">
-                            <div class="artist-image">
-                                <img src="./assets/newdjeans.webp" />
-                                <div class="overlay"></div>
-                                <button onclick="myFunction()" class="edit"> Edit </button>
-                                <div class="image-caption">
-                                    New Jeans
-                                </div>
-                            </div>
-                        </div>
-                        <div class="artist-card">
-                            <div class="artist-image">
-                                <img src="./assets/blackpink.jpg" />
-                                <div class="overlay"></div>
-                                <button onclick="myFunction()" class="edit"> Edit </button>
-                                <div class="image-caption">
-                                    Black Pink
-                                </div>
-                            </div>
-                        </div>
+                        
+                        <%//TODO: Listar artistas e iterá-los%>
+                        <%request.setAttribute("artistName", "New Jeans");%>
+                        <%request.setAttribute("artistPath", "");%>
+                        <%@include file="./components/artist.jsp" %>
                     </section>
                 </div>
         </div>
