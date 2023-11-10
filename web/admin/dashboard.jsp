@@ -4,73 +4,24 @@
     Author     : joaov
 --%>
 
+<%@page import="model.user.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
-
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>StardustCard | Admin</title>
-        <link rel="icon" type="image/png" href="./assets/stardust.png">
-        <!-- Styles and icons -->
-        <link rel="stylesheet"
-              href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/style.css">
-    </head>
+    <%@include file="./components/head.jsp" %>
 
     <body>
         <!-- Sidebar -->
-        <div class="sidebar" id="sidebar">
-            <!-- User info -->
-            <div class="user-info">
-                <a class="link-img" href="user.html">
-                    <img src="${pageContext.request.contextPath}/admin/assets/user.jpg" alt="Foto do Usuário">
-                    <h4>Vládia Helen</h4>
-                    <h5>Stardust Manager</h5>
-                </a>
-            </div>
-            <!-- Navegation -->
-            <nav>
-                <a href="index.html" class="active">
-                    <span class="material-symbols-outlined small">
-                        monitoring
-                    </span>
-                    <span>Dashboard</span>
-                </a>
-                <a href="sellings.html">
-                    <span class="material-symbols-outlined small">
-                        payments
-                    </span>
-                    <span class="link-text">Sellings</span>
-                </a>
-                <a href="photocards.html">
-                    <span class="material-symbols-outlined small">
-                        playing_cards
-                    </span>
-                    <span class="link-text">Photocards</span>
-                </a>
-                <a href="artists.html">
-                    <span class="material-symbols-outlined small">
-                        groups
-                    </span>
-                    <span class="link-text">Artists</span>
-                </a>
-            </nav>
-        </div>
-        <!-- Menu Hamburguer -->
-        <div class="menu-icon" onclick="toggleSidebar()">
-            <span class="material-symbols-outlined">
-                menu
-            </span>
-        </div>
+        <%request.setAttribute("activePage", "dashboard");%>
+        <%@include file="./components/sidebar.jsp" %>
         <!-- Content Page -->
         <div class="content">
             <!-- Message -->
-            <div class="message">
-                <h1>Hello, Vládia</h1>
-                <p>Let's check your store today.</p>
-            </div>
+            <%User user = (User) session.getAttribute("stardust_user");%>
+            <%request.setAttribute("title", "Hello, " + user.getName());%>
+            <%request.setAttribute("subtitle", "dashboard");%>
+            <%@include file="./components/message.jsp" %>
+
             <!-- Content -->
             <main>
                 <!-- Higlights -->

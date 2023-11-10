@@ -32,6 +32,18 @@
         <servlet-name>DeleteAccountServlet</servlet-name>
         <servlet-class>controller.client.DeleteAccountServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PhotocardsServlet</servlet-name>
+        <servlet-class>controller.admin.PhotocardsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ArtistsServlet</servlet-name>
+        <servlet-class>controller.admin.ArtistsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminUserServlet</servlet-name>
+        <servlet-class>controller.admin.AdminUserServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -63,6 +75,22 @@
     <servlet-mapping>
         <servlet-name>DeleteAccountServlet</servlet-name>
         <url-pattern>/DeleteAccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PhotocardsServlet</servlet-name>
+        <url-pattern>/Admin/Photocards</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ArtistsServlet</servlet-name>
+        <url-pattern>/Admin/Artists</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>SellingsServlet</servlet-name>
+        <url-pattern>/Admin/Sellings</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminUserServlet</servlet-name>
+        <url-pattern>/Admin/User</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
