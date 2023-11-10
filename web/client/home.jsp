@@ -30,7 +30,7 @@
                             <span class="dot" onclick="currentSlide(3)"></span>
                         </div>
                     </div>
-                    <img src="../assets/slide/slide_img_1.png" class="slide_img">
+                    <img src="${pageContext.request.contextPath}/assets/slide/slide_img_1.png" class="slide_img">
                 </div>
                 <div class="slide fade">
                     <div class="slide_text">
@@ -42,7 +42,7 @@
                             <span class="dot" onclick="currentSlide(3)"></span>
                         </div>
                     </div>
-                    <img src="../assets/slide/slide_img_2.png" class="slide_img">
+                    <img src="${pageContext.request.contextPath}/assets/slide/slide_img_2.png" class="slide_img">
                 </div>
                 <div class="slide fade">
                     <div class="slide_text">
@@ -54,7 +54,7 @@
                             <span class="dot" id="active-dot" onclick="currentSlide(3)"></span>
                         </div>
                     </div>
-                    <img src="../assets/slide/slide_img_3.png" class="slide_img">
+                    <img src="${pageContext.request.contextPath}/assets/slide/slide_img_3.png" class="slide_img">
                 </div>
             </div>
         </div>
@@ -67,14 +67,12 @@
                         arrow_back_ios_new
                     </span>
                     <div class="carrousel">
-                        <%
-                            List<Artist> artistList = (List<Artist>) request.getAttribute("artistsList");
+                        <%                            List<Artist> artistList = (List<Artist>) request.getAttribute("artistsList");
                             for (int i = 0; i < artistList.size(); i++) {
                                 Artist artist = artistList.get(i);
                         %>
-                        <form id="form_<%= i%>" action="Artists/<%= artist.getName()%>" method="post">
-                            <input type="hidden" name="artistId" value="<%= artist.getId()%>" />
-                            <div class="artist-card" onclick="submitForm('form_<%= i%>')">
+                        <a href="Artists/<%= artist.getName()%>">
+                            <div class="artist-card">
                                 <div class="artist-image">
                                     <img src="<%= artist.getIcon()%>" />
                                     <div class="overlay"></div>
@@ -83,7 +81,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </a>
                         <%                            }
                         %>
                     </div>
