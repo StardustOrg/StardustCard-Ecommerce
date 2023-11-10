@@ -4,6 +4,7 @@
     Author     : joaov
 --%>
 
+<%@page import="model.user.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -13,13 +14,15 @@
         <!-- Sidebar -->
         <%request.setAttribute("activePage", "artists");%>
         <%@include file="./components/sidebar.jsp" %>
-        
+
         <!-- Content Page -->
         <div class="content">
-            <div class="message">
-                <h1>Vládia Helen</h1>
-                <p>Let's check your data.</p>
-            </div>
+            <!-- Message -->
+            <%User user = (User) session.getAttribute("stardust_user");%>
+            <%request.setAttribute("title", user.getName());%>
+            <%request.setAttribute("subtitle", "Let's check your data.");%>
+            <%@include file="./components/message.jsp" %>
+            
             <!-- Content -->
             <main>
                 <div class="user-data">

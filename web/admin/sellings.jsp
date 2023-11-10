@@ -10,15 +10,16 @@
     <%@include file="./components/head.jsp" %>
 
     <body>
-         <!-- Sidebar -->
+        <!-- Sidebar -->
         <%request.setAttribute("activePage", "sellings");%>
         <%@include file="./components/sidebar.jsp" %>
         <!-- Content Page -->
         <div class="content">
-            <div class="message">
-                <h1>Sellings</h1>
-                <p>Let's sell more and more.</p>
-            </div>
+            <!-- Message -->
+            <%request.setAttribute("title", "Sellings");%>
+            <%request.setAttribute("subtitle", "Let's sell more and more.");%>
+            <%@include file="./components/message.jsp" %>
+
             <!-- Content -->
             <main>
                 <!-- Highlights -->

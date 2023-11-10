@@ -16,10 +16,11 @@
 
         <!-- Content Page -->
         <div class="content">
-            <div class="message">
-                <h1>Photocards</h1>
-                <p>Let's see your product.</p>
-            </div>
+            <!-- Message -->
+            <%request.setAttribute("title", "Photocards");%>
+            <%request.setAttribute("subtitle", "Let's see your product.");%>
+            <%@include file="./components/message.jsp" %>
+
             <!-- Content -->
             <main>
                 <!-- Search -->

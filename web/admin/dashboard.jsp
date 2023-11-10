@@ -4,6 +4,7 @@
     Author     : joaov
 --%>
 
+<%@page import="model.user.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -16,10 +17,11 @@
         <!-- Content Page -->
         <div class="content">
             <!-- Message -->
-            <div class="message">
-                <h1>Hello, Vládia</h1>
-                <p>Let's check your store today.</p>
-            </div>
+            <%User user = (User) session.getAttribute("stardust_user");%>
+            <%request.setAttribute("title", "Hello, " + user.getName());%>
+            <%request.setAttribute("subtitle", "dashboard");%>
+            <%@include file="./components/message.jsp" %>
+
             <!-- Content -->
             <main>
                 <!-- Higlights -->

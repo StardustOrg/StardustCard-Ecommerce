@@ -16,10 +16,11 @@
 
         <!-- Content Page -->
         <div class="content">
-            <div class="message">
-                <h1>Artists</h1>
-                <p>Let's see your artists.</p>
-            </div>
+            <!-- Message -->
+            <%request.setAttribute("title", "Artists");%>
+            <%request.setAttribute("subtitle", "Let's see your artists.");%>
+            <%@include file="./components/message.jsp" %>
+           
             <!-- Content -->
             <main>
                 <!-- Search -->
