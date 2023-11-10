@@ -45,7 +45,7 @@
                                 <div class="add-photocard-content">
 
                                     <div class="add-photocard-content-head">
-                                        <button class="btn-close">fechar</button>
+                                        <button class="btn-close">✕</button>
                                         <h3 class="modal-title">Add a new photocard</h3>
                                     </div>
 
@@ -53,11 +53,8 @@
                                         <div class="add-photocard-img">
                                             <div class="single-product">
                                                 <div class="part-1">
-                                                    <img src="" class="photocard-img" />
+                                                    <img src="" id="photcard-input" class="photocard-img" />
                                                 </div>
-
-
-
                                             </div>
                                         </div>
 
@@ -70,6 +67,10 @@
                                                 <h4 class="photocard-input-title">Artist name</h4>
                                                 <input class="photocard-input" type="text" id="artist-name"
                                                        placeholder="Photocard's artist name" />
+
+                                                <h4 class="photocard-input-title">Image URL</h4>
+                                                <input class="photocard-input" type="text" id="photocard-url"
+                                                       placeholder="Photocard's image URL" />
 
                                                 <div class="unit-price">
                                                     <div>
@@ -98,6 +99,7 @@
                                 </div>
                                 <button class="btn">Save</button>
                             </section>
+
                             <div class="single-product">
                                 <div class="part-1" id="new-photocard">
                                     <button class="add-new"> Add </button>
@@ -107,8 +109,7 @@
                                 </div>
                             </div>
                         </div>
-                        <%
-                        // TODO: Listar photocards e iterar componente
+                        <%                            // TODO: Listar photocards e iterar componente
                         %>
 
                         <%request.setAttribute("photocardName", "");%>
