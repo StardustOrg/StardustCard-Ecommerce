@@ -8,7 +8,6 @@
 <%@page import="model.artist.Artist"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    /*Artist artist = (Artist) request.getAttribute("artist");*/
     boolean group = (boolean) request.getAttribute("group");
 %>
 <!DOCTYPE html>

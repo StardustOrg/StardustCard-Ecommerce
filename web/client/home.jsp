@@ -30,7 +30,7 @@
                             <span class="dot" onclick="currentSlide(3)"></span>
                         </div>
                     </div>
-                    <img src="../assets/slide/slide_img_1.png" class="slide_img">
+                    <img src="${pageContext.request.contextPath}/assets/slide/slide_img_1.png" class="slide_img">
                 </div>
                 <div class="slide fade">
                     <div class="slide_text">
@@ -42,7 +42,7 @@
                             <span class="dot" onclick="currentSlide(3)"></span>
                         </div>
                     </div>
-                    <img src="../assets/slide/slide_img_2.png" class="slide_img">
+                    <img src="${pageContext.request.contextPath}/assets/slide/slide_img_2.png" class="slide_img">
                 </div>
                 <div class="slide fade">
                     <div class="slide_text">
@@ -54,7 +54,7 @@
                             <span class="dot" id="active-dot" onclick="currentSlide(3)"></span>
                         </div>
                     </div>
-                    <img src="../assets/slide/slide_img_3.png" class="slide_img">
+                    <img src="${pageContext.request.contextPath}/assets/slide/slide_img_3.png" class="slide_img">
                 </div>
             </div>
         </div>
