@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller.artist;
 
 import java.io.IOException;
@@ -21,34 +17,64 @@ import model.user.User;
  */
 public class ArtistPageServlet extends HttpServlet {
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession(true);
         User user = (User) session.getAttribute("stardust_user");
+        List<Artist> idols;
+        ArtistDAO artistDAO = new ArtistDAO();
         if (user != null && user.isAdmin() == false) {
             request.setAttribute("user", user);
         } else {
             request.setAttribute("user", null);
         }
-        long artistId = Long.parseLong(request.getParameter("artistId"));
-        List<Artist> idols;
-        ArtistDAO artistDAO = new ArtistDAO();
+        String[] pathInfo = request.getPathInfo().split("/");
 
-        Artist artist = artistDAO.getOne(artistId);
-
-        idols = artistDAO.getAllIdols(artistId);
-        if (idols.isEmpty()) {
-            request.setAttribute("group", false);
-        } else {
-            request.setAttribute("group", true);
-            request.setAttribute("idols", idols);
+        switch (pathInfo.length) {
+            case 2 -> {
+                // Case: Artists/artist_slug
+                String artistSlug = pathInfo[1];
+                Artist artist = artistDAO.getBySlug(artistSlug);
+                if (artist != null) {
+                    request.setAttribute("artistInfo", artist);
+                    idols = artistDAO.getAllIdols(artist.getId());
+                    if (idols.isEmpty()) {
+                        request.setAttribute("group", false);
+                    } else {
+                        request.setAttribute("group", true);
+                        request.setAttribute("idols", idols);
+                    }
+                } else {
+                    // Handle artist not found, e.g., show an error page
+                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Artist not found");
+                    return;
+                }
+            }
+            case 3 ->  {
+                // Case: Artists/group_slug/member_slug
+                String groupSlug = pathInfo[1];
+                String memberSlug = pathInfo[2];
+                Artist group = artistDAO.getBySlug(groupSlug);
+                Artist member = artistDAO.getGroupMemberBySlug(group.getId(), memberSlug);
+                if (member != null) {
+                    request.setAttribute("artistInfo", member);
+                    request.setAttribute("group", false);
+                } else {
+                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Group or member not found");
+                    return;
+                }
+            }
+            default -> {
+                // Invalid URL format, handle accordingly (e.g., show an error page)
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid URL format");
+                return;
+            }
         }
 
-        request.setAttribute("artistInfo", artist);
-
+        // Common code for all cases...
         RequestDispatcher dispatcher = request.getRequestDispatcher("/client/artist_page.jsp");
         dispatcher.forward(request, response);
     }
-
 }

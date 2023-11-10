@@ -22,13 +22,11 @@
             <div class="bundles" id="artists">
                 <h2>artists</h2>
                 <div class="artists-container" id="all-artists">
-                    <%
-                        for (int i = 0; i < artistList.size(); i++) {
+                    <%                        for (int i = 0; i < artistList.size(); i++) {
                             Artist artist = artistList.get(i);
                     %>
-                    <form id="form_<%= i%>" action="Artists/<%= artist.getName()%>" method="post">
-                        <input type="hidden" name="artistId" value="<%= artist.getId()%>" />
-                        <div class="artist-card" onclick="submitForm('form_<%= i%>')">
+                    <a href="Artists/<%= artist.getName()%>">
+                        <div class="artist-card">
                             <div class="artist-image">
                                 <img src="<%= artist.getIcon()%>" />
                                 <div class="overlay"></div>
@@ -37,12 +35,12 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </a>
                     <%                            }
                     %>
                 </div>
             </div>
-            <%                        
+            <%
                 for (int i = 0; i < artistList.size(); i++) {
                     Artist artist = artistList.get(i);
             %>

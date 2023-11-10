@@ -39,9 +39,8 @@
                         for (int i = 0; i < artistList.size(); i++) {
                             Artist member = artistList.get(i);
                     %>
-                    <form id="form_<%= i%>" action="Artists/<%= artist.getName()%>/<%= member.getName()%>" method="post">
-                        <input type="hidden" name="artistId" value="<%= member.getId()%>" />
-                        <div class="artist-card" onclick="submitForm('form_<%= i%>')">
+                    <a href="<%= artist.getName()%>/<%= member.getName()%>">
+                        <div class="artist-card">
                             <div class="artist-image">
                                 <img src="<%= member.getIcon()%>" />
                                 <div class="overlay"></div>
@@ -50,7 +49,7 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </a>
                     <%                            }
                     %>
                 </div>
