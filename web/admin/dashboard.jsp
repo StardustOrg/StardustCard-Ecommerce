@@ -4,6 +4,9 @@
     Author     : joaov
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="model.Highlight"%>
 <%@page import="model.user.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -26,18 +29,19 @@
             <main>
                 <!-- Higlights -->
                 <div class="highlights">
-                    <div class="highlight billing">
-                        <h4>Daily Billing</h4>
-                        <h5>R$ 1000,00</h5>
-                    </div>
-                    <div class="highlight trending-photocard">
-                        <h4>Trending Photocard</h4>
-                        <h5>NewJeans Photocard 'Bunnyland' Version</h5>
-                    </div>
-                    <div class="highlight trending-artist">
-                        <h4>Trending Artist</h4>
-                        <h5>BTS</h5>
-                    </div>
+                    <%  List<Highlight> highlights = new ArrayList<>();
+                        highlights.add(new Highlight("Daily Billing", "2000.00", "billing"));
+                        highlights.add(new Highlight("Trending Photocard", "NewJeans Photocard 'Bunnyland' Version", "trending-photocard"));
+                        highlights.add(new Highlight("Trending Artist", "BTS", "trending-artist"));
+
+                        for (Highlight highlight : highlights) {
+                    %>
+                    
+                    <%request.setAttribute("highlightTitle", highlight.getHighlightTitle());%>
+                    <%request.setAttribute("highlightDescription", highlight.getHighlightDescription());%>
+                    <%request.setAttribute("typeClass", highlight.getTypeClass());%>
+                    <%@include file="./components/highlight.jsp" %>
+                    <%}%>
                 </div>
                 <!-- Charts -->
                 <div class="charts">
@@ -50,6 +54,8 @@
                         <canvas id="weekSales" style="width: 100%; height: 80%;"></canvas>
                     </div>
                 </div>
+                
+                
                 <!-- Last Sales -->
                 <div class="sales">
                     <table>

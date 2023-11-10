@@ -4,6 +4,9 @@
     Author     : joaov
 --%>
 
+<%@page import="model.Highlight"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -24,25 +27,21 @@
             <main>
                 <!-- Highlights -->
                 <div class="sellings-higlight">
-                    <div class="highlight">
-                        <h4>Total Sales</h4>
-                        <h5>$30,000.00</h5>
-                    </div>
-                    <div class="pipe-divisor"></div>
-                    <div class="highlight">
-                        <h4>Net Profit</h4>
-                        <h5>$15,000.00</h5>
-                    </div>
-                    <div class="pipe-divisor"></div>
-                    <div class="highlight">
-                        <h4>Items Sold</h4>
-                        <h5>500</h5>
-                    </div>
-                    <div class="pipe-divisor"></div>
-                    <div class="highlight">
-                        <h4>Average Price</h4>
-                        <h5>$60.00</h5>
-                    </div>
+                    <%  List<Highlight> highlights = new ArrayList<>();
+                        highlights.add(new Highlight("Total Sales", "$30,000.00", ""));
+                        highlights.add(new Highlight("Net Profit", "$15,000.00", ""));
+                        highlights.add(new Highlight("Items Sold", "500", ""));
+                        highlights.add(new Highlight("Average Price", "$60.00", ""));
+
+                        for (Highlight highlight : highlights) {
+                    %>
+
+                    <%request.setAttribute("highlightTitle", highlight.getHighlightTitle());%>
+                    <%request.setAttribute("highlightDescription", highlight.getHighlightDescription());%>
+                    <%request.setAttribute("typeClass", highlight.getTypeClass());%>
+                    <%@include file="./components/highlight.jsp" %>
+                   
+                    <%}%>                    
                 </div>
                 <!-- Order By -->
                 <div class="order-by">

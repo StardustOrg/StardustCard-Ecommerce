@@ -3,15 +3,17 @@
     Created on : 10 de nov. de 2023, 09:20:02
     Author     : joaov
 --%>
+<%@page import="model.user.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.Map" %>
 
 <div class="sidebar" id="sidebar">
+     <%User adminUser = (User) session.getAttribute("stardust_user");%>
     <!-- User info -->
     <div class="user-info">
         <a class="link-img" href="/StardustCard-Ecommerce/Admin/User">
             <img src="${pageContext.request.contextPath}/admin/assets/user.jpg" alt="Foto do Usuário">
-            <h4>Vládia Helen</h4>
+            <h4><%=adminUser.getName()%></h4>
             <h5>Stardust Manager</h5>
         </a>
     </div>
