@@ -10,14 +10,14 @@
 <%
     String photocardName = (String) request.getAttribute("photocardName");
     Integer photocardUnits = (Integer) request.getAttribute("photocardUnits");
-    String photocardPath = (String) request.getAttribute("photocardName");
+    String photocardPath = (String) request.getAttribute("photocardPath");
 %>
 
 <div class="column-container">
     <div class="single-product">
         <div class="part-1">
             <button onclick="myFunction()" class="edit"> Edit </button>
-            <img src="./assets/photocards/bts_7_rm.png" class="photocard-img" />
+            <img src="<%=photocardPath%>" class="photocard-img" />
         </div>
         <div class="part-2">
             <h3 class="product-title"><%=photocardName%></h3>
