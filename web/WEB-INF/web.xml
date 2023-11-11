@@ -33,6 +33,10 @@
         <servlet-class>controller.client.DeleteAccountServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AllArtistsServlet</servlet-name>
+        <servlet-class>controller.artist.AllArtistsServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>PhotocardsServlet</servlet-name>
         <servlet-class>controller.admin.PhotocardsServlet</servlet-class>
     </servlet>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>DeleteAccountServlet</servlet-name>
         <url-pattern>/DeleteAccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AllArtistsServlet</servlet-name>
+        <url-pattern>/Artists</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PhotocardsServlet</servlet-name>
