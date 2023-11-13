@@ -175,4 +175,56 @@ public class ArtistDAO implements DAO<Artist> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    public Artist getBySlug(String artistSlug) {
+        Artist result = new Artist();
+        try {
+            Class.forName(Config.JDBC_DRIVER);
+            Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
+            Statement stmt = c.createStatement();
+
+            String query = "SELECT id, name, icon_url, cover_url, group_id FROM artist WHERE LOWER(name) = LOWER('" + artistSlug + "')";
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                result.setId(rs.getLong("id"));
+                result.setName(rs.getString("name"));
+                result.setIcon(rs.getString("icon_url"));
+                result.setCover(rs.getString("cover_url"));
+                result.setGroupId(rs.getLong("group_id"));
+            }
+            rs.close();
+            stmt.close();
+            c.close();
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
+        }
+        return result;
+    }
+
+    public Artist getGroupMemberBySlug(long group_id, String memberSlug) {
+        Artist result = new Artist();
+        try {
+            Class.forName(Config.JDBC_DRIVER);
+            Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
+            Statement stmt = c.createStatement();
+
+            String query = "SELECT id, name, icon_url, cover_url, group_id FROM artist WHERE group_id = " + group_id + " AND LOWER(name) = LOWER('" + memberSlug + "')";
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                result.setId(rs.getLong("id"));
+                result.setName(rs.getString("name"));
+                result.setIcon(rs.getString("icon_url"));
+                result.setCover(rs.getString("cover_url"));
+                result.setGroupId(rs.getLong("group_id"));
+            }
+            rs.close();
+            stmt.close();
+            c.close();
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
+        }
+        return result;
+    }
+
 }
