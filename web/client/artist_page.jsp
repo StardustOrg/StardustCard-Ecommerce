@@ -55,11 +55,7 @@
                 </div>
             </div>
             <%
-            } else {
-            %>
-            <div>Idol</div>
-            <%
-                }
+            }
             %>
             <div class="bundles" id="last-units">
                 <h2>last units</h2>
