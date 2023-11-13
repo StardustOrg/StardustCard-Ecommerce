@@ -22,7 +22,7 @@
             <!-- Message -->
             <%User user = (User) session.getAttribute("stardust_user");%>
             <%request.setAttribute("title", "Hello, " + user.getName());%>
-            <%request.setAttribute("subtitle", "dashboard");%>
+            <%request.setAttribute("subtitle", "Let's check your store today.");%>
             <%@include file="./components/message.jsp" %>
 
             <!-- Content -->
