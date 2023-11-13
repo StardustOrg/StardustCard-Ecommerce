@@ -8,6 +8,7 @@
     List< Artist> artistsL = (List<Artist>) request.getAttribute("artists");
 %>
 
+<!-- Modal para edição -->
 <div class="artist-card">
     <div class="artist-image">
         <img src="<%= artistL.getIcon()%>" />

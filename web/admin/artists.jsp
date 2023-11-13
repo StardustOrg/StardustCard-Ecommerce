@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="add-photocard-content-body">
                                     <div class="add-photocard-img">
-                                        <div class="single-product">
+                                        <div class="single-product"  style="height: 155px">
                                             <div class="part-1">
                                                 <img src="" id="photcard-input" class="photocard-img" />
                                             </div>
@@ -136,7 +136,7 @@
                                 </div>
                                 <div class="add-photocard-content-body">
                                     <div class="add-photocard-img">
-                                        <div class="single-product">
+                                        <div class="single-product" style="height: 155px">
                                             <div class="part-1">
                                                 <img src="" id="editPhotocardInput" class="photocard-img" />
                                             </div>
