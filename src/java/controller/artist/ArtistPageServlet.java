@@ -37,7 +37,7 @@ public class ArtistPageServlet extends HttpServlet {
                 // Case: Artists/artist_slug
                 String artistSlug = pathInfo[1];
                 Artist artist = artistDAO.getBySlug(artistSlug);
-                if (artist != null) {
+                if (artist != null && artist.getCover() != null) {
                     request.setAttribute("artistInfo", artist);
                     idols = artistDAO.getAllIdols(artist.getId());
                     if (idols.isEmpty()) {
@@ -52,13 +52,13 @@ public class ArtistPageServlet extends HttpServlet {
                     return;
                 }
             }
-            case 3 ->  {
+            case 3 -> {
                 // Case: Artists/group_slug/member_slug
                 String groupSlug = pathInfo[1];
                 String memberSlug = pathInfo[2];
                 Artist group = artistDAO.getBySlug(groupSlug);
                 Artist member = artistDAO.getGroupMemberBySlug(group.getId(), memberSlug);
-                if (member != null) {
+                if (member != null && member.getCover() != null) {
                     request.setAttribute("artistInfo", member);
                     request.setAttribute("group", false);
                 } else {
@@ -68,7 +68,7 @@ public class ArtistPageServlet extends HttpServlet {
             }
             default -> {
                 // Invalid URL format, handle accordingly (e.g., show an error page)
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid URL format");
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Invalid URL format");
                 return;
             }
         }

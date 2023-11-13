@@ -52,6 +52,22 @@
         <servlet-name>Teste</servlet-name>
         <servlet-class>controller.admin.Teste</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Error404Servlet</servlet-name>
+        <servlet-class>controller.error.Error404Servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Error403Servlet</servlet-name>
+        <servlet-class>controller.error.Error403Servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Error500Servlet</servlet-name>
+        <servlet-class>controller.error.Error500Servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Error503Servlet</servlet-name>
+        <servlet-class>controller.error.Error503Servlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -108,9 +124,41 @@
         <servlet-name>Teste</servlet-name>
         <url-pattern>/Teste</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Error404Servlet</servlet-name>
+        <url-pattern>/404</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Error403Servlet</servlet-name>
+        <url-pattern>/403</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Error500Servlet</servlet-name>
+        <url-pattern>/500</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Error503Servlet</servlet-name>
+        <url-pattern>/503</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             60
         </session-timeout>
     </session-config>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404</location>
+    </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/403</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/500</location>
+    </error-page>
+    <error-page>
+        <error-code>503</error-code>
+        <location>/503</location>
+    </error-page>
 </web-app>
