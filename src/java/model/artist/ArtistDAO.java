@@ -26,7 +26,12 @@ public class ArtistDAO implements DAO<Artist> {
             ps.setString(1, t.getName());
             ps.setString(2, t.getIcon());
             ps.setString(3, t.getCover());
-            ps.setLong(4, t.getGroupId());
+
+            if (t.getGroupId() != 0) {
+                ps.setLong(4, t.getGroupId());
+            } else {
+                ps.setObject(4, null);
+            }
 
             int rowsAffected = ps.executeUpdate();
 

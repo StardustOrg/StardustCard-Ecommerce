@@ -4,6 +4,8 @@
     Author     : joaov
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="model.artist.Artist"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -35,6 +37,7 @@
                         <button onclick="myFunction()" class="dropbtn">Mais populares</button>
                     </section>
                     <section class="artists">
+                        <%List<Artist> artists = (List<Artist>) request.getAttribute("artists");%>
                         <!-- Modal insert artist -->
                         <section class="modal active hidden">
                             <div class="add-photocard-content">
@@ -51,19 +54,19 @@
                                         </div>
                                     </div>
                                     <div class="add-photocard-form" style="">
-                                        <form>
+                                        <form action="<%=request.getContextPath()%>/Admin/Artists" method="POST">
                                             <h4 class="photocard-input-title">Artist name</h4>
-                                            <input class="photocard-input" type="text" id="artist-name" placeholder="Nome do Artista" />
+                                            <input class="photocard-input" type="text" id="artist-name" name="artist-name" placeholder="Nome do Artista" />
 
                                             <h4 class="photocard-input-title">Image URL</h4>
-                                            <input class="photocard-input" type="text" id="photocard-url" placeholder="URL da Imagem" />
+                                            <input class="photocard-input" type="text" id="photocard-url" name="photocard-url" placeholder="URL da Imagem" />
 
                                             <h4 class="photocard-input-title">Cover URL</h4>
-                                            <input class="photocard-input" type="text" id="cover-url" placeholder="URL do Cover" />
+                                            <input class="photocard-input" type="text" id="cover-url" name="cover-url" placeholder="URL do Cover" />
 
                                             <div style="display: flex; justify-content: start">
                                                 <h4 class="photocard-input-title">Belong to a group?</h4>
-                                                <input type="checkbox" id="is-idol" style="width: 15px; height:15px; margin-bottom: 10px"/>
+                                                <input type="checkbox" id="is-idol" name="is-idol" style="width: 15px; height:15px; margin-bottom: 10px"/>
                                             </div>
 
                                             <div id="group-selection" style="display: none;
@@ -73,11 +76,17 @@
                                                  margin-left: 175px;">
                                                 <select class="photocard-input" id="group-dropdown" style="height: 30px; width: 100%">
                                                     <!-- Opções do grupo aqui -->
-                                                    <option value="none">No-group</option>
-                                                    <option value="grupo1">Grupo 1</option>
-                                                    <option value="grupo2">Grupo 2</option>
+                                                    <option value="null" name="group-id">No-group</option>
+                                                    <%for (Artist artist : artists) {%>
+                                                    <% if (artist.getGroupId() == 0) {%>
+                                                    <option name="group-id" value="<%=artist.getId()%>"><%=artist.getName()%></option>
+                                                    <%}%>
+                                                    <%}%>
+
                                                 </select>
                                             </div>
+                                            <button class="btn">Save</button>
+
                                         </form>
 
                                         <script>
@@ -93,22 +102,19 @@
                                     </div>
                                 </div>
                             </div>
-                            <button class="btn">Save</button>
                         </section>
 
-                        <div class="single-product">
+                        <div class="single-product" style="height: 120px; margin-bottom: 50px">
                             <div class="part-1" id="new-photocard" style="max-height: 155px;">
                                 <button class="add-new" style="height: 100px; top: 45%"> Add </button>
                             </div>
-                            <div class="part-2">
-                                <h3 class="product-title">Add a new Artist</h3>
-                            </div>
                         </div>
                         <!-- Single Product -->
-                        <%//TODO: Listar artistas e iterá-los%>
-                        <%request.setAttribute("artistName", "New Jeans");%>
-                        <%request.setAttribute("artistPath", "");%>
+                        <%for (Artist artist : artists) {%>
+                        <%request.setAttribute("artistName", artist.getName());%>
+                        <%request.setAttribute("artistPath", artist.getIcon());%>
                         <%@include file="./components/artist.jsp" %>
+                        <%}%>
                     </section>
                 </div>
         </div>
