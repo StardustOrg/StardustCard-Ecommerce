@@ -4,8 +4,16 @@
  */
 package model.product;
 
+import config.Config;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import model.DAO;
+import model.user.User;
 
 /**
  *
@@ -25,7 +33,35 @@ public class ProductDAO implements DAO<Product> {
 
     @Override
     public List<Product> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Product> productList = new ArrayList<>();
+
+        try {
+            Class.forName(Config.JDBC_DRIVER);
+            try (Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD); PreparedStatement ps = c.prepareStatement("SELECT * FROM product"); // Executar a consulta SQL
+                    ResultSet rs = ps.executeQuery()) {
+                // Processar os resultados
+                while (rs.next()) {
+                    // Substitua os nomes de colunas pelos corretos da sua tabela
+                    long id = rs.getLong("id");
+                    String description = rs.getString("description");
+                    int amount = rs.getInt("amount");
+                    String picture = rs.getString("picture");
+                    double price = rs.getDouble("price");
+                    
+                    // Crie um objeto Product com os dados do banco de dados
+                    Product product = new Product(id, description, amount, picture, price, null);
+                    
+                    // Adicione o objeto à lista
+                    productList.add(product);
+                }
+                // Fechar recursos
+
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            // Trate a exceção de forma apropriada para o seu aplicativo
+            ex.printStackTrace();
+        }
+        return productList;
     }
 
     @Override
@@ -37,5 +73,5 @@ public class ProductDAO implements DAO<Product> {
     public boolean delete(long id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
 }

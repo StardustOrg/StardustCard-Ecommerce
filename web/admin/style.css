@@ -619,6 +619,7 @@ canvas {
     border: var(--detail) solid 1px;
 }
 
+
 /* User */
 .image-container {
     position: relative;
@@ -716,7 +717,7 @@ canvas {
     flex-direction: column;
 
     width: 716px;
-    height: 430px;
+    height: 490px;
 
     position: absolute;
     top: 20%;
