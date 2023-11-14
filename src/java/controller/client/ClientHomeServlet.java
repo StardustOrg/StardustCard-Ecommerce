@@ -55,7 +55,7 @@ public class ClientHomeServlet extends HttpServlet {
         // list of recently added or modified products
         List<Product> newAdds = new ArrayList();
         try {
-            newAdds = productDAO.getAll();
+            newAdds = productDAO.getAllInStock();
             Collections.reverse(newAdds);
         } catch (Exception ex) {
         }

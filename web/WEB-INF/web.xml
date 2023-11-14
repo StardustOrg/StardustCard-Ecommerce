@@ -150,7 +150,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProductPageServlet</servlet-name>
-        <url-pattern>/Product/*</url-pattern>
+        <url-pattern>/Artists/Product/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteArtistServlet</servlet-name>

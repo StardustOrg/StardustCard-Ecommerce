@@ -104,7 +104,7 @@
                             Product product = lastUnits.get(i);
                             String uri = RandomSequenceGenerator.generateRandomSequence(15);
                     %>
-                    <form id="formLU_<%= i%>" method="POST" action="${pageContext.request.contextPath}/Product/<%= uri%>">
+                    <form id="formLU_<%= i%>" method="POST" action="${pageContext.request.contextPath}/Artists/Product/<%= uri%>" class="photocard-form">
                         <input type="hidden" name="productId" value="<%= product.getId()%>">
                         <div class="card" onclick="submitForm('formLU_<%= i%>')">
                             <div id="photo">
@@ -131,7 +131,7 @@
                             Product product = newAdds.get(i);
                             String uri = RandomSequenceGenerator.generateRandomSequence(15);
                     %>
-                    <form id="formNA_<%= i%>" method="POST" action="${pageContext.request.contextPath}/Product/<%= uri%>">
+                    <form id="formNA_<%= i%>" method="POST" action="${pageContext.request.contextPath}/Artists/Product/<%= uri%>" class="photocard-form">
                         <input type="hidden" name="productId" value="<%= product.getId()%>">
                         <div class="card" onclick="submitForm('formNA_<%= i%>')">
                             <div id="photo">
