@@ -181,7 +181,7 @@
                                                 </select>
                                             </div>
                                             <div style="display: flex; justify-content: space-around; padding-left: 150px; margin-top: 20px">
-                                                <button class="btn">Update</button>
+                                                <button class="btn" >Update</button>
                                                 <button class="btn" style="background: #CC224B;" onclick="onDelete();">Delete</button>
                                             </div>
                                         </form>
@@ -220,9 +220,10 @@
 
                                                     // Função para salvar as alterações do artista
                                                     function saveArtistChanges() {
-                                                        // Adicione o código para enviar os dados para o servidor (pode usar AJAX)
-                                                        // Depois de salvar, feche o modal
-                                                        closeEditModal();
+
+                                                        document.getElementById("_method").value = "PUT";
+                                                        console.log(document.getElementById("_method").value);
+                                                        document.getElementById("editForm").submit();
                                                     }
 
                                                     // Adiciona um evento de mudança ao checkbox
@@ -237,8 +238,7 @@
                                                         console.log("onDelete function called");
                                                         var confirmed = confirm("Tem certeza que deseja excluir este artista?");
                                                         if (confirmed) {
-                                                            document.getElementById("_method").value = "DELETE";
-                                                            console.log(document.getElementById("_method").value);
+                                                            document.getElementById("editForm").action = '${pageContext.request.contextPath}/Admin/DeleteArtist';
                                                             document.getElementById("editForm").submit();
                                                         } else {
                                                             alert("Exclusão cancelada");
