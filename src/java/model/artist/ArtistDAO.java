@@ -167,12 +167,54 @@ public class ArtistDAO implements DAO<Artist> {
 
     @Override
     public boolean update(Artist t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            Class.forName(Config.JDBC_DRIVER);
+            Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
+            PreparedStatement ps = c.prepareStatement("UPDATE artist SET name=?, icon_url=?, cover_url=?, group_id=? WHERE id=?");
+
+            ps.setString(1, t.getName());
+            ps.setString(2, t.getIcon());
+            ps.setString(3, t.getCover());
+
+            if (t.getGroupId() != 0) {
+                ps.setLong(4, t.getGroupId());
+            } else {
+                ps.setObject(4, null);
+            }
+
+            ps.setLong(5, t.getId());
+
+            int rowsAffected = ps.executeUpdate();
+
+            ps.close();
+            c.close();
+
+            return rowsAffected > 0;
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
+            return false;
+        }
     }
 
     @Override
     public boolean delete(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            Class.forName(Config.JDBC_DRIVER);
+            Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
+            PreparedStatement ps = c.prepareStatement("DELETE FROM artist WHERE id = ?");
+
+            ps.setLong(1, id);
+
+            int rowsAffected = ps.executeUpdate();
+
+            ps.close();
+            c.close();
+
+            return rowsAffected > 0;
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
+            return false;
+        }
     }
 
     public Artist getBySlug(String artistSlug) {
