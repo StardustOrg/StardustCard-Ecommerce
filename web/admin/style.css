@@ -40,6 +40,9 @@ a {
     color: var(--black);
     width: 250px;
     flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .sidebar nav a {
