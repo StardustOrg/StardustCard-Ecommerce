@@ -1,8 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
-package controller.admin;
+package controller.admin.artist;
 
 import java.io.IOException;
 import java.util.List;
@@ -38,7 +34,7 @@ public class ArtistsServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/artists.jsp");
             dispatcher.forward(request, response);
         } else {
-            response.sendRedirect("../Login");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Don't have access");
         }
     }
 
@@ -51,9 +47,6 @@ public class ArtistsServlet extends HttpServlet {
         System.out.println(method);
         if ("PUT".equals(method)) {
             doPut(request, response);
-        } else if ("DELETE".equals(method)) {
-            doDelete(request, response);
-            System.out.println("controller.admin.ArtistsServlet.doDelete()");
         } else {
             request.setCharacterEncoding("UTF-8");
             HttpSession session = request.getSession(true);
@@ -80,7 +73,7 @@ public class ArtistsServlet extends HttpServlet {
                     response.sendRedirect("Artists");
                 }
             } else {
-                response.sendRedirect("../Login");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Don't have access");
             }
         }
     }
@@ -116,35 +109,7 @@ public class ArtistsServlet extends HttpServlet {
                 response.getWriter().append("msg: Update failed");
             }
         } else {
-            response.sendRedirect("../Login");
-        }
-    }
-
-    @Override
-    protected void doDelete(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        HttpSession session = request.getSession(true);
-        User user = (User) session.getAttribute("stardust_user");
-        System.out.println("controller.admin.ArtistsServlet.doDelete()");
-
-        if (user != null && user.isAdmin()) {
-            System.out.println("controller.admin.ArtistsServlet.doDelete()");
-            // Recupere os dados do formulário
-            long artistId = Long.parseLong(request.getParameter("artist-id"));
-            System.out.println(artistId);
-
-            // Use o ArtistDAO para excluir o artista do banco de dados
-            ArtistDAO artistDAO = new ArtistDAO();
-            boolean delete = artistDAO.delete(artistId);
-
-            if (delete) {
-                response.sendRedirect("Artists");
-            } else {
-                response.getWriter().append("msg: Delete failed");
-            }
-        } else {
-            response.sendRedirect("../Login");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Don't have access");
         }
     }
 }

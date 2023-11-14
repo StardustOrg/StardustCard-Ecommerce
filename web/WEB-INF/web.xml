@@ -42,7 +42,7 @@
     </servlet>
     <servlet>
         <servlet-name>ArtistsServlet</servlet-name>
-        <servlet-class>controller.admin.ArtistsServlet</servlet-class>
+        <servlet-class>controller.admin.artist.ArtistsServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminUserServlet</servlet-name>
@@ -67,6 +67,10 @@
     <servlet>
         <servlet-name>Error503Servlet</servlet-name>
         <servlet-class>controller.error.Error503Servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteArtistServlet</servlet-name>
+        <servlet-class>controller.admin.artist.DeleteArtistServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -139,6 +143,10 @@
     <servlet-mapping>
         <servlet-name>Error503Servlet</servlet-name>
         <url-pattern>/503</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteArtistServlet</servlet-name>
+        <url-pattern>/Admin/DeleteArtist</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
