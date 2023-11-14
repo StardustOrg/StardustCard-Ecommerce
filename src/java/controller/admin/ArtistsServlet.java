@@ -38,7 +38,7 @@ public class ArtistsServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/artists.jsp");
             dispatcher.forward(request, response);
         } else {
-            response.sendRedirect("../Login");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Don't have access");
         }
     }
 
@@ -80,7 +80,7 @@ public class ArtistsServlet extends HttpServlet {
                     response.sendRedirect("Artists");
                 }
             } else {
-                response.sendRedirect("../Login");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Don't have access");
             }
         }
     }
@@ -116,7 +116,7 @@ public class ArtistsServlet extends HttpServlet {
                 response.getWriter().append("msg: Update failed");
             }
         } else {
-            response.sendRedirect("../Login");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Don't have access");
         }
     }
 
@@ -144,7 +144,7 @@ public class ArtistsServlet extends HttpServlet {
                 response.getWriter().append("msg: Delete failed");
             }
         } else {
-            response.sendRedirect("../Login");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Don't have access");
         }
     }
 }

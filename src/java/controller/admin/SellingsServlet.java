@@ -31,7 +31,7 @@ public class SellingsServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/sellings.jsp");
             dispatcher.forward(request, response);
         } else {
-            response.sendRedirect("../Login");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Don't have access");
         }
     }
 }
