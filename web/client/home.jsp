@@ -4,6 +4,7 @@
     Author     : joaov
 --%>
 
+<%@page import="model.product.Product"%>
 <%@page import="model.artist.Artist"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -94,14 +95,20 @@
                 <h2>last units</h2>
                 <div class="photocards">
                     <%
-                        for (int i = 0; i < 5; i++) {
+                        List<Product> lastUnits = (List<Product>) request.getAttribute("lastUnits");
+                        int j = 5;
+                        if (lastUnits.size() < 5) {
+                            j = lastUnits.size();
+                        }
+                        for (int i = 0; i < j; i++) {
+                        Product product = lastUnits.get(i);
                     %>
                     <div class="card">
                         <div id="photo">
-                            <img src="" alt="Avatar">
+                            <img src="<%= product.getPicture() %>" alt="Avatar">
                         </div>
-                        <div class="card-title">BTS Proof RM Photocard</div>
-                        <div class="card-detail">5 units left</div>
+                        <div class="card-title"><%= product.getDescription() %></div>
+                        <div class="card-detail"><%= product.getAmount() %> units left</div>
                     </div>
                     <%                            }
                     %>
@@ -111,13 +118,19 @@
                 <h2>new additions</h2>
                 <div class="photocards">
                     <%
-                        for (int i = 0; i < 5; i++) {
+                        List<Product> newAdds = (List<Product>) request.getAttribute("newAdds");
+                        int k = 5;
+                        if (newAdds.size() < 5) {
+                            k = newAdds.size();
+                        }
+                        for (int i = 0; i < k; i++) {
+                        Product product = newAdds.get(i);
                     %>
                     <div class="card">
                         <div id="photo">
-                            <img src="" alt="Avatar">
+                            <img src="<%= product.getPicture() %>" alt="Avatar">
                         </div>
-                        <div class="card-title">Taste of Love Version 03 Nayeon</div>
+                        <div class="card-title"><%= product.getDescription() %></div>
                     </div>
                     <%                            }
                     %>  
