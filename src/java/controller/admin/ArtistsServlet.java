@@ -48,10 +48,12 @@ public class ArtistsServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String method = request.getParameter("_method");
+        System.out.println(method);
         if ("PUT".equals(method)) {
             doPut(request, response);
         } else if ("DELETE".equals(method)) {
             doDelete(request, response);
+            System.out.println("controller.admin.ArtistsServlet.doDelete()");
         } else {
             request.setCharacterEncoding("UTF-8");
             HttpSession session = request.getSession(true);
@@ -124,10 +126,13 @@ public class ArtistsServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession(true);
         User user = (User) session.getAttribute("stardust_user");
+        System.out.println("controller.admin.ArtistsServlet.doDelete()");
 
         if (user != null && user.isAdmin()) {
+            System.out.println("controller.admin.ArtistsServlet.doDelete()");
             // Recupere os dados do formulário
             long artistId = Long.parseLong(request.getParameter("artist-id"));
+            System.out.println(artistId);
 
             // Use o ArtistDAO para excluir o artista do banco de dados
             ArtistDAO artistDAO = new ArtistDAO();
