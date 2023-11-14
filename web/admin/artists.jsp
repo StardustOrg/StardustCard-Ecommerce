@@ -55,6 +55,7 @@
                                     </div>
                                     <div class="add-photocard-form" style="">
                                         <form action="<%=request.getContextPath()%>/Admin/Artists" method="POST">
+                                            <input class="photocard-input" type="hidden" id="_method" name="_method" value="POST"/>
                                             <h4 class="photocard-input-title">Artist name</h4>
                                             <input class="photocard-input" type="text" id="artist-name" name="artist-name" placeholder="Nome do Artista" />
 
@@ -64,7 +65,7 @@
                                             <h4 class="photocard-input-title">Cover URL</h4>
                                             <input class="photocard-input" type="text" id="cover-url" name="cover-url" placeholder="URL do Cover" />
 
-                                            <div style="display: flex; justify-content: start">
+                                            <div style="display: flex; justify-content: start; margin-left: 175px">
                                                 <h4 class="photocard-input-title">Belong to a group?</h4>
                                                 <input type="checkbox" id="is-idol" name="is-idol" style="width: 15px; height:15px; margin-bottom: 10px"/>
                                             </div>
@@ -85,7 +86,9 @@
 
                                                 </select>
                                             </div>
-                                            <button class="btn">Save</button>
+                                            <div style="display: flex; margin: 100px; margin-top: 10px">
+                                                <button class="btn">Save</button>
+                                            </div>
 
                                         </form>
 
@@ -118,7 +121,7 @@
                                 <img src="<%= artist.getIcon()%>" />
                                 <div class="overlay"></div>
                                 <!-- Adicione um atributo data-* para armazenar as informações do artista -->
-                                <button onclick="openEditModal('<%= artist.getName()%>', '<%= artist.getIcon()%>', '<%= artist.getCover()%>', '<%= artist.getGroupId()%>')" class="edit"> Edit </button>
+                                <button onclick="openEditModal('<%= artist.getId()%>', '<%= artist.getName()%>', '<%= artist.getIcon()%>', '<%= artist.getCover()%>', '<%= artist.getGroupId()%>')" class="edit"> Edit </button>
                                 <div class="image-caption">
                                     <%= artist.getName()%>
                                 </div>
@@ -128,6 +131,7 @@
                         <%}%>
 
                         <!-- Modal para edição -->
+                        <div class="overlay" id="overlay"></div>
                         <div id="editModal" class="modal" style="display: none">
                             <div class="add-photocard-content">
                                 <div class="add-photocard-content-head">
@@ -144,6 +148,9 @@
                                     </div>
                                     <div class="add-photocard-form">
                                         <form id="editForm" action="<%=request.getContextPath()%>/Admin/Artists" method="POST">
+                                            <input class="photocard-input" type="hidden" id="_method" name="_method" value="PUT"/>
+                                            <input class="photocard-input" type="hidden" id="artist-id" name="artist-id" value=""/>
+
                                             <h4 class="photocard-input-title">Artist name</h4>
                                             <input class="photocard-input" type="text" id="editName" name="editName" value="" />
 
@@ -153,7 +160,7 @@
                                             <h4 class="photocard-input-title">Cover URL</h4>
                                             <input class="photocard-input" type="text" id="editCover" name="editCover" value="" />
 
-                                            <div style="display: flex; justify-content: start">
+                                            <div style="display: flex; justify-content: start; margin-left: 175px">
                                                 <h4 class="photocard-input-title">Belong to a group?</h4>
                                                 <input type="checkbox" id="editIsIdol" name="editIsIdol" style="width: 15px; height:15px; margin-bottom: 10px" />
                                             </div>
@@ -173,7 +180,10 @@
                                                     <% }%>
                                                 </select>
                                             </div>
-                                            <button class="btn" onclick="saveArtistChanges()">Save</button>
+                                            <div style="display: flex; justify-content: space-around; padding-left: 150px; margin-top: 20px">
+                                                <button class="btn">Update</button>
+                                                <button class="btn" style="background: #CC224B;" onclick="onDelete();">Delete</button>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
@@ -189,37 +199,54 @@
 
 <script src="${pageContext.request.contextPath}/admin/main.js"></script>
 <script>
-                                                // Função para abrir o modal de edição
-                                                function openEditModal(name, photo, cover, groupId) {
-                                                    document.getElementById("editPhotocardInput").src = photo;
-                                                    document.getElementById("editName").value = name;
-                                                    document.getElementById("editPhoto").value = photo;
-                                                    document.getElementById("editCover").value = cover;
-                                                    document.getElementById("editIsIdol").checked = groupId !== 'null';
-                                                    document.getElementById("editGroupSelection").style.display = groupId !== 'null' ? 'flex' : 'none';
-                                                    document.getElementById("editGroupDropdown").value = groupId;
-                                                    document.getElementById("editModal").style.display = "block";
-                                                }
+                                                    // Função para abrir o modal de edição
+                                                    function openEditModal(id, name, photo, cover, groupId) {
+                                                        console.log(groupId);
+                                                        document.getElementById("artist-id").value = id;
+                                                        document.getElementById("editPhotocardInput").src = photo;
+                                                        document.getElementById("editName").value = name;
+                                                        document.getElementById("editPhoto").value = photo;
+                                                        document.getElementById("editCover").value = cover;
+                                                        document.getElementById("editIsIdol").checked = groupId !== '0' ? true : false;
+                                                        document.getElementById("editGroupSelection").style.display = groupId !== '0' ? 'flex' : 'none';
+                                                        document.getElementById("editGroupDropdown").value = groupId;
+                                                        document.getElementById("editModal").style.display = "block";
+                                                    }
 
-                                                // Função para fechar o modal de edição
-                                                function closeEditModal() {
-                                                    document.getElementById("editModal").style.display = "none";
-                                                }
+                                                    // Função para fechar o modal de edição
+                                                    function closeEditModal() {
+                                                        document.getElementById("editModal").style.display = "none";
+                                                    }
 
-                                                // Função para salvar as alterações do artista
-                                                function saveArtistChanges() {
-                                                    // Adicione o código para enviar os dados para o servidor (pode usar AJAX)
-                                                    // Depois de salvar, feche o modal
-                                                    closeEditModal();
-                                                }
+                                                    // Função para salvar as alterações do artista
+                                                    function saveArtistChanges() {
+                                                        // Adicione o código para enviar os dados para o servidor (pode usar AJAX)
+                                                        // Depois de salvar, feche o modal
+                                                        closeEditModal();
+                                                    }
 
-                                                // Adiciona um evento de mudança ao checkbox
-                                                document.getElementById('editIsIdol').addEventListener('change', function () {
-                                                    // Obtém a referência ao elemento de seleção de grupo
-                                                    var groupSelection = document.getElementById('editGroupSelection');
-                                                    // Define a exibição do elemento de seleção de grupo com base no estado do checkbox
-                                                    groupSelection.style.display = this.checked ? 'flex' : 'none';
-                                                });
+                                                    // Adiciona um evento de mudança ao checkbox
+                                                    document.getElementById('editIsIdol').addEventListener('change', function () {
+                                                        // Obtém a referência ao elemento de seleção de grupo
+                                                        var groupSelection = document.getElementById('editGroupSelection');
+                                                        // Define a exibição do elemento de seleção de grupo com base no estado do checkbox
+                                                        groupSelection.style.display = this.checked ? 'flex' : 'none';
+                                                    });
+
+                                                    function onDelete() {
+                                                        console.log("onDelete function called");
+                                                        var confirmed = confirm("Tem certeza que deseja excluir este artista?");
+                                                        if (confirmed) {
+                                                            document.getElementById("_method").value = "DELETE";
+                                                            console.log(document.getElementById("_method").value);
+                                                            document.getElementById("editForm").submit();
+                                                        } else {
+                                                            alert("Exclusão cancelada");
+                                                        }
+                                                    }
+
+
+
 </script>
 </body>
 
