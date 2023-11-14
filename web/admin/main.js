@@ -132,6 +132,7 @@ const closeModalBtn = document.querySelector(".btn-close");
 
 const closeModal = function () {
     modal.classList.add("hidden");
+    document.getElementById('overlay').style.display = 'none';
 };
 
 closeModalBtn.addEventListener("click", closeModal);
@@ -144,6 +145,7 @@ document.addEventListener("keydown", function (e) {
 
 const openModal = function () {
     modal.classList.remove("hidden");
+    document.getElementById('overlay').style.display = 'flex';
 };
 
 openModalBtn.addEventListener("click", openModal);
