@@ -69,6 +69,10 @@
         <servlet-class>controller.error.Error503Servlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ProductPageServlet</servlet-name>
+        <servlet-class>controller.product.ProductPageServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>DeleteArtistServlet</servlet-name>
         <servlet-class>controller.admin.artist.DeleteArtistServlet</servlet-class>
     </servlet>
@@ -143,6 +147,10 @@
     <servlet-mapping>
         <servlet-name>Error503Servlet</servlet-name>
         <url-pattern>/503</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductPageServlet</servlet-name>
+        <url-pattern>/Artists/Product/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteArtistServlet</servlet-name>

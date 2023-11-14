@@ -563,7 +563,8 @@ footer {
 .photocards {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: start;
+    flex-wrap: wrap;
 }
 
 .card {
@@ -695,6 +696,7 @@ footer {
 
 .tag:hover {
     background: #843fa1;
+    cursor: pointer;
 }
 
 .price-tag {
@@ -1086,4 +1088,8 @@ hr.rounded {
 
 a {
     text-decoration: none;
+}
+
+.photocard-form {
+    margin: 0 25px;
 }
