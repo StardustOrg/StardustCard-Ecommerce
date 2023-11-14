@@ -4,6 +4,7 @@
     Author     : joaov
 --%>
 
+<%@page import="controller.product.RandomSequenceGenerator"%>
 <%@page import="model.product.Product"%>
 <%@page import="model.artist.Artist"%>
 <%@page import="java.util.List"%>
@@ -59,7 +60,6 @@
                 </div>
             </div>
         </div>
-
         <div class="container" id="body">
             <div class="bundles" id="artists">
                 <h2>artists</h2>
@@ -101,15 +101,19 @@
                             j = lastUnits.size();
                         }
                         for (int i = 0; i < j; i++) {
-                        Product product = lastUnits.get(i);
+                            Product product = lastUnits.get(i);
+                            String uri = RandomSequenceGenerator.generateRandomSequence(15);
                     %>
-                    <div class="card">
-                        <div id="photo">
-                            <img src="<%= product.getPicture() %>" alt="Avatar">
+                    <form id="formLU_<%= i%>" method="POST" action="${pageContext.request.contextPath}/Product/<%= uri%>">
+                        <input type="hidden" name="productId" value="<%= product.getId()%>">
+                        <div class="card" onclick="submitForm('formLU_<%= i%>')">
+                            <div id="photo">
+                                <img src="<%= product.getPicture()%>" alt="Avatar">
+                            </div>
+                            <div class="card-title"><%= product.getDescription()%></div>
+                            <div class="card-detail"><%= product.getAmount()%> units left</div>
                         </div>
-                        <div class="card-title"><%= product.getDescription() %></div>
-                        <div class="card-detail"><%= product.getAmount() %> units left</div>
-                    </div>
+                    </form>
                     <%                            }
                     %>
                 </div>
@@ -124,14 +128,18 @@
                             k = newAdds.size();
                         }
                         for (int i = 0; i < k; i++) {
-                        Product product = newAdds.get(i);
+                            Product product = newAdds.get(i);
+                            String uri = RandomSequenceGenerator.generateRandomSequence(15);
                     %>
-                    <div class="card">
-                        <div id="photo">
-                            <img src="<%= product.getPicture() %>" alt="Avatar">
+                    <form id="formNA_<%= i%>" method="POST" action="${pageContext.request.contextPath}/Product/<%= uri%>">
+                        <input type="hidden" name="productId" value="<%= product.getId()%>">
+                        <div class="card" onclick="submitForm('formNA_<%= i%>')">
+                            <div id="photo">
+                                <img src="<%= product.getPicture()%>" alt="Avatar">
+                            </div>
+                            <div class="card-title"><%= product.getDescription()%></div>
                         </div>
-                        <div class="card-title"><%= product.getDescription() %></div>
-                    </div>
+                    </form>
                     <%                            }
                     %>  
                 </div>

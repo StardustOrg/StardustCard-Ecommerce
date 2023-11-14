@@ -68,6 +68,10 @@
         <servlet-name>Error503Servlet</servlet-name>
         <servlet-class>controller.error.Error503Servlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProductPageServlet</servlet-name>
+        <servlet-class>controller.product.ProductPageServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -139,6 +143,10 @@
     <servlet-mapping>
         <servlet-name>Error503Servlet</servlet-name>
         <url-pattern>/503</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductPageServlet</servlet-name>
+        <url-pattern>/Product/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
