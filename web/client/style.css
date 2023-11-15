@@ -450,9 +450,9 @@ footer {
 
 .carrousel {
     display: flex;
-    /*gap: 56px;*/
     transition: transform 0.3s ease;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    width: max-content;
 }
 
 
@@ -548,10 +548,6 @@ footer {
     cursor: pointer;
 }
 
-.artist-card:nth-child(n + 4) {
-    display: none;
-}
-
 #all-artists .artist-card {
     display: block;
 }
@@ -563,8 +559,9 @@ footer {
 .photocards {
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: center;
     flex-wrap: wrap;
+    row-gap: 20px;
 }
 
 .card {

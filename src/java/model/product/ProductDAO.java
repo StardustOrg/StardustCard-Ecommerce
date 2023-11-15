@@ -188,7 +188,42 @@ public class ProductDAO implements DAO<Product> {
         return productList;
     }
 
-    public List<Product> getAllInStock(long notId) {
+    public List<Product> getAllInStock(long artistId) {
+        List<Product> productList = new ArrayList<>();
+
+        try {
+            Class.forName(Config.JDBC_DRIVER);
+            Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
+
+            // Use a subquery to filter products associated with the specified artistId
+            String query = "SELECT * FROM product WHERE id IN (SELECT product_id FROM product_artist WHERE artist_id = ?) AND amount > 0";
+            PreparedStatement ps = c.prepareStatement(query);
+            ps.setLong(1, artistId);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                long id = rs.getLong("id");
+                String description = rs.getString("description");
+                int amount = rs.getInt("amount");
+                String picture = rs.getString("picture_path");
+                double price = rs.getDouble("price");
+
+                Product product = new Product(id, description, amount, picture, price, null);
+                productList.add(product);
+            }
+
+            rs.close();
+            ps.close();
+            c.close();
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            ex.printStackTrace();
+        }
+        return productList;
+    }
+
+    public List<Product> getRecommended(long notId) {
         List<Product> productList = new ArrayList<>();
 
         try {
@@ -212,6 +247,41 @@ public class ProductDAO implements DAO<Product> {
                 productList.add(product);
             }
             // Fechar recursos
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            ex.printStackTrace();
+        }
+        return productList;
+    }
+
+    public List<Product> getAllFromArtist(long artistId) {
+        List<Product> productList = new ArrayList<>();
+
+        try {
+            Class.forName(Config.JDBC_DRIVER);
+            Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
+
+            // Use a subquery to filter products associated with the specified artistId
+            String query = "SELECT * FROM product WHERE id IN (SELECT product_id FROM product_artist WHERE artist_id = ?)";
+            PreparedStatement ps = c.prepareStatement(query);
+            ps.setLong(1, artistId);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                long id = rs.getLong("id");
+                String description = rs.getString("description");
+                int amount = rs.getInt("amount");
+                String picture = rs.getString("picture_path");
+                double price = rs.getDouble("price");
+
+                Product product = new Product(id, description, amount, picture, price, null);
+                productList.add(product);
+            }
+
+            rs.close();
+            ps.close();
+            c.close();
 
         } catch (ClassNotFoundException | SQLException ex) {
             ex.printStackTrace();
@@ -294,6 +364,44 @@ public class ProductDAO implements DAO<Product> {
 
         } catch (ClassNotFoundException | SQLException ex) {
             // Trate a exceção de forma apropriada para o seu aplicativo
+            ex.printStackTrace();
+        }
+        return productList;
+    }
+
+    public List<Product> getAllLastUnits(long artistId) {
+        List<Product> productList = new ArrayList<>();
+
+        try {
+            Class.forName(Config.JDBC_DRIVER);
+            Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
+
+            // Use a subquery to filter products associated with the specified artistId
+            String query = "SELECT id, description, amount, picture_path, price "
+                    + "FROM product "
+                    + "WHERE id IN (SELECT product_id FROM product_artist WHERE artist_id = ?) "
+                    + "AND amount <= 5 AND amount > 0";
+            PreparedStatement ps = c.prepareStatement(query);
+            ps.setLong(1, artistId);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                long id = rs.getLong("id");
+                String description = rs.getString("description");
+                int amount = rs.getInt("amount");
+                String picture = rs.getString("picture_path");
+                double price = rs.getDouble("price");
+
+                Product product = new Product(id, description, amount, picture, price, null);
+                productList.add(product);
+            }
+
+            rs.close();
+            ps.close();
+            c.close();
+
+        } catch (ClassNotFoundException | SQLException ex) {
             ex.printStackTrace();
         }
         return productList;

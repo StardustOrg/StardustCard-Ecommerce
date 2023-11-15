@@ -36,7 +36,7 @@ public class ProductPageServlet extends HttpServlet {
         // list of recently added or modified products
         List<Product> newAdds = new ArrayList();
         try {
-            newAdds = productDAO.getAllInStock(id);
+            newAdds = productDAO.getRecommended(id);
             Collections.reverse(newAdds);
         } catch (Exception ex) {
         }

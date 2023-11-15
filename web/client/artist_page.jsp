@@ -4,11 +4,23 @@
     Author     : Yanna
 --%>
 
+<%@page import="model.product.Product"%>
+<%@page import="controller.product.RandomSequenceGenerator"%>
 <%@page import="java.util.List"%>
 <%@page import="model.artist.Artist"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     boolean group = (boolean) request.getAttribute("group");
+    List<Product> lastUnits = (List<Product>) request.getAttribute("lastUnits");
+    List<Product> newAdds = (List<Product>) request.getAttribute("newAdds");
+    List<Product> completeCollection = (List<Product>) request.getAttribute("completeCollection");
+
+    boolean hasPhotocards = true;
+
+    if (completeCollection.size() == 0) {
+        hasPhotocards = false;
+    }
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +51,7 @@
                         for (int i = 0; i < artistList.size(); i++) {
                             Artist member = artistList.get(i);
                     %>
-                    <a href="<%= artist.getName()%>/<%= member.getName()%>">
+                    <a href="<%= artist.getName()%>/<%= member.getName()%>" style="width: 155px;">
                         <div class="artist-card">
                             <div class="artist-image">
                                 <img src="<%= member.getIcon()%>" />
@@ -55,41 +67,90 @@
                 </div>
             </div>
             <%
-            }
+                }
+                if (hasPhotocards) {
+                    if (lastUnits.size() != 0) {
             %>
             <div class="bundles" id="last-units">
                 <h2>last units</h2>
                 <div class="photocards">
                     <%
-                        for (int i = 0; i < 5; i++) {
+                        int j = 6;
+                        if (lastUnits.size() < 6) {
+                            j = lastUnits.size();
+                        }
+                        for (int i = 0; i < j; i++) {
+                            String uri = RandomSequenceGenerator.generateRandomSequence(15);
+                            Product product = lastUnits.get(i);
                     %>
-                    <div class="card">
-                        <div id="photo">
-                            <img src="" alt="Avatar">
+                    <form id="formLU_<%= i%>" method="POST" action="${pageContext.request.contextPath}/Artists/Product/<%= uri%>" class="photocard-form">
+                        <input type="hidden" name="productId" value="<%= product.getId()%>">
+                        <div class="card" onclick="submitForm('formLU_<%= i%>')">
+                            <div id="photo">
+                                <img src="<%= product.getPicture()%>" alt="Avatar">
+                            </div>
+                            <div class="card-title"><%= product.getDescription()%></div>
+                            <div class="card-detail"><%= product.getAmount()%> units left</div>
                         </div>
-                        <div class="card-title">BTS Proof RM Photocard</div>
-                        <div class="card-detail">5 units left</div>
-                    </div>
+                    </form>
                     <%                            }
                     %>
                 </div>
             </div>
+            <%                            }
+            %>
             <div class="bundles" id="new-additions">
                 <h2>new additions</h2>
                 <div class="photocards">
                     <%
-                        for (int i = 0; i < 5; i++) {
+                        int k = 6;
+                        if (newAdds.size() < 6) {
+                            k = newAdds.size();
+                        }
+                        for (int i = 0; i < k; i++) {
+                            String uri = RandomSequenceGenerator.generateRandomSequence(15);
+                            Product product = newAdds.get(i);
                     %>
-                    <div class="card">
-                        <div id="photo">
-                            <img src="" alt="Avatar">
+                    <form id="formNA_<%= i%>" method="POST" action="${pageContext.request.contextPath}/Artists/Product/<%= uri%>" class="photocard-form">
+                        <input type="hidden" name="productId" value="<%= product.getId()%>">
+                        <div class="card" onclick="submitForm('formNA_<%= i%>')">
+                            <div id="photo">
+                                <img src="<%= product.getPicture()%>" alt="Avatar">
+                            </div>
+                            <div class="card-title"><%= product.getDescription()%></div>
                         </div>
-                        <div class="card-title">Taste of Love Version 03 Nayeon</div>
-                    </div>
+                    </form>
                     <%                            }
                     %>  
                 </div>
             </div>
+            <div class="bundles" id="all-photocards">
+                <h2>complete collection</h2>
+                <div class="photocards">
+                    <%
+                        for (int i = 0; i < completeCollection.size(); i++) {
+                            String uri = RandomSequenceGenerator.generateRandomSequence(15);
+                            Product product = completeCollection.get(i);
+                    %>
+                    <form id="formAC_<%= i%>" method="POST" action="${pageContext.request.contextPath}/Artists/Product/<%= uri%>" class="photocard-form">
+                        <input type="hidden" name="productId" value="<%= product.getId()%>">
+                        <div class="card" onclick="submitForm('formAC_<%= i%>')">
+                            <div id="photo">
+                                <img src="<%= product.getPicture()%>" alt="Avatar">
+                            </div>
+                            <div class="card-title"><%= product.getDescription()%></div>
+                        </div>
+                    </form>
+                    <%                            }
+                    %>  
+                </div>
+            </div>
+            <%
+            } else {
+            %>
+            <div class="slide_title" style="margin: 0; margin-top: 10%; margin-bottom: 10%;    text-align: center;">No photocards available here ;-;</div>
+            <%                            }
+            %>  
         </div>
 
 

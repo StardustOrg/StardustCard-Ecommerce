@@ -4,6 +4,8 @@
     Author     : Yanna
 --%>
 
+<%@page import="model.product.Product"%>
+<%@page import="controller.product.RandomSequenceGenerator"%>
 <%@page import="java.util.List"%>
 <%@page import="model.artist.Artist"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -25,7 +27,7 @@
                     <%                        for (int i = 0; i < artistList.size(); i++) {
                             Artist artist = artistList.get(i);
                     %>
-                    <a href="Artists/<%= artist.getName()%>">
+                    <a href="Artists/<%= artist.getName()%>" style="width: 155px;">
                         <div class="artist-card">
                             <div class="artist-image">
                                 <img src="<%= artist.getIcon()%>" />
@@ -43,24 +45,40 @@
             <%
                 for (int i = 0; i < artistList.size(); i++) {
                     Artist artist = artistList.get(i);
+
+                    List<Product> artistProduct = (List<Product>) request.getAttribute(artist.getName());
+
+                    if (artistProduct != null && artistProduct.size() != 0) {
             %>
             <div class="bundles" id="<%= artist.getName()%>">
                 <h2><%= artist.getName()%></h2>
                 <div class="photocards">
                     <%
-                        for (int j = 0; j < 5; j++) {
+                        int k = 6;
+
+                        if (artistProduct.size() < 6) {
+                            k = artistProduct.size();
+                        }
+
+                        for (int j = 0; j < k; j++) {
+                            String uri = RandomSequenceGenerator.generateRandomSequence(15);
+                            Product product = artistProduct.get(j);
                     %>
-                    <div class="card">
-                        <div id="photo">
-                            <img src="" alt="Avatar">
+                    <form id="form<%= artist.getName()%>_<%= i%>" method="POST" action="${pageContext.request.contextPath}/Artists/Product/<%= uri%>" class="photocard-form">
+                        <input type="hidden" name="productId" value="<%= product.getId() %>">
+                        <div class="card" onclick="submitForm('form<%= artist.getName()%>_<%= i%>')">
+                            <div id="photo">
+                                <img src="<%= product.getPicture()%>" alt="Avatar">
+                            </div>
+                            <div class="card-title"><%= product.getDescription()%></div>
                         </div>
-                        <div class="card-title"><%= j%></div>
-                    </div>
+                    </form>
                     <%                            }
                     %>
                 </div>
             </div>
             <%                            }
+                }
             %>
         </div>
         <%@include file="./components/footer.jsp" %>
