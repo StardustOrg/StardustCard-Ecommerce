@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.user.User;
+import model.user.UserDAO;
 
 /**
  *
@@ -25,10 +26,39 @@ public class AdminUserServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         User user = (User) session.getAttribute("stardust_user");
         if (user != null && user.isAdmin()) {
+            UserDAO userDAO = new UserDAO();
+            User admin = userDAO.getOne(user.getLogin());
+            request.setAttribute("admin", admin);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/user.jsp");
             dispatcher.forward(request, response);
         } else {
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "Don't have access");
         }
     }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(true);
+        User user = (User) session.getAttribute("stardust_user");
+
+        if (user != null && user.isAdmin()) {
+            String name = request.getParameter("name");
+            String login = request.getParameter("login");
+            String email = request.getParameter("email");
+            String address = request.getParameter("address");
+            Long id = Long.parseLong(request.getParameter("id"));
+
+            UserDAO userDao = new UserDAO();
+
+            boolean update = userDao.update(new User(id, login, null, email, true, address, name));
+            response.getWriter().append("msg: " + update);
+
+            if (update) {
+                response.sendRedirect("User");
+            }
+        } else {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Don't have access");
+        }
+    }
+
 }
