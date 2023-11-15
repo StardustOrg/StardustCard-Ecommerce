@@ -4,6 +4,7 @@
     Author     : joaov
 --%>
 
+<%@page import="model.artist.Artist"%>
 <%@page import="java.util.List"%>
 <%@page import="model.product.Product"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -61,39 +62,39 @@
                                         </div>
 
                                         <div class="add-photocard-form">
-                                            <form action="" method="POST">
+                                            <form action="<%=request.getContextPath()%>/Admin/Photocards" method="POST">
                                                 <h4 class="photocard-input-title">Photocard name</h4>
-                                                <input class="photocard-input" type="text" id="photocard-name"
+                                                <input class="photocard-input" type="text" id="photocard-name" name="photocard-name"
                                                        placeholder="Photocard name" />
 
                                                 <h4 class="photocard-input-title">Artist name</h4>
-                                                <div class="checkbox-container">
-                                                    <label><input type="checkbox" name="artist" value="artist1"> Artist 1</label><br>
-                                                    <label><input type="checkbox" name="artist" value="artist2"> Artist 2</label><br>
-                                                    <label><input type="checkbox" name="artist" value="artist3"> Artist 3</label><br>
-                                                    <label><input type="checkbox" name="artist" value="artist4"> Artist 4</label><br>
-                                                    <label><input type="checkbox" name="artist" value="artist5"> Artist 5</label><br>
+                                                <div class="checkbox-container"> 
+                                                    <% List<Artist> artists = (List<Artist>) request.getAttribute("artists"); %>
+                                                    <%for (Artist artist : artists) {%>                                                 
+                                                    <label><input type="checkbox" name="artists" value="<%= artist.getId()%>"><%= artist.getName()%></label><br>
+                                                    <%}%>
                                                 </div>
 
                                                 <h4 class="photocard-input-title" style="padding-left: 100px">Image URL</h4>
-                                                <input class="photocard-input" type="text" id="photocard-url"
+                                                <input class="photocard-input" type="text" id="photocard-url" name="photocard-url"
                                                        placeholder="Photocard's image URL" 
                                                        style="margin-left: 176px"/>
 
                                                 <div class="unit-price" style="margin-left: 175px;">
                                                     <div>
                                                         <h4 class="photocard-input-title">Units</h4>
-                                                        <input class="photocard-input" type="number" id="photocard-units"
+                                                        <input class="photocard-input" type="number" id="photocard-units" name="photocard-units"
                                                                placeholder="00" />
                                                     </div>
 
                                                     <div>
                                                         <h4 class="photocard-input-title">Price</h4>
-                                                        <input class="photocard-input" type="number" id="photocard-price"
+                                                        <input class="photocard-input" type="number" id="photocard-price" name="photocard-price"
                                                                placeholder="00" />
                                                     </div>
 
                                                 </div>
+                                                <button class="btn" onclick="registerPhotocard()">Save</button>
 
 
                                             </form>
@@ -105,7 +106,6 @@
                                     </div>
 
                                 </div>
-                                <button class="btn">Save</button>
                             </section>
 
                             <div class="single-product">

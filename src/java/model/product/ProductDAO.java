@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import model.DAO;
 import model.artist.Artist;
+import java.sql.Statement;
+
 
 /**
  *
@@ -23,24 +25,46 @@ public class ProductDAO implements DAO<Product> {
         try {
             Class.forName(Config.JDBC_DRIVER);
             Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
-            PreparedStatement ps = c.prepareStatement("INSERT INTO product (description, amount, picture_path, price) VALUES (?, ?, ?, ?)");
+            c.setAutoCommit(false); // Desativar o commit automático
+
+            PreparedStatement ps = c.prepareStatement("INSERT INTO product (description, amount, picture_path, price) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 
             ps.setString(1, t.getDescription());
             ps.setInt(2, t.getAmount());
             ps.setString(3, t.getPicture());
             ps.setDouble(4, t.getPrice());
-            
+
             int rowsAffected = ps.executeUpdate();
-                        
+            if (rowsAffected > 0) {
+                ResultSet generatedKeys = ps.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    long productId = generatedKeys.getLong(1);
+                    List<Artist> artists = t.getArtists();
+                    String query = "INSERT INTO product_artist (product_id, artist_id) VALUES (?, ?)";
+                    PreparedStatement psProductArtist = c.prepareStatement(query);
+
+                    for (Artist artist : artists) {
+                        psProductArtist.setLong(1, productId);
+                        psProductArtist.setLong(2, artist.getId());
+                        psProductArtist.addBatch(); // Adicionar a inserção do relacionamento à batch
+                    }
+
+                    psProductArtist.executeBatch(); // Executar a batch de inserção dos relacionamentos
+                    psProductArtist.close();
+                }
+                generatedKeys.close();
+                c.commit(); // Realizar commit da transação
+            }
+
             ps.close();
             c.close();
-
             return rowsAffected > 0;
+
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex);
-            return false;
         }
 
+        return false;
     }
 
     //adicionar forma de pegar o array de artistas
