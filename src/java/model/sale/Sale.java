@@ -5,6 +5,7 @@
 package model.sale;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import model.product.Product;
 
@@ -23,6 +24,8 @@ public class Sale {
         this.id = id;
         this.date = date;
         this.userId = userId;
+        convertDate (this.date);
+        
     }
 
     public long getId() {
@@ -56,5 +59,9 @@ public class Sale {
     public void setProduct(List<Product> product) {
         this.product = product;
     }
+    
+    public Date convertDate(LocalDateTime dateToConvert) {
+       return java.sql.Timestamp.valueOf(dateToConvert);
+}
     
 }

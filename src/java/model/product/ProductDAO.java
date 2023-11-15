@@ -23,23 +23,37 @@ public class ProductDAO implements DAO<Product> {
         try {
             Class.forName(Config.JDBC_DRIVER);
             Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
-            PreparedStatement ps = c.prepareStatement("INSERT INTO product (description, amount, picture_path, price) VALUES (?, ?, ?, ?)");
+            PreparedStatement ps = c.prepareStatement("INSERT INTO product (description, amount, "
+                    + "picture_path, price) VALUES (?, ?, ?, ?)");
 
             ps.setString(1, t.getDescription());
             ps.setInt(2, t.getAmount());
             ps.setString(3, t.getPicture());
             ps.setDouble(4, t.getPrice());
 
-            int rowsAffected = ps.executeUpdate();
 
+            List<Artist> artists = t.getArtists();
+            String query = "INSERT INTO product_artist (product_id, artist_id) VALUES (?, ?)";
+            PreparedStatement psProductArtist = c.prepareStatement(query);
+            
+            
+            psProductArtist.setLong(1, t.getId());            
+            for (Artist artist : artists) {
+            psProductArtist.setLong(2, artist.getId());
+            }
+            
             ps.close();
+            psProductArtist.close();
             c.close();
-
+            
+            int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
+            
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex);
-            return false;
         }
+        
+            return false;
 
     }
 
