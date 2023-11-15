@@ -217,14 +217,21 @@ public class ProductDAO implements DAO<Product> {
         try {
             Class.forName(Config.JDBC_DRIVER);
             Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
-            PreparedStatement ps = c.prepareStatement("UPDATE product "
-                    + "SET description = ?, amount = ?, picture_path = ?, "
+            PreparedStatement ps = c.prepareStatement("UPDATE product SET description = ?, amount = ?, picture_path = ?,"
                     + "price = ? WHERE id = ?");
 
             ps.setString(1, t.getDescription());
             ps.setInt(2, t.getAmount());
             ps.setString(3, t.getPicture());
             ps.setDouble(4, t.getPrice());
+            
+            List<Artist> artists = t.getArtists();
+            String query = "UPDATE product_artist SET artist_id= ?";
+            PreparedStatement psProductArtist = c.prepareStatement(query);
+            
+            for (Artist artist : artists) {
+            psProductArtist.setLong(1, artist.getId());
+            }
 
             int rowsAffected = ps.executeUpdate();
 
@@ -232,6 +239,7 @@ public class ProductDAO implements DAO<Product> {
             c.close();
 
             return rowsAffected > 0;
+
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex);
             return false;
