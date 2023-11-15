@@ -14,43 +14,56 @@
         <!-- Sidebar -->
         <%request.setAttribute("activePage", "");%>
         <%@include file="./components/sidebar.jsp" %>
-
         <!-- Content Page -->
         <div class="content">
             <!-- Message -->
-            <%User user = (User) session.getAttribute("stardust_user");%>
+            <%User user = (User) request.getAttribute("admin");%>
             <%request.setAttribute("title", user.getName());%>
             <%request.setAttribute("subtitle", "Let's check your data.");%>
             <%@include file="./components/message.jsp" %>
-            
+
             <!-- Content -->
             <main>
                 <div class="user-data">
-                    <form>
+                    <form id="userForm" action="<%=request.getContextPath()%>/Admin/User" method="POST">
                         <div class="user-container">
-                            <div class="image-container">
-                                <img class="user-image" src="./assets/user.jpg" alt="">
-                                <div class="upload-button">
-                                    <label for="file-upload">
-                                        <i class="fa fa-upload"></i> Upload Image
-                                    </label>
-                                    <input type="file" id="file-upload" style="display:none;">
-                                </div>
+                            <!-- User info -->
+                            <div class="user-info" style="margin-bottom: 0; margin-top: 0">
+                                <img src="${pageContext.request.contextPath}/admin/assets/user.png" alt="Foto do Usuário">
+                                <h5>Stardust Manager</h5>
                             </div>
-                       
                             <div class="group-data-user">
-                                <label>Name:</label>
-                                <input type="text" name="name" id="name" placeholder="Name" value="<%=user.getName()%>">
-                                <label>Login:</label>
-                                <input type="email" name="email" id="email" placeholder="Email" value="<%=user.getEmail()%>">
-                                <label>Password:</label>
-                                <input type="password" name="password" id="password" placeholder="Password" value="<%=user.getPassword()%>">
-                                <button>Save</button>
-                            </div>
+                                <input type="hidden" name="id" id="id" value="<%=user.getId()%>">
+                                <label style="margin-left: 36px">Name:</label>
+                                <input type="text" name="name" id="name" placeholder="First and last name" value="<%=user.getName()%>">
+                                <label style="margin-left: 36px">Address:</label>
+                                <input type="text" name="address" id="address" placeholder="Your address" value="<%=user.getAddress()%>">
+                                <label style="margin-left: 36px">Email:</label>
+                                <input type="email" name="email" id="email" placeholder="Your email" value="<%=user.getEmail()%>">
+                                <label style="margin-left: 36px">Login:</label>
+                                <input type="text" name="login" id="login" placeholder="At least 6 characters" value="<%=user.getLogin()%>">
 
+                                <%int qtdAdmin = (int) request.getAttribute("qtdAdmin");%>
+                                <button class="btn" >Update</button>
+                                <%if (qtdAdmin > 1) {%>
+                                <button class="btn" style="background: #CC224B;" onclick="onDelete();">Delete</button>
+                                <%}%>
+
+                            </div>
+                            <script>
+                                function onDelete() {
+                                    console.log("onDelete function called");
+                                    var confirmed = confirm("Tem certeza que deseja excluir este artista?");
+                                    if (confirmed) {
+                                        document.getElementById("userForm").action = '${pageContext.request.contextPath}/Admin/DeleteUser';
+                                        document.getElementById("userForm").submit();
+                                    } else {
+                                        alert("Exclusão cancelada");
+                                    }
+                                }
+                            </script>
                         </div>
                     </form>
-
                 </div>
             </main>
         </div>

@@ -117,7 +117,7 @@ public class UserDAO implements DAO<User> {
                 String address = rs.getString("address");
                 String name = rs.getString("name");
 
-                user = new User(id, login, email, admin, address, name);
+                user = new User(id, login, password, email, admin, address, name);
             }
 
             rs.close();
@@ -140,19 +140,16 @@ public class UserDAO implements DAO<User> {
     public boolean update(User t) {
         try {
             Class.forName(Config.JDBC_DRIVER);
-            Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
-            PreparedStatement ps = c.prepareStatement("UPDATE stardust_user SET email=?, address=?, name=? WHERE id=?");
-            ps.setString(1, t.getEmail());
-            ps.setString(2, t.getAddress());
-            ps.setString(3, t.getName());
-            ps.setLong(4, t.getId());
+            try (Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD); PreparedStatement ps = c.prepareStatement("UPDATE stardust_user SET email=?, address=?, name=? WHERE id=?")) {
 
-            int rowsAffected = ps.executeUpdate();
+                ps.setString(1, t.getEmail());
+                ps.setString(2, t.getAddress());
+                ps.setString(3, t.getName());
+                ps.setLong(4, t.getId());
 
-            ps.close();
-            c.close();
-
-            return rowsAffected > 0;
+                int rowsAffected = ps.executeUpdate();
+                return rowsAffected > 0;
+            }
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex);
             return false;
@@ -177,6 +174,29 @@ public class UserDAO implements DAO<User> {
             System.out.println(ex);
             return false;
         }
+    }
+
+    public int countAdminUsers() {
+        int adminCount = 0;
+        try {
+            Class.forName(Config.JDBC_DRIVER);
+            Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
+            PreparedStatement ps = c.prepareStatement("SELECT COUNT(*) AS admin_count FROM stardust_user WHERE admin = ?");
+            ps.setBoolean(1, true); // Filtro para usuários com permissão de administração
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                adminCount = rs.getInt("admin_count");
+            }
+
+            rs.close();
+            ps.close();
+            c.close();
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
+        }
+        return adminCount;
     }
 
 }
