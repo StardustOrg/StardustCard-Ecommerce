@@ -176,4 +176,27 @@ public class UserDAO implements DAO<User> {
         }
     }
 
+    public int countAdminUsers() {
+        int adminCount = 0;
+        try {
+            Class.forName(Config.JDBC_DRIVER);
+            Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
+            PreparedStatement ps = c.prepareStatement("SELECT COUNT(*) AS admin_count FROM stardust_user WHERE admin = ?");
+            ps.setBoolean(1, true); // Filtro para usuários com permissão de administração
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                adminCount = rs.getInt("admin_count");
+            }
+
+            rs.close();
+            ps.close();
+            c.close();
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
+        }
+        return adminCount;
+    }
+
 }

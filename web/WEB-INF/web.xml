@@ -46,7 +46,7 @@
     </servlet>
     <servlet>
         <servlet-name>AdminUserServlet</servlet-name>
-        <servlet-class>controller.admin.AdminUserServlet</servlet-class>
+        <servlet-class>controller.admin.user.AdminUserServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Teste</servlet-name>
@@ -71,6 +71,10 @@
     <servlet>
         <servlet-name>DeleteArtistServlet</servlet-name>
         <servlet-class>controller.admin.artist.DeleteArtistServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteUserServlet</servlet-name>
+        <servlet-class>controller.admin.user.DeleteUserServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -147,6 +151,10 @@
     <servlet-mapping>
         <servlet-name>DeleteArtistServlet</servlet-name>
         <url-pattern>/Admin/DeleteArtist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteUserServlet</servlet-name>
+        <url-pattern>/Admin/DeleteUser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

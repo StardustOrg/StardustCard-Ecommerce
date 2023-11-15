@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.admin;
+package controller.admin.user;
 
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -28,7 +28,9 @@ public class AdminUserServlet extends HttpServlet {
         if (user != null && user.isAdmin()) {
             UserDAO userDAO = new UserDAO();
             User admin = userDAO.getOne(user.getLogin());
+            int qtdAdmin =  userDAO.countAdminUsers();
             request.setAttribute("admin", admin);
+            request.setAttribute("qtdAdmin", qtdAdmin);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/user.jsp");
             dispatcher.forward(request, response);
         } else {
