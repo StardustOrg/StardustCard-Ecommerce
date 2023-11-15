@@ -4,6 +4,7 @@
     Author     : Yanna
 --%>
 
+<%@page import="controller.product.RandomSequenceGenerator"%>
 <%@page import="java.util.List"%>
 <%@page import="model.artist.Artist"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -25,7 +26,7 @@
                     <%                        for (int i = 0; i < artistList.size(); i++) {
                             Artist artist = artistList.get(i);
                     %>
-                    <a href="Artists/<%= artist.getName()%>">
+                    <a href="Artists/<%= artist.getName()%>" style="width: 155px;">
                         <div class="artist-card">
                             <div class="artist-image">
                                 <img src="<%= artist.getIcon()%>" />
@@ -48,14 +49,18 @@
                 <h2><%= artist.getName()%></h2>
                 <div class="photocards">
                     <%
-                        for (int j = 0; j < 5; j++) {
+                        for (int j = 0; j < 6; j++) {
+                            String uri = RandomSequenceGenerator.generateRandomSequence(15);
                     %>
-                    <div class="card">
-                        <div id="photo">
-                            <img src="" alt="Avatar">
+                    <form id="form<%= artist.getName()%>_<%= i%>" method="POST" action="${pageContext.request.contextPath}/Artists/Product/<%= uri%>" class="photocard-form">
+                        <input type="hidden" name="productId" value="">
+                        <div class="card">
+                            <div id="photo">
+                                <img src="" alt="Avatar">
+                            </div>
+                            <div class="card-title"><%= j%></div>
                         </div>
-                        <div class="card-title"><%= j%></div>
-                    </div>
+                    </form>
                     <%                            }
                     %>
                 </div>
