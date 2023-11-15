@@ -860,3 +860,11 @@ canvas {
     color: var(--main);
     cursor: pointer;
 }
+
+.checkbox-container {
+    max-height: 95px; /* Altura máxima do contêiner */
+    overflow-y: auto; /* Adiciona barra de rolagem vertical quando necessário */
+    border: 1px solid #ccc; /* Apenas para visualização */
+    padding: 5px;
+    margin-bottom: 20px;
+}

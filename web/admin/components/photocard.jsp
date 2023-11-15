@@ -4,25 +4,24 @@
     Author     : joaov
 --%>
 
+<%@page import="model.product.Product"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.Map" %>
 
 <%
-    String photocardName = (String) request.getAttribute("photocardName");
-    Integer photocardUnits = (Integer) request.getAttribute("photocardUnits");
-    String photocardPath = (String) request.getAttribute("photocardPath");
+    Product photocard = (Product) request.getAttribute("photocard");
 %>
 
 <div class="column-container">
     <div class="single-product">
         <div class="part-1">
             <button onclick="myFunction()" class="edit"> Edit </button>
-            <img src="<%=photocardPath%>" class="photocard-img" />
+            <img src="<%=photocard.getPicture()%>" class="photocard-img" />
         </div>
         <div class="part-2">
-            <h3 class="product-title"><%=photocardName%></h3>
+            <h3 class="product-title"><%=photocard.getDescription()%></h3>
             <div class="part-2-2">
-                <h5 class="product-units"><%=photocardUnits%> units</h5>
+                <h5 class="product-units"><%=photocard.getAmount()%> units</h5>
                 <button class="product-add-more">Add more</button>
             </div>
 

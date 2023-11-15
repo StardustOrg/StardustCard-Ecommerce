@@ -75,7 +75,7 @@
                                                  justify-content: end;
                                                  width: 435px;
                                                  margin-left: 175px;">
-                                                <select class="photocard-input" id="group-dropdown" style="height: 30px; width: 100%">
+                                                <select class="photocard-input" id="group-dropdown" name="group-id" style="height: 30px; width: 100%">
                                                     <!-- Opções do grupo aqui -->
                                                     <option value="null" name="group-id">No-group</option>
                                                     <%for (Artist artist : artists) {%>

@@ -29,9 +29,9 @@ public class ProductDAO implements DAO<Product> {
             ps.setInt(2, t.getAmount());
             ps.setString(3, t.getPicture());
             ps.setDouble(4, t.getPrice());
-
+            
             int rowsAffected = ps.executeUpdate();
-
+                        
             ps.close();
             c.close();
 
