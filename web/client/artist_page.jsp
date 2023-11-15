@@ -4,6 +4,7 @@
     Author     : Yanna
 --%>
 
+<%@page import="model.product.Product"%>
 <%@page import="controller.product.RandomSequenceGenerator"%>
 <%@page import="java.util.List"%>
 <%@page import="model.artist.Artist"%>
@@ -62,17 +63,24 @@
                 <h2>last units</h2>
                 <div class="photocards">
                     <%
-                        for (int i = 0; i < 6; i++) {
+                        List<Product> lastUnits = (List<Product>) request.getAttribute("lastUnits");
+
+                        int j = 6;
+                        if (lastUnits.size() < 6) {
+                            j = lastUnits.size();
+                        }
+                        for (int i = 0; i < j; i++) {
                             String uri = RandomSequenceGenerator.generateRandomSequence(15);
+                            Product product = lastUnits.get(i);
                     %>
                     <form id="formLU_<%= i%>" method="POST" action="${pageContext.request.contextPath}/Artists/Product/<%= uri%>" class="photocard-form">
-                        <input type="hidden" name="productId" value="">
-                        <div class="card">
+                        <input type="hidden" name="productId" value="<%= product.getId()%>">
+                        <div class="card" onclick="submitForm('formLU_<%= i%>')">
                             <div id="photo">
-                                <img src="" alt="Avatar">
+                                <img src="<%= product.getPicture()%>" alt="Avatar">
                             </div>
-                            <div class="card-title">BTS Proof RM Photocard</div>
-                            <div class="card-detail">5 units left</div>
+                            <div class="card-title"><%= product.getDescription()%></div>
+                            <div class="card-detail"><%= product.getAmount()%> units left</div>
                         </div>
                     </form>
                     <%                            }
@@ -83,16 +91,23 @@
                 <h2>new additions</h2>
                 <div class="photocards">
                     <%
-                        for (int i = 0; i < 6; i++) {
+                        List<Product> newAdds = (List<Product>) request.getAttribute("newAdds");
+
+                        int k = 6;
+                        if (newAdds.size() < 6) {
+                            k = newAdds.size();
+                        }
+                        for (int i = 0; i < k; i++) {
                             String uri = RandomSequenceGenerator.generateRandomSequence(15);
+                            Product product = newAdds.get(i);
                     %>
                     <form id="formNA_<%= i%>" method="POST" action="${pageContext.request.contextPath}/Artists/Product/<%= uri%>" class="photocard-form">
-                        <input type="hidden" name="productId" value="">
+                        <input type="hidden" name="productId" value="<%= product.getId()%>">
                         <div class="card" onclick="submitForm('formNA_<%= i%>')">
                             <div id="photo">
-                                <img src="" alt="Avatar">
+                                <img src="<%= product.getPicture()%>" alt="Avatar">
                             </div>
-                            <div class="card-title">Taste of Love Version 03 Nayeon</div>
+                            <div class="card-title"><%= product.getDescription()%></div>
                         </div>
                     </form>
                     <%                            }
@@ -103,16 +118,19 @@
                 <h2>complete collection</h2>
                 <div class="photocards">
                     <%
-                        for (int i = 0; i < 6; i++) {
+                        List<Product> completeCollection = (List<Product>) request.getAttribute("completeCollection");
+
+                        for (int i = 0; i < completeCollection.size(); i++) {
                             String uri = RandomSequenceGenerator.generateRandomSequence(15);
+                            Product product = completeCollection.get(i);
                     %>
                     <form id="formAC_<%= i%>" method="POST" action="${pageContext.request.contextPath}/Artists/Product/<%= uri%>" class="photocard-form">
-                        <input type="hidden" name="productId" value="">
+                        <input type="hidden" name="productId" value="<%= product.getId()%>">
                         <div class="card" onclick="submitForm('formAC_<%= i%>')">
                             <div id="photo">
-                                <img src="" alt="Avatar">
+                                <img src="<%= product.getPicture()%>" alt="Avatar">
                             </div>
-                            <div class="card-title">Taste of Love Version 03 Nayeon</div>
+                            <div class="card-title"><%= product.getDescription()%></div>
                         </div>
                     </form>
                     <%                            }
