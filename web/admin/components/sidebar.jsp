@@ -13,7 +13,7 @@
         <!-- User info -->
         <div class="user-info">
             <a class="link-img" href="/StardustCard-Ecommerce/Admin/User">
-                <img src="${pageContext.request.contextPath}/admin/assets/user.jpg" alt="Foto do Usuário">
+                <img src="${pageContext.request.contextPath}/admin/assets/user.png" alt="Foto do Usuário">
                 <h4><%=adminUser.getName()%></h4>
                 <h5>Stardust Manager</h5>
             </a>
@@ -52,7 +52,7 @@
     </div>
     <%-- LogOUt --%>
     <nav>      
-        <a href="${pageContext.request.contextPath}/LogOut" style="border: 0;" id="logout">
+        <a href="${pageContext.request.contextPath}/LogOut" style="border: 0; justify-content: center" id="logout">
             <span class="material-symbols-outlined small">
                 logout
             </span>

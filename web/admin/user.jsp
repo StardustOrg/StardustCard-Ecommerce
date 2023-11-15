@@ -27,16 +27,11 @@
                 <div class="user-data">
                     <form id="userForm" action="<%=request.getContextPath()%>/Admin/User" method="POST">
                         <div class="user-container">
-                            <div class="image-container">
-                                <img class="user-image" src="./assets/user.jpg" alt="">
-                                <div class="upload-button">
-                                    <label for="file-upload">
-                                        <i class="fa fa-upload"></i> Upload Image
-                                    </label>
-                                    <input type="file" id="file-upload" style="display:none;">
-                                </div>
+                            <!-- User info -->
+                            <div class="user-info" style="margin-bottom: 0; margin-top: 0">
+                                <img src="${pageContext.request.contextPath}/admin/assets/user.png" alt="Foto do Usuário">
+                                <h5>Stardust Manager</h5>
                             </div>
-
                             <div class="group-data-user">
                                 <input type="hidden" name="id" id="id" value="<%=user.getId()%>">
                                 <label style="margin-left: 36px">Name:</label>
