@@ -14,7 +14,6 @@
         <!-- Sidebar -->
         <%request.setAttribute("activePage", "");%>
         <%@include file="./components/sidebar.jsp" %>
-
         <!-- Content Page -->
         <div class="content">
             <!-- Message -->
