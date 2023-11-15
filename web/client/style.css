@@ -450,9 +450,9 @@ footer {
 
 .carrousel {
     display: flex;
-    /*gap: 56px;*/
     transition: transform 0.3s ease;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    width: max-content;
 }
 
 
@@ -546,10 +546,6 @@ footer {
 .artist-card:hover .overlay {
     opacity: 1;
     cursor: pointer;
-}
-
-.artist-card:nth-child(n + 4) {
-    display: none;
 }
 
 #all-artists .artist-card {

@@ -3,33 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/src/java/controller/client/ClientHomeServlet.java</file>
             <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/web/client/home.jsp</file>
-            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/src/java/model/user/User.java</file>
-            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/web/WEB-INF/web.xml</file>
-            <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/web/admin/artists.jsp</file>
-            <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/web/error/404.jsp</file>
-            <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/src/java/controller/access/LogOutServlet.java</file>
-            <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/web/index.jsp</file>
-            <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/web/client/product_page.jsp</file>
             <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/src/java/model/product/ProductDAO.java</file>
-            <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/src/java/model/product/Product.java</file>
             <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/web/client/style.css</file>
             <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/web/index.jsp</file>
             <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/web/client/artist_page.jsp</file>
-            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/src/java/controller/admin/ArtistsServlet.java</file>
-            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/web/admin/style.css</file>
-            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/web/admin/components/sidebar.jsp</file>
-            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/web/admin/photocards.jsp</file>
-            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/src/java/controller/access/LoginServlet.java</file>
-            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/src/java/model/user/UserDAO.java</file>
-            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/src/java/controller/admin/artist/ArtistsServlet.java</file>
-            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/web/admin/main.js</file>
-            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/web/admin/user.jsp</file>
-            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/web/admin/style.css</file>
-            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/src/java/controller/admin/AdminUserServlet.java</file>
-            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/src/java/model/artist/ArtistDAO.java</file>
-            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/web/admin/artists.jsp</file>
-            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/web/client/register.jsp</file>
+            <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/src/java/controller/artist/ArtistPageServlet.java</file>
+            <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/web/client/components/navbar.jsp</file>
         </group>
     </open-files>
 </project-private>
