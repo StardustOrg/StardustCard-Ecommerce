@@ -42,11 +42,13 @@ public class ProductDAO implements DAO<Product> {
             psProductArtist.setLong(2, artist.getId());
             }
             
+   
             ps.close();
             psProductArtist.close();
             c.close();
             
             int rowsAffected = ps.executeUpdate();
+
             return rowsAffected > 0;
             
         } catch (ClassNotFoundException | SQLException ex) {

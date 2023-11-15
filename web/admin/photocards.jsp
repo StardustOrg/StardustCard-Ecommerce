@@ -4,6 +4,8 @@
     Author     : joaov
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="model.product.Product"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -41,7 +43,7 @@
                         <!-- Single Product -->
                         <div class="column-container">
                             <!-- Modal insert photocard -->
-                            <section class="modal active hidden">
+                            <section class="modal active hidden" style="height: 550px">
                                 <div class="add-photocard-content">
 
                                     <div class="add-photocard-content-head">
@@ -59,20 +61,26 @@
                                         </div>
 
                                         <div class="add-photocard-form">
-                                            <form>
+                                            <form action="" method="POST">
                                                 <h4 class="photocard-input-title">Photocard name</h4>
                                                 <input class="photocard-input" type="text" id="photocard-name"
                                                        placeholder="Photocard name" />
 
                                                 <h4 class="photocard-input-title">Artist name</h4>
-                                                <input class="photocard-input" type="text" id="artist-name"
-                                                       placeholder="Photocard's artist name" />
+                                                <div class="checkbox-container">
+                                                    <label><input type="checkbox" name="artist" value="artist1"> Artist 1</label><br>
+                                                    <label><input type="checkbox" name="artist" value="artist2"> Artist 2</label><br>
+                                                    <label><input type="checkbox" name="artist" value="artist3"> Artist 3</label><br>
+                                                    <label><input type="checkbox" name="artist" value="artist4"> Artist 4</label><br>
+                                                    <label><input type="checkbox" name="artist" value="artist5"> Artist 5</label><br>
+                                                </div>
 
-                                                <h4 class="photocard-input-title">Image URL</h4>
+                                                <h4 class="photocard-input-title" style="padding-left: 100px">Image URL</h4>
                                                 <input class="photocard-input" type="text" id="photocard-url"
-                                                       placeholder="Photocard's image URL" />
+                                                       placeholder="Photocard's image URL" 
+                                                       style="margin-left: 176px"/>
 
-                                                <div class="unit-price">
+                                                <div class="unit-price" style="margin-left: 175px;">
                                                     <div>
                                                         <h4 class="photocard-input-title">Units</h4>
                                                         <input class="photocard-input" type="number" id="photocard-units"
@@ -109,13 +117,16 @@
                                 </div>
                             </div>
                         </div>
-                        <%                            // TODO: Listar photocards e iterar componente
+
+                        <%List<Product> photocards = (List<Product>) request.getAttribute("photocards");%>
+                        <%
+                            for (Product photocardL : photocards) {
                         %>
 
-                        <%request.setAttribute("photocardName", "");%>
-                        <%request.setAttribute("photocardUnits", 5);%>
-                        <%request.setAttribute("photocardPath", "");%>
+                        <%request.setAttribute("photocard", photocardL);%>
                         <%@include file="./components/photocard.jsp" %>
+
+                        <%}%>
                     </section>
                 </div>
             </main>

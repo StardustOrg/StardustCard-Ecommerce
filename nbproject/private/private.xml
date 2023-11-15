@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/vladi/OneDrive/Documentos/STARDUSTCARD%20ECOMMERCE/StardustCard-Ecommerce/src/java/model/product/Product.java</file>
-            <file>file:/C:/Users/vladi/OneDrive/Documentos/STARDUSTCARD%20ECOMMERCE/StardustCard-Ecommerce/src/java/controller/access/LogOutServlet.java</file>
+            <file>file:/C:/Users/vladi/OneDrive/Documentos/STARDUSTCARD%20ECOMMERCE/StardustCard-Ecommerce/src/java/model/sale/SaleDAO.java</file>
+            <file>file:/C:/Users/vladi/OneDrive/Documentos/STARDUSTCARD%20ECOMMERCE/StardustCard-Ecommerce/src/java/model/sale/Sale.java</file>
             <file>file:/C:/Users/vladi/OneDrive/Documentos/STARDUSTCARD%20ECOMMERCE/StardustCard-Ecommerce/src/java/model/product/ProductDAO.java</file>
+            <file>file:/C:/Users/vladi/OneDrive/Documentos/STARDUSTCARD%20ECOMMERCE/StardustCard-Ecommerce/src/java/model/user/UserDAO.java</file>
         </group>
     </open-files>
 </project-private>

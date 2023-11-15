@@ -23,9 +23,7 @@ public class Sale {
     public Sale(long id, LocalDateTime date, long userId) {
         this.id = id;
         this.date = date;
-        this.userId = userId;
-        convertDate (this.date);
-        
+        this.userId = userId;        
     }
 
     public long getId() {
