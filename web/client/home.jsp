@@ -72,7 +72,7 @@
                             for (int i = 0; i < artistList.size(); i++) {
                                 Artist artist = artistList.get(i);
                         %>
-                        <a href="Artists/<%= artist.getName()%>" style="width: 155px; margin-right: 56px;">
+                        <a href="Artists/<%= artist.getName()%>" style="margin: 0 auto;">
                             <div class="artist-card">
                                 <div class="artist-image">
                                     <img src="<%= artist.getIcon()%>" />
