@@ -29,6 +29,9 @@ public class Product {
         this.artists = artists;
     }
 
+    public Product() {
+    }
+
     public long getId() {
         return id;
     }
@@ -72,9 +75,13 @@ public class Product {
     public List<Artist> getArtists() {
         return artists;
     }
-    
+
     public void addCategory(Artist category) {
         this.artists.add(category);
+    }
+
+    public void setArtists(List<Artist> artists) {
+        this.artists = artists;
     }
 
 }

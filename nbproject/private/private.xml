@@ -5,6 +5,17 @@
         <group>
             <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/src/java/model/user/User.java</file>
             <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/web/WEB-INF/web.xml</file>
+            <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/web/admin/artists.jsp</file>
+            <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/web/error/404.jsp</file>
+            <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/src/java/controller/access/LogOutServlet.java</file>
+            <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/web/index.jsp</file>
+            <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/web/client/product_page.jsp</file>
+            <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/src/java/model/product/ProductDAO.java</file>
+            <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/src/java/model/product/Product.java</file>
+            <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/web/client/style.css</file>
+            <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/web/client/artist_page.jsp</file>
+            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/src/java/controller/admin/ArtistsServlet.java</file>
+            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/web/admin/style.css</file>
             <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/web/admin/components/sidebar.jsp</file>
             <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/web/admin/photocards.jsp</file>
             <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/src/java/controller/access/LoginServlet.java</file>
