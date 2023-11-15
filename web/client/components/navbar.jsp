@@ -3,7 +3,7 @@
     <% String activePage = (String) request.getAttribute("activePage");
         User myUser = (User) request.getAttribute("user");
     %>
-    <div class="logo">StardustCard</div>
+    <a href="${pageContext.request.contextPath}/Home"><div class="logo">StardustCard</div></a>
     <ul class="navbar_pages">
         <li><a href="${pageContext.request.contextPath}/Home" class=<%= activePage.equals("home") ? "active" : ""%>>Home</a></li>
         <li><a href="${pageContext.request.contextPath}/Artists" class=<%= activePage.equals("artists") ? "active" : ""%>>Artists</a></li>

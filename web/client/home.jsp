@@ -72,7 +72,7 @@
                             for (int i = 0; i < artistList.size(); i++) {
                                 Artist artist = artistList.get(i);
                         %>
-                        <a href="Artists/<%= artist.getName()%>">
+                        <a href="Artists/<%= artist.getName()%>" style="width: 155px; margin-right: 56px;">
                             <div class="artist-card">
                                 <div class="artist-image">
                                     <img src="<%= artist.getIcon()%>" />
@@ -96,8 +96,8 @@
                 <div class="photocards">
                     <%
                         List<Product> lastUnits = (List<Product>) request.getAttribute("lastUnits");
-                        int j = 5;
-                        if (lastUnits.size() < 5) {
+                        int j = 6;
+                        if (lastUnits.size() < 6) {
                             j = lastUnits.size();
                         }
                         for (int i = 0; i < j; i++) {
@@ -123,8 +123,8 @@
                 <div class="photocards">
                     <%
                         List<Product> newAdds = (List<Product>) request.getAttribute("newAdds");
-                        int k = 5;
-                        if (newAdds.size() < 5) {
+                        int k = 6;
+                        if (newAdds.size() < 6) {
                             k = newAdds.size();
                         }
                         for (int i = 0; i < k; i++) {

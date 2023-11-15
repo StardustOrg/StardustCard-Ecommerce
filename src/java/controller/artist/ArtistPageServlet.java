@@ -1,6 +1,8 @@
 package controller.artist;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.artist.*;
+import model.product.Product;
+import model.product.ProductDAO;
 import model.user.User;
 
 /**
@@ -25,6 +29,7 @@ public class ArtistPageServlet extends HttpServlet {
         User user = (User) session.getAttribute("stardust_user");
         List<Artist> idols;
         ArtistDAO artistDAO = new ArtistDAO();
+        ProductDAO productDAO = new ProductDAO();
         if (user != null && user.isAdmin() == false) {
             request.setAttribute("user", user);
         } else {
@@ -44,10 +49,23 @@ public class ArtistPageServlet extends HttpServlet {
                         request.setAttribute("group", false);
                     } else {
                         request.setAttribute("group", true);
+                        Collections.sort(idols, Comparator.comparingLong(Artist::getId));
                         request.setAttribute("idols", idols);
                     }
+                    // complete collection
+                    List<Product> completeCollection = productDAO.getAllFromArtist(artist.getId());
+                    Collections.sort(completeCollection, Comparator.comparingInt(Product::getAmount).reversed());
+                    request.setAttribute("completeCollection", completeCollection);
+
+                    // last units
+                    List<Product> lastUnits = productDAO.getAllLastUnits(artist.getId());
+                    request.setAttribute("lastUnits", lastUnits);
+
+                    // new adds
+                    List<Product> newAdds = productDAO.getAllInStock(artist.getId());
+                    Collections.reverse(newAdds);
+                    request.setAttribute("newAdds", newAdds);
                 } else {
-                    // Handle artist not found, e.g., show an error page
                     response.sendError(HttpServletResponse.SC_NOT_FOUND, "Artist not found");
                     return;
                 }
@@ -61,6 +79,19 @@ public class ArtistPageServlet extends HttpServlet {
                 if (member != null && member.getCover() != null) {
                     request.setAttribute("artistInfo", member);
                     request.setAttribute("group", false);
+                    // complete collection
+                    List<Product> completeCollection = productDAO.getAllFromArtist(member.getId());
+                    Collections.sort(completeCollection, Comparator.comparingInt(Product::getAmount).reversed());
+                    request.setAttribute("completeCollection", completeCollection);
+
+                    // last units
+                    List<Product> lastUnits = productDAO.getAllLastUnits(member.getId());
+                    request.setAttribute("lastUnits", lastUnits);
+
+                    // new adds
+                    List<Product> newAdds = productDAO.getAllInStock(member.getId());
+                    Collections.reverse(newAdds);
+                    request.setAttribute("newAdds", newAdds);
                 } else {
                     response.sendError(HttpServletResponse.SC_NOT_FOUND, "Group or member not found");
                     return;
