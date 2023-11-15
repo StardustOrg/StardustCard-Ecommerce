@@ -11,6 +11,16 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     boolean group = (boolean) request.getAttribute("group");
+    List<Product> lastUnits = (List<Product>) request.getAttribute("lastUnits");
+    List<Product> newAdds = (List<Product>) request.getAttribute("newAdds");
+    List<Product> completeCollection = (List<Product>) request.getAttribute("completeCollection");
+
+    boolean hasPhotocards = true;
+
+    if (completeCollection.size() == 0) {
+        hasPhotocards = false;
+    }
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,13 +68,13 @@
             </div>
             <%
                 }
+                if (hasPhotocards) {
+                    if (lastUnits.size() != 0) {
             %>
             <div class="bundles" id="last-units">
                 <h2>last units</h2>
                 <div class="photocards">
                     <%
-                        List<Product> lastUnits = (List<Product>) request.getAttribute("lastUnits");
-
                         int j = 6;
                         if (lastUnits.size() < 6) {
                             j = lastUnits.size();
@@ -87,12 +97,12 @@
                     %>
                 </div>
             </div>
+            <%                            }
+            %>
             <div class="bundles" id="new-additions">
                 <h2>new additions</h2>
                 <div class="photocards">
                     <%
-                        List<Product> newAdds = (List<Product>) request.getAttribute("newAdds");
-
                         int k = 6;
                         if (newAdds.size() < 6) {
                             k = newAdds.size();
@@ -118,8 +128,6 @@
                 <h2>complete collection</h2>
                 <div class="photocards">
                     <%
-                        List<Product> completeCollection = (List<Product>) request.getAttribute("completeCollection");
-
                         for (int i = 0; i < completeCollection.size(); i++) {
                             String uri = RandomSequenceGenerator.generateRandomSequence(15);
                             Product product = completeCollection.get(i);
@@ -137,6 +145,12 @@
                     %>  
                 </div>
             </div>
+            <%
+            } else {
+            %>
+            <div class="slide_title" style="margin: 0; margin-top: 10%; margin-bottom: 10%;    text-align: center;">No photocards available here ;-;</div>
+            <%                            }
+            %>  
         </div>
 
 
