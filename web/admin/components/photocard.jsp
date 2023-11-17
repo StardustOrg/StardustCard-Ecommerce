@@ -15,7 +15,14 @@
 <div class="column-container">
     <div class="single-product">
         <div class="part-1">
-            <button onclick="myFunction()" class="edit"> Edit </button>
+            <button onclick="openEditModal(
+                            '<%= photocard.getId()%>',
+                            '<%= photocard.getDescription()%>',
+                            '<%= photocard.getPicture()%>',
+                            '<%= photocard.getAmount()%>',
+                            '<%= photocard.getPrice()%>',
+                            '<%= photocard.getArtists()%>')" 
+                    class="edit"> Edit </button>
             <img src="<%=photocard.getPicture()%>" class="photocard-img" />
         </div>
         <div class="part-2">

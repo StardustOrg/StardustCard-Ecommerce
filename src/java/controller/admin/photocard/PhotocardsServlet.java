@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.admin;
+package controller.admin.photocard;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,6 +37,7 @@ public class PhotocardsServlet extends HttpServlet {
 
             List<Artist> artists = artistDAO.getAll();
             List<Product> products = productDAO.getAll();
+            
             request.setAttribute("artists", artists);
             request.setAttribute("photocards", products);
             System.out.print(products);

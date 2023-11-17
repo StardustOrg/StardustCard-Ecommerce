@@ -4,6 +4,8 @@
     Author     : joaov
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="utils.Utils"%>
 <%@page import="model.artist.Artist"%>
 <%@page import="java.util.List"%>
 <%@page import="model.product.Product"%>
@@ -46,7 +48,6 @@
                             <!-- Modal insert photocard -->
                             <section class="modal active hidden" style="height: 550px">
                                 <div class="add-photocard-content">
-
                                     <div class="add-photocard-content-head">
                                         <button class="btn-close">✕</button>
                                         <h3 class="modal-title">Add a new photocard</h3>
@@ -65,38 +66,38 @@
                                             <form action="<%=request.getContextPath()%>/Admin/Photocards" method="POST">
                                                 <h4 class="photocard-input-title">Photocard name</h4>
                                                 <input class="photocard-input" type="text" id="photocard-name" name="photocard-name"
-                                                       placeholder="Photocard name" />
+                                                       placeholder="Photocard name" required/>
 
                                                 <h4 class="photocard-input-title">Artist name</h4>
                                                 <div class="checkbox-container"> 
                                                     <% List<Artist> artists = (List<Artist>) request.getAttribute("artists"); %>
                                                     <%for (Artist artist : artists) {%>                                                 
                                                     <label><input type="checkbox" name="artists" value="<%= artist.getId()%>"><%= artist.getName()%></label><br>
-                                                    <%}%>
+                                                        <%}%>
                                                 </div>
 
                                                 <h4 class="photocard-input-title" style="padding-left: 100px">Image URL</h4>
                                                 <input class="photocard-input" type="text" id="photocard-url" name="photocard-url"
                                                        placeholder="Photocard's image URL" 
-                                                       style="margin-left: 176px"/>
+                                                       style="margin-left: 176px" required/>
 
                                                 <div class="unit-price" style="margin-left: 175px;">
                                                     <div>
                                                         <h4 class="photocard-input-title">Units</h4>
                                                         <input class="photocard-input" type="number" id="photocard-units" name="photocard-units"
-                                                               placeholder="00" />
+                                                               placeholder="00" required/>
                                                     </div>
 
                                                     <div>
                                                         <h4 class="photocard-input-title">Price</h4>
                                                         <input class="photocard-input" type="number" id="photocard-price" name="photocard-price"
-                                                               placeholder="00" />
+                                                               placeholder="00" required/>
                                                     </div>
 
                                                 </div>
-                                                <button class="btn" onclick="registerPhotocard()">Save</button>
-
-
+                                                <div style="display: flex; justify-content: space-around; padding-left: 150px;">
+                                                    <button class="btn">Save</button>
+                                                </div>
                                             </form>
 
 
@@ -118,21 +119,169 @@
                             </div>
                         </div>
 
-                        <%List<Product> photocards = (List<Product>) request.getAttribute("photocards");%>
+                        <% List<Product> photocards = (List<Product>) request.getAttribute("photocards"); %>
                         <%
-                            for (Product photocardL : photocards) {
+                            for (Product photocard : photocards) {
                         %>
+                        <div class="column-container">
+                            <div class="single-product">
+                                <div class="part-1">
+                                    <% StringBuffer desciption = new StringBuffer();
+                                        desciption.append(photocard.getDescription());
 
-                        <%request.setAttribute("photocard", photocardL);%>
-                        <%@include file="./components/photocard.jsp" %>
+                                        List<Artist> artistList = photocard.getArtists();
+                                        List<Long> artistIds = new ArrayList<>();
 
-                        <%}%>
+                                        for (Artist artist : artistList) {
+                                            artistIds.add(artist.getId());
+                                        }
+
+                                    %>
+                                    <button onclick='openEditModal(<%= photocard.getId()%>, `<%= desciption%>`, "<%= photocard.getPicture()%>",<%= photocard.getAmount()%>, <%= photocard.getPrice()%>, <%= artistIds%>)' class="edit"> Edit </button>
+                                    <img src ="<%=photocard.getPicture()%>" class="photocard-img" />
+                                </div>
+                                <div class="part-2">
+                                    <h3 class="product-title"><%=photocard.getDescription()%></h3>
+                                    <div class="part-2-2">
+                                        <h5 class="product-units"><%=photocard.getAmount()%> units</h5>
+                                        <button class="product-add-more">Add more</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% }%>
+                        <!-- Modal update photocard -->
+                        <div class="overlay" id="overlay"></div>
+                        <div id="editModal" class="modal" style="display: none; height: 550px">
+                            <div class="add-photocard-content">
+                                <div class="add-photocard-content-head">
+                                    <button class="btn-close" onclick="closeEditModal()">✕</button>
+                                    <h3 class="modal-title">Edit photocard</h3>
+                                </div>
+
+                                <div class="add-photocard-content-body">
+                                    <div class="add-photocard-img">
+                                        <div class="single-product">
+                                            <div class="part-1">
+                                                <img src="" id="editPhotcardInput" class="photocard-img" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="add-photocard-form">
+                                        <form method="POST">
+                                            <input type="hidden" name="id" id="edit_id">
+                                            <h4 class="photocard-input-title">Photocard name</h4>
+                                            <input class="photocard-input" type="text" id="edit-photocard-name" name="photocard-name"
+                                                   placeholder="Photocard name" />
+
+                                            <h4 class="photocard-input-title">Artist name</h4>
+                                            <div id="edit-artists" class="checkbox-container"> 
+                                                <%for (Artist artist : artists) {%>                                                 
+                                                <label><input type="checkbox" name="artists" value="<%= artist.getId()%>"><%= artist.getName()%></label><br>
+                                                    <%}%>
+                                            </div>
+
+                                            <h4 class="photocard-input-title" style="padding-left: 100px">Image URL</h4>
+                                            <input class="photocard-input" type="text" id="edit-photocard-url" name="photocard-url"
+                                                   placeholder="Photocard's image URL" 
+                                                   style="margin-left: 176px"/>
+
+                                            <div class="unit-price" style="margin-left: 175px;">
+                                                <div>
+                                                    <h4 class="photocard-input-title">Units</h4>
+                                                    <input class="photocard-input" type="number" id="edit-photocard-units" name="photocard-units"
+                                                           placeholder="00" />
+                                                </div>
+
+                                                <div>
+                                                    <h4 class="photocard-input-title">Price</h4>
+                                                    <input class="photocard-input" type="number" id="edit-photocard-price" name="photocard-price"
+                                                           placeholder="00" />
+                                                </div>
+
+                                            </div>
+                                            <div style="display: flex; justify-content: space-around; padding-left: 150px; margin-top: 20px">
+                                                <button class="btn" onclick="onUpdate()">Update</button>
+                                                <button class="btn" style="background: #CC224B;" onclick="onDelete()">Delete</button>
+                                            </div>
+                                        </form>
+
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
                     </section>
                 </div>
             </main>
         </div>
 
         <script src="${pageContext.request.contextPath}/admin/main.js"></script>
+        <script>
+                                                    // Função para abrir o modal de edição
+                                                    function openEditModal(id, description, picture, amount, price, artists) {
+                                                        document.getElementById("editModal").style.display = "block";
+
+                                                        document.getElementById("edit-photocard-name").value = description;
+                                                        document.getElementById("edit-photocard-url").value = picture;
+                                                        document.getElementById("edit-photocard-units").value = amount;
+                                                        document.getElementById("edit-photocard-price").value = price;
+                                                        document.getElementById("edit_id").value = id;
+                                                        document.getElementById("editPhotcardInput").src = picture;
+
+                                                        // IDs dos artistas associados ao photocard específico
+                                                        var associatedArtistIds = artists; // Supondo que você tenha esses IDs disponíveis
+
+                                                        var checkboxes = document.getElementsByName("artists");
+
+                                                        checkboxes.forEach(function (checkbox) {
+                                                            // Se o ID do artista estiver na lista de IDs associados, marque o checkbox
+                                                            if (associatedArtistIds.includes(parseInt(checkbox.value))) {
+                                                                checkbox.checked = true;
+                                                            } else {
+                                                                checkbox.checked = false;
+                                                            }
+                                                        });
+                                                    }
+                                                    // Função para fechar o modal de edição
+                                                    function closeEditModal() {
+                                                        document.getElementById("editModal").style.display = "none";
+                                                    }
+                                                    // Adiciona um evento de mudança ao checkbox
+                                                    document.getElementById('editIsIdol').addEventListener('change', function () {
+                                                        // Obtém a referência ao elemento de seleção de grupo
+                                                        var groupSelection = document.getElementById('editGroupSelection');
+                                                        // Define a exibição do elemento de seleção de grupo com base no estado do checkbox
+                                                        groupSelection.style.display = this.checked ? 'flex' : 'none';
+                                                    });
+
+                                                    function onUpdate() {
+                                                        // Seleciona o formulário dentro do modal de edição
+                                                        var form = document.querySelector("#editModal form");
+                                                        form.action = '${pageContext.request.contextPath}/Admin/UpdatePhotocard';
+                                                        form.submit();
+                                                    }
+
+                                                    function onDelete() {
+                                                        var confirmed = confirm("Tem certeza que deseja excluir este artista?");
+                                                        if (confirmed) {
+                                                            // Seleciona o formulário dentro do modal de edição
+                                                            var form = document.querySelector("#editModal form");
+                                                            form.action = '${pageContext.request.contextPath}/Admin/DeletePhotocard';
+                                                            form.submit();
+                                                        } else {
+                                                            alert("Exclusão cancelada");
+                                                        }
+                                                    }
+
+
+
+
+        </script>
     </body>
 
 </html>
