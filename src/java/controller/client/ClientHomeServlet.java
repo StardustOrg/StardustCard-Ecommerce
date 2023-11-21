@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -59,6 +60,23 @@ public class ClientHomeServlet extends HttpServlet {
             Collections.reverse(newAdds);
         } catch (Exception ex) {
         }
+        
+        // Cookies
+        Cookie cookie = null;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie c : cookies) {
+                if (c.getName().equals("smdecommerce.carrinho")) {
+                    cookie = c;
+                    break;
+                }
+            }
+        }
+        if (cookie == null) {
+            cookie = new Cookie("smdecommerce.carrinho", "");
+        }
+        cookie.setMaxAge(Integer.MAX_VALUE);
+        response.addCookie(cookie);
         request.setAttribute("newAdds", newAdds);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/client/home.jsp");
         dispatcher.forward(request, response);
