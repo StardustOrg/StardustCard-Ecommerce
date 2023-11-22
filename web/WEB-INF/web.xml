@@ -81,6 +81,10 @@
         <servlet-class>controller.admin.user.DeleteUserServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AddProductShoppingCartServlet</servlet-name>
+        <servlet-class>controller.shoppingcart.AddProductShoppingCartServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>UpdatePhotocards</servlet-name>
         <servlet-class>controller.admin.photocard.UpdatePhotocards</servlet-class>
     </servlet>
@@ -171,6 +175,10 @@
     <servlet-mapping>
         <servlet-name>DeleteUserServlet</servlet-name>
         <url-pattern>/Admin/DeleteUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddProductShoppingCartServlet</servlet-name>
+        <url-pattern>/AddProduct</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdatePhotocards</servlet-name>

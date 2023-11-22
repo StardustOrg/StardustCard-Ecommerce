@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.shoppingcart.ShoppingCart;
 import model.user.User;
 import model.user.UserDAO;
 
@@ -23,6 +24,11 @@ public class RegisterServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
+        
+        
+        ShoppingCart cart = ShoppingCart.getOrCreateCart(request);
+        request.setAttribute("totalCart", cart.getTotalItems());
+        
         RequestDispatcher dispatcher = request.getRequestDispatcher("/client/register.jsp");
         dispatcher.forward(request, response);
     }
