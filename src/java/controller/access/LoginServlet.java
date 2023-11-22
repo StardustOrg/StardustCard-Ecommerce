@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.shoppingcart.ShoppingCart;
 import model.user.User;
 import model.user.UserDAO;
 
@@ -20,6 +21,11 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
+        
+        
+        ShoppingCart cart = ShoppingCart.getOrCreateCart(request);
+        request.setAttribute("totalCart", cart.getTotalItems());
+        
         RequestDispatcher dispatcher = request.getRequestDispatcher("/client/login.jsp");
         dispatcher.forward(request, response);
     }
@@ -30,7 +36,7 @@ public class LoginServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String login = request.getParameter("login");
         String password = request.getParameter("password");
-
+        
         UserDAO userDAO = new UserDAO();
         boolean success = userDAO.validateAccess(login, password);
         response.setContentType("text/html;charset=UTF-8");

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import model.artist.*;
 import model.product.Product;
 import model.product.ProductDAO;
+import model.shoppingcart.ShoppingCart;
 import model.user.User;
 
 /**
@@ -103,6 +104,10 @@ public class ArtistPageServlet extends HttpServlet {
                 return;
             }
         }
+        
+        
+        ShoppingCart cart = ShoppingCart.getOrCreateCart(request);
+        request.setAttribute("totalCart", cart.getTotalItems());
 
         // Common code for all cases...
         RequestDispatcher dispatcher = request.getRequestDispatcher("/client/artist_page.jsp");
