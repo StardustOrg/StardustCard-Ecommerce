@@ -4,6 +4,7 @@
     Author     : Yanna
 --%>
 
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.Map"%>
 <%@page import="model.product.Product"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,7 +13,7 @@
     <%
         request.setAttribute("pageTitle", "StardustCard - Cart");
         boolean empty = (boolean) request.getAttribute("empty");
-
+        DecimalFormat decfor = new DecimalFormat("0.00");
         double subtotal = 0;
     %>
     <%@include file="./components/head.jsp" %>
@@ -44,7 +45,7 @@
                                     </div>
                                 </div>
                                 <div class="price-stock-info">
-                                    <div class="price-info">R$ <%= p.getPrice()%></div>
+                                    <div class="price-info">R$ <%= decfor.format(p.getPrice())%></div>
                                     <%
                                         String stock;
                                         String color = "#379635";
@@ -88,7 +89,7 @@
                             <hr class="rounded">
                             <div class="values">
                                 <div class="amount">Sub-total (<%= totalCart%> items):&nbsp&nbsp</div>
-                                <div class="sub-total-value">R$ <%= subtotal%></div>
+                                <div class="sub-total-value">R$ <%= decfor.format(subtotal)%></div>
                             </div>
                         </div>
                     </div>
@@ -97,7 +98,7 @@
                         <div class="cart-total-info">
                             <div class="values">
                                 <div class="amount">Sub-total:&nbsp&nbsp</div>
-                                <div class="sub-total-value">R$ <%= subtotal%></div>
+                                <div class="sub-total-value">R$ <%= decfor.format(subtotal)%></div>
                             </div>
                             <div class="values">
                                 <div class="amount">Delivery:&nbsp&nbsp</div>

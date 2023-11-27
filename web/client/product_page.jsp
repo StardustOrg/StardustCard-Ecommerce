@@ -4,6 +4,7 @@
     Author     : Yanna
 --%>
 
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="controller.product.RandomSequenceGenerator"%>
 <%@page import="model.artist.Artist"%>
 <%@page import="java.util.List"%>
@@ -14,6 +15,7 @@
     <%
         request.setAttribute("pageTitle", "StardustCard - Artists");
 
+        DecimalFormat decfor = new DecimalFormat("0.00");
         Product product = (Product) request.getAttribute("product");
     %>
     <%@include file="./components/head.jsp" %>
@@ -48,7 +50,7 @@
                     </div>
                     <form id="addProduct" style="margin: 0" action="${pageContext.request.contextPath}/AddProduct" method="POST">
                         <div class="product-details">
-                            <div class="price-tag" style="margin-top: 10px;">R$ <%= product.getPrice()%></div>
+                            <div class="price-tag" style="margin-top: 10px;">R$ <%= decfor.format(product.getPrice())%></div>
                             <%
                                 String stock;
                                 String color = "#379635";
