@@ -75,10 +75,22 @@
                             </div>
                         </div>
                     </form>
+                    <%
+                        if (product.getAmount() != 0) {
+                    %>
                     <div class="product-actions">
                         <button onclick="submitForm('addProduct')">Add to card</button>
                         <button class="secondary-button" onclick="updateFormAndSubmit()">Buy now</button>
                     </div>
+                    <%
+                        } else {
+                    %>
+                    <div class="product-actions">
+                        <i>Not in stock</i>
+                    </div>
+                    <%
+                        }
+                    %>
                     <script>
                         function updateFormAndSubmit() {
                             var form = document.getElementById('addProduct');
