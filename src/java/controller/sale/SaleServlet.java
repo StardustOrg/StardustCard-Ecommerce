@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.product.Product;
-import model.product.ProductDAO;
 import model.sale.Sale;
 import model.sale.SaleDAO;
 
@@ -25,29 +24,34 @@ public class SaleServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        String userId = req.getParameter("user-id");
-//        String[] productsIds = req.getParameterValues("productsIds");
-//        String[] productsQuantities = req.getParameterValues("productsQuantities");
-//
-//        /* Escolhe produto(s) */
-//        ProductDAO p = new ProductDAO();
-//        Product product = p.getOne(2);
-//        Product product2 = p.getOne(3);
-//        /* Quantidade */
-//        product.setAmount(4);
-//        product2.setAmount(2);
-//        /* Cria a venda */
-//        Sale sale = new Sale(0, LocalDateTime.MAX, 6);
-//        List<Product> products = new ArrayList<>();
-//        products.add(product);
-//        products.add(product2);
-//
-//        sale.setProduct(products);
-//
-//        SaleDAO s = new SaleDAO();
-//
-//        s.insert(sale);
 
+        req.setCharacterEncoding("UTF-8");
+        try {
+            String userId = req.getParameter("user-id");
+            String[] productsIds = req.getParameterValues("productsIds");
+            String[] productsQuantities = req.getParameterValues("productsQuantities");
+
+            List<Product> products = new ArrayList<>();
+            for (int i = 0; i < productsIds.length; i++) {
+                Product product = new Product();
+                product.setId(Long.parseLong(productsIds[i]));
+                product.setAmount(Integer.parseInt(productsQuantities[i]));
+                products.add(product);
+            }
+
+            /* Cria a venda */
+            Sale sale = new Sale(0, LocalDateTime.MAX, 6);
+            sale.setProduct(products);
+            SaleDAO s = new SaleDAO();
+            boolean checkout = s.insert(sale);
+            if (checkout) {
+                resp.sendRedirect("Home");
+            } else {
+                resp.sendError(HttpServletResponse.SC_FORBIDDEN, "Failed to checkout products");
+            }
+        } catch (Exception e) {
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal server error");
+        }
     }
 
 }

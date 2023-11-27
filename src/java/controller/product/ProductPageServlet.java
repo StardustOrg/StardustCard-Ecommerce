@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.product.Product;
 import model.product.ProductDAO;
+import model.shoppingcart.ShoppingCart;
 
 /**
  *
@@ -27,7 +28,6 @@ public class ProductPageServlet extends HttpServlet {
         Product product;
         try {
             product = productDAO.getOne(id);
-            System.out.println(product.getId());
             request.setAttribute("product", product);
         } catch (Exception ex) {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Something Happened");
@@ -41,6 +41,8 @@ public class ProductPageServlet extends HttpServlet {
         } catch (Exception ex) {
         }
         request.setAttribute("newAdds", newAdds);
+        ShoppingCart cart = ShoppingCart.getOrCreateCart(request);
+        request.setAttribute("totalCart", cart.getTotalItems());
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/client/product_page.jsp");
         dispatcher.forward(request, response);

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.shoppingcart.ShoppingCart;
 import model.user.User;
 import model.user.UserDAO;
 
@@ -28,6 +29,9 @@ public class ProfileServlet extends HttpServlet {
         } else {
             response.sendRedirect("Login");
         }
+        
+        ShoppingCart cart = ShoppingCart.getOrCreateCart(request);
+        request.setAttribute("totalCart", cart.getTotalItems());
     }
 
     @Override

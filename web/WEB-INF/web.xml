@@ -89,6 +89,22 @@
         <servlet-class>controller.admin.user.DeleteUserServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AddProductShoppingCartServlet</servlet-name>
+        <servlet-class>controller.shoppingcart.AddProductShoppingCartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CartPageServlet</servlet-name>
+        <servlet-class>controller.shoppingcart.CartPageServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateQuantityServlet</servlet-name>
+        <servlet-class>controller.shoppingcart.UpdateQuantityServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RemoveAllItemsServlet</servlet-name>
+        <servlet-class>controller.shoppingcart.RemoveAllItemsServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>UpdatePhotocards</servlet-name>
         <servlet-class>controller.admin.photocard.UpdatePhotocards</servlet-class>
     </servlet>
@@ -187,6 +203,22 @@
     <servlet-mapping>
         <servlet-name>DeleteUserServlet</servlet-name>
         <url-pattern>/Admin/DeleteUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddProductShoppingCartServlet</servlet-name>
+        <url-pattern>/AddProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartPageServlet</servlet-name>
+        <url-pattern>/Cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateQuantityServlet</servlet-name>
+        <url-pattern>/UpdateQuantity</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveAllItemsServlet</servlet-name>
+        <url-pattern>/RemoveAllItems</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdatePhotocards</servlet-name>

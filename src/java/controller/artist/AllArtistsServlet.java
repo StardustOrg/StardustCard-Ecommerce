@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import model.artist.Artist;
 import model.artist.ArtistDAO;
 import model.product.ProductDAO;
+import model.shoppingcart.ShoppingCart;
 import model.user.User;
 
 /**
@@ -44,6 +45,10 @@ public class AllArtistsServlet extends HttpServlet {
         for (int i = 0; i < artistsList.size(); i++) {
             request.setAttribute(artistsList.get(i).getName(), productDAO.getAllInStock(artistsList.get(i).getId()));
         }
+        
+        
+        ShoppingCart cart = ShoppingCart.getOrCreateCart(request);
+        request.setAttribute("totalCart", cart.getTotalItems());
         
         RequestDispatcher dispatcher = request.getRequestDispatcher("/client/all_artists_page.jsp");
         dispatcher.forward(request, response);
