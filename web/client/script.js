@@ -46,40 +46,40 @@ let currentPage = 0;
 
 // Carousel of artists
 function updateCarousel() {
-  const startIndex = currentPage * cardsPerPage;
-  const endIndex = startIndex + cardsPerPage;
+    const startIndex = currentPage * cardsPerPage;
+    const endIndex = startIndex + cardsPerPage;
 
-  artistCards.forEach((card, index) => {
-    if (index >= startIndex && index < endIndex) {
-      card.style.display = "block";
-    } else {
-      card.style.display = "none";
-    }
-  });
+    artistCards.forEach((card, index) => {
+        if (index >= startIndex && index < endIndex) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    });
 }
 
 function moveCarousel(direction) {
-  currentPage += direction;
+    currentPage += direction;
 
-  if (currentPage < 0) {
-    currentPage = 0;
-  }
+    if (currentPage < 0) {
+        currentPage = 0;
+    }
 
-  const maxPage = Math.ceil(artistCards.length / cardsPerPage) - 1;
+    const maxPage = Math.ceil(artistCards.length / cardsPerPage) - 1;
 
-  if (currentPage > maxPage) {
-    currentPage = maxPage;
-  }
+    if (currentPage > maxPage) {
+        currentPage = maxPage;
+    }
 
-  updateCarousel();
+    updateCarousel();
 }
 
 prevButton.addEventListener("click", () => {
-  moveCarousel(-1);
+    moveCarousel(-1);
 });
 
 nextButton.addEventListener("click", () => {
-  moveCarousel(1);
+    moveCarousel(1);
 });
 
 updateCarousel();
