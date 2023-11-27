@@ -27,7 +27,7 @@ public class ProfileServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/client/profile_page.jsp");
             dispatcher.forward(request, response);
         } else {
-            response.sendRedirect("Login");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Don't have access");
         }
         
         ShoppingCart cart = ShoppingCart.getOrCreateCart(request);
@@ -56,7 +56,7 @@ public class ProfileServlet extends HttpServlet {
             response.sendRedirect("Profile");
             }
         } else {
-            response.sendRedirect("Login");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Don't have access");
         }
     }
 
