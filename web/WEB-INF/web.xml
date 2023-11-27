@@ -38,7 +38,7 @@
     </servlet>
     <servlet>
         <servlet-name>PhotocardsServlet</servlet-name>
-        <servlet-class>controller.admin.PhotocardsServlet</servlet-class>
+        <servlet-class>controller.admin.photocard.PhotocardsServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ArtistsServlet</servlet-name>
@@ -95,6 +95,14 @@
     <servlet>
         <servlet-name>RemoveAllItemsServlet</servlet-name>
         <servlet-class>controller.shoppingcart.RemoveAllItemsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdatePhotocards</servlet-name>
+        <servlet-class>controller.admin.photocard.UpdatePhotocards</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeletePhotocards</servlet-name>
+        <servlet-class>controller.admin.photocard.DeletePhotocards</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -195,6 +203,14 @@
     <servlet-mapping>
         <servlet-name>RemoveAllItemsServlet</servlet-name>
         <url-pattern>/RemoveAllItems</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdatePhotocards</servlet-name>
+        <url-pattern>/Admin/UpdatePhotocard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeletePhotocards</servlet-name>
+        <url-pattern>/Admin/DeletePhotocard</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

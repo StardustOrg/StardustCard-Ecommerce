@@ -58,13 +58,16 @@ public class Artist {
     public void setIcon(String iconURL) {
         this.iconURL = iconURL;
     }
-    
+
     public String getCover() {
         return coverURL;
     }
-    
+
     public void setCover(String coverURL) {
         this.coverURL = coverURL;
     }
 
+    public String toString() {
+        return name;
+    }
 }
