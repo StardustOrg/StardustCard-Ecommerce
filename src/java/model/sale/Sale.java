@@ -1,7 +1,6 @@
 package model.sale;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.Map;
 import model.product.Product;
 
@@ -22,7 +21,7 @@ public class Sale {
         this.userId = userId;
     }
     
-    public Sale(LocalDateTime date, long userId) {
+    public Sale(Timestamp date, long userId) {
         this.date = date;
         this.userId = userId;
     }

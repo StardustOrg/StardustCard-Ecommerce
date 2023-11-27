@@ -107,7 +107,7 @@
                             </div>
                         </div>
                         <% if (myUser != null) {%>
-                        <button class="checkout">Checkout</button>
+                        <button class="checkout" onclick="window.location.href='${pageContext.request.contextPath}/Sale'">Checkout</button>
                         <% } else { %>
                         <button class="checkout" onclick="window.location.href='${pageContext.request.contextPath}/Login'">Login</button>
                         <% }%>

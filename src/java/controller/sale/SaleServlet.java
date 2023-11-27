@@ -5,7 +5,8 @@
 package controller.sale;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.ServletException;
@@ -35,7 +36,7 @@ public class SaleServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         User user = (User) session.getAttribute("stardust_user");
@@ -64,13 +65,23 @@ public class SaleServlet extends HttpServlet {
                     }
                 }
 
-                Sale mySale = new Sale(LocalDateTime.now(), user.getId());
+                Sale mySale = new Sale(Timestamp.from(Instant.now()), user.getId());
                 mySale.setProduct(products);
 
                 SaleDAO saleDAO = new SaleDAO();
                 try {
                     boolean success = saleDAO.insert(mySale);
+                    if (success) {
+                        cart.clearCart();
+                        cart.saveCartInCookie(response);
+                        response.sendRedirect("Home");
+                    } else {
+                        String alertMessage = "Empty Cart. Please add a item before closing.";
+                        String redirectScript = "<script>alert('" + alertMessage + "');  window.location.href = 'Home';</script>";
+                        response.getWriter().write(redirectScript);
+                    }
                 } catch (Exception ex) {
+                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Don't have access");
                 }
             }
         } else {
