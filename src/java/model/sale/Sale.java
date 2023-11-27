@@ -4,6 +4,7 @@
  */
 package model.sale;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 import model.product.Product;
@@ -15,11 +16,11 @@ import model.product.Product;
 public class Sale {
 
     private long id;
-    private LocalDateTime date;
+    private Timestamp date;
     private long userId;
     private List<Product> product;
 
-    public Sale(long id, LocalDateTime date, long userId) {
+    public Sale(long id, Timestamp date, long userId) {
         this.id = id;
         this.date = date;
         this.userId = userId;
@@ -33,11 +34,11 @@ public class Sale {
         this.id = id;
     }
 
-    public LocalDateTime getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 

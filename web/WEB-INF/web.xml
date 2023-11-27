@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+    <filter>
+        <filter-name>Admin</filter-name>
+        <filter-class>controller.filter.AdminFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Admin</filter-name>
+        <url-pattern>/Admin/*</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>controller.access.LoginServlet</servlet-class>
@@ -103,6 +111,14 @@
     <servlet>
         <servlet-name>DeletePhotocards</servlet-name>
         <servlet-class>controller.admin.photocard.DeletePhotocards</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Testes</servlet-name>
+        <servlet-class>controller.admin.Testes</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaleServlet</servlet-name>
+        <servlet-class>controller.sale.SaleServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -211,6 +227,14 @@
     <servlet-mapping>
         <servlet-name>DeletePhotocards</servlet-name>
         <url-pattern>/Admin/DeletePhotocard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Testes</servlet-name>
+        <url-pattern>/Testes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaleServlet</servlet-name>
+        <url-pattern>/Sale</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -4,6 +4,12 @@
     Author     : joaov
 --%>
 
+<%@page import="model.user.UserDAO"%>
+<%@page import="java.time.format.DateTimeFormatter"%>
+<%@page import="java.time.LocalDateTime"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="model.product.Product"%>
+<%@page import="model.sale.Sale"%>
 <%@page import="model.Highlight"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -40,7 +46,7 @@
                     <%request.setAttribute("highlightDescription", highlight.getHighlightDescription());%>
                     <%request.setAttribute("typeClass", highlight.getTypeClass());%>
                     <%@include file="./components/highlight.jsp" %>
-                   
+
                     <%}%>                    
                 </div>
                 <!-- Order By -->
@@ -55,6 +61,7 @@
                     </select>
                 </div>
                 <!-- Sales -->
+                <% List<Sale> sales = (List<Sale>) request.getAttribute("sales");%>
                 <div class="sales">
                     <table>
                         <thead>
@@ -68,230 +75,42 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <% for (Sale sale : sales) {%>
                             <tr>
-                                <td>001</td>
-                                <td>NewJeans Photocard 'Bunnyland' Version</td>
-                                <td>R$ 50,00</td>
-                                <td>John Doe</td>
-                                <td>2023-09-08</td>
+                                <td><%= sale.getId()%></td>
+                                <%
+                                    double amount = 0.0;
+                                    List<String> photocards = new ArrayList<String>();
+                                    for (Product product : sale.getProduct()) {
+                                        amount += product.getAmount() * product.getPrice();
+                                        photocards.add(product.getDescription());
+                                    }
+                                    DecimalFormat df = new DecimalFormat("#.##");
+                                    String total = df.format(amount);
+                                    UserDAO u = new UserDAO();
+                                    User user = u.getOne(sale.getUserId());
+                                %>
+
+                                <td>
+                                    <ul style="text-align: left; padding: 0">
+                                        <% for (String photocard : photocards) {%>
+                                        <li><%= photocard%></li>
+                                            <%}%>
+                                    </ul>
+                                </td>
+                                <td>R$ <%= total%></td>
+                                <td><%= user.getName()%></td>
+                                <%
+                                    // Converter o Timestamp para LocalDateTime
+                                    LocalDateTime localDateTime = sale.getDate().toLocalDateTime();
+                                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                                    String date = localDateTime.format(formatter);
+                                %>
+                                <td><%= date%></td>
                                 <td><button class="options-btn">&#8942;</button></td>
                             </tr>
-                            <tr>
-                                <td>002</td>
-                                <td>Example Photocard</td>
-                                <td>R$ 40,00</td>
-                                <td>Jane Doe</td>
-                                <td>2023-09-07</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
-                            <tr>
-                                <td>003</td>
-                                <td>Another Photocard</td>
-                                <td>R$ 35,00</td>
-                                <td>Bob Smith</td>
-                                <td>2023-09-06</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
-                            <tr>
-                                <td>020</td>
-                                <td>Random Photocard</td>
-                                <td>R$ 25,00</td>
-                                <td>Alice Johnson</td>
-                                <td>2023-09-05</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
-                            <tr>
-                                <td>020</td>
-                                <td>Random Photocard</td>
-                                <td>R$ 25,00</td>
-                                <td>Alice Johnson</td>
-                                <td>2023-09-05</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
-                            <tr>
-                                <td>020</td>
-                                <td>Random Photocard</td>
-                                <td>R$ 25,00</td>
-                                <td>Alice Johnson</td>
-                                <td>2023-09-05</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
-                            <tr>
-                                <td>020</td>
-                                <td>Random Photocard</td>
-                                <td>R$ 25,00</td>
-                                <td>Alice Johnson</td>
-                                <td>2023-09-05</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
-                            <tr>
-                                <td>020</td>
-                                <td>Random Photocard</td>
-                                <td>R$ 25,00</td>
-                                <td>Alice Johnson</td>
-                                <td>2023-09-05</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
-                            <tr>
-                                <td>020</td>
-                                <td>Random Photocard</td>
-                                <td>R$ 25,00</td>
-                                <td>Alice Johnson</td>
-                                <td>2023-09-05</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
-                            <tr>
-                                <td>020</td>
-                                <td>Random Photocard</td>
-                                <td>R$ 25,00</td>
-                                <td>Alice Johnson</td>
-                                <td>2023-09-05</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
-                            <tr>
-                                <td>020</td>
-                                <td>Random Photocard</td>
-                                <td>R$ 25,00</td>
-                                <td>Alice Johnson</td>
-                                <td>2023-09-05</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
-                            <tr>
-                                <td>020</td>
-                                <td>Random Photocard</td>
-                                <td>R$ 25,00</td>
-                                <td>Alice Johnson</td>
-                                <td>2023-09-05</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
-                            <tr>
-                                <td>020</td>
-                                <td>Random Photocard</td>
-                                <td>R$ 25,00</td>
-                                <td>Alice Johnson</td>
-                                <td>2023-09-05</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
-                            <tr>
-                                <td>020</td>
-                                <td>Random Photocard</td>
-                                <td>R$ 25,00</td>
-                                <td>Alice Johnson</td>
-                                <td>2023-09-05</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
-                            <tr>
-                                <td>020</td>
-                                <td>Random Photocard</td>
-                                <td>R$ 25,00</td>
-                                <td>Alice Johnson</td>
-                                <td>2023-09-05</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
-                            <tr>
-                                <td>020</td>
-                                <td>Random Photocard</td>
-                                <td>R$ 25,00</td>
-                                <td>Alice Johnson</td>
-                                <td>2023-09-05</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
-                            <tr>
-                                <td>020</td>
-                                <td>Random Photocard</td>
-                                <td>R$ 25,00</td>
-                                <td>Alice Johnson</td>
-                                <td>2023-09-05</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
-                            <tr>
-                                <td>020</td>
-                                <td>Random Photocard</td>
-                                <td>R$ 25,00</td>
-                                <td>Alice Johnson</td>
-                                <td>2023-09-05</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
-                            <tr>
-                                <td>020</td>
-                                <td>Random Photocard</td>
-                                <td>R$ 25,00</td>
-                                <td>Alice Johnson</td>
-                                <td>2023-09-05</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
-                            <tr>
-                                <td>020</td>
-                                <td>Random Photocard</td>
-                                <td>R$ 25,00</td>
-                                <td>Alice Johnson</td>
-                                <td>2023-09-05</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
-                            <tr>
-                                <td>020</td>
-                                <td>Random Photocard</td>
-                                <td>R$ 25,00</td>
-                                <td>Alice Johnson</td>
-                                <td>2023-09-05</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
-                            <tr>
-                                <td>020</td>
-                                <td>Random Photocard</td>
-                                <td>R$ 25,00</td>
-                                <td>Alice Johnson</td>
-                                <td>2023-09-05</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
-                            <tr>
-                                <td>020</td>
-                                <td>Random Photocard</td>
-                                <td>R$ 25,00</td>
-                                <td>Alice Johnson</td>
-                                <td>2023-09-05</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
-                            <tr>
-                                <td>020</td>
-                                <td>Random Photocard</td>
-                                <td>R$ 25,00</td>
-                                <td>Alice Johnson</td>
-                                <td>2023-09-05</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
-                            <tr>
-                                <td>020</td>
-                                <td>Random Photocard</td>
-                                <td>R$ 25,00</td>
-                                <td>Alice Johnson</td>
-                                <td>2023-09-05</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
-                            <tr>
-                                <td>020</td>
-                                <td>Random Photocard</td>
-                                <td>R$ 25,00</td>
-                                <td>Alice Johnson</td>
-                                <td>2023-09-05</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
-                            <tr>
-                                <td>020</td>
-                                <td>Random Photocard</td>
-                                <td>R$ 25,00</td>
-                                <td>Alice Johnson</td>
-                                <td>2023-09-05</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
-                            <tr>
-                                <td>020</td>
-                                <td>Random Photocard</td>
-                                <td>R$ 25,00</td>
-                                <td>Alice Johnson</td>
-                                <td>2023-09-05</td>
-                                <td><button class="options-btn">&#8942;</button></td>
-                            </tr>
+                            <% }%>
+
                         </tbody>
                     </table>
                 </div>
