@@ -5,6 +5,8 @@
 package controller.sale;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +42,7 @@ public class SaleServlet extends HttpServlet {
             }
 
             /* Cria a venda */
-            Sale sale = new Sale(0, LocalDateTime.MAX, 6);
+            Sale sale = new Sale(0, Timestamp.from(Instant.MIN), Long.parseLong(userId));
             sale.setProduct(products);
             SaleDAO s = new SaleDAO();
             boolean checkout = s.insert(sale);

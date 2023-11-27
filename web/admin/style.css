@@ -868,3 +868,11 @@ canvas {
     padding: 5px;
     margin-bottom: 20px;
 }
+
+ul{
+    list-style: none;
+}
+
+li{
+    margin-bottom: 10px;
+}

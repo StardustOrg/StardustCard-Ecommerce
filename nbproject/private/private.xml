@@ -3,11 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/src/java/model/product/Product.java</file>
-            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/src/java/controller/sale/SaleServlet.java</file>
-            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/web/client/cart_page.jsp</file>
-            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/src/java/controller/admin/photocard/PhotocardsServlet.java</file>
+            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/src/java/model/sale/Sale.java</file>
+            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/src/java/controller/admin/SellingsServlet.java</file>
+            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/src/java/config/Config.java</file>
+            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/src/java/model/sale/SaleDAO.java</file>
+            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/src/java/model/DAO.java</file>
         </group>
     </open-files>
 </project-private>
