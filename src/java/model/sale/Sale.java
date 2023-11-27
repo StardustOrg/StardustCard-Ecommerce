@@ -1,11 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model.sale;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Map;
 import model.product.Product;
 
 /**
@@ -17,10 +13,15 @@ public class Sale {
     private long id;
     private LocalDateTime date;
     private long userId;
-    private List<Product> product;
+    private Map<Product, Integer> products;
 
     public Sale(long id, LocalDateTime date, long userId) {
         this.id = id;
+        this.date = date;
+        this.userId = userId;
+    }
+    
+    public Sale(LocalDateTime date, long userId) {
         this.date = date;
         this.userId = userId;
     }
@@ -49,12 +50,12 @@ public class Sale {
         this.userId = userId;
     }
 
-    public List<Product> getProduct() {
-        return product;
+    public Map<Product, Integer> getProducts() {
+        return products;
     }
 
-    public void setProduct(List<Product> product) {
-        this.product = product;
+    public void setProduct(Map<Product, Integer> products) {
+        this.products = products;
     }
     
 }

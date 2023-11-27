@@ -108,6 +108,10 @@
         <servlet-name>BuyNowServlet</servlet-name>
         <servlet-class>controller.shoppingcart.BuyNowServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SaleServlet</servlet-name>
+        <servlet-class>controller.sale.SaleServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -219,6 +223,10 @@
     <servlet-mapping>
         <servlet-name>BuyNowServlet</servlet-name>
         <url-pattern>/BuyNow</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaleServlet</servlet-name>
+        <url-pattern>/Sale</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
