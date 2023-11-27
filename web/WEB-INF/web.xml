@@ -96,6 +96,14 @@
         <servlet-name>DeletePhotocards</servlet-name>
         <servlet-class>controller.admin.photocard.DeletePhotocards</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Testes</servlet-name>
+        <servlet-class>controller.admin.Testes</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaleServlet</servlet-name>
+        <servlet-class>controller.sale.SaleServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -187,6 +195,14 @@
     <servlet-mapping>
         <servlet-name>DeletePhotocards</servlet-name>
         <url-pattern>/Admin/DeletePhotocard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Testes</servlet-name>
+        <url-pattern>/Testes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaleServlet</servlet-name>
+        <url-pattern>/Sale</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
