@@ -18,7 +18,7 @@
             </span>
         </div>
         <div id="cart">
-            <a>
+            <a href="${pageContext.request.contextPath}/Cart">
                 <span class="material-symbols-rounded">
                     shopping_cart
                 </span>
