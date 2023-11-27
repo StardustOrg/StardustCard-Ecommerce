@@ -68,7 +68,7 @@
                             <div class="product-quantity">
                                 <label style="margin: 0;">Quantity:</label>
                                 <select id="quantitySelector" name="quantity">
-                                    <% for (int i = 1; i <= j; i++) { %>
+                                    <% for (int i = 1; i <= j; i++) {%>
                                     <option value="<%= i%>"><%= i%></option>
                                     <% } %>
                                 </select>
@@ -77,8 +77,15 @@
                     </form>
                     <div class="product-actions">
                         <button onclick="submitForm('addProduct')">Add to card</button>
-                        <button class="secondary-button">Buy now</button>
+                        <button class="secondary-button" onclick="updateFormAndSubmit()">Buy now</button>
                     </div>
+                    <script>
+                        function updateFormAndSubmit() {
+                            var form = document.getElementById('addProduct');
+                            form.action = "${pageContext.request.contextPath}/BuyNow";
+                            submitForm('addProduct');
+                        }
+                    </script>
                 </div>
             </div>
             <div class="bundles" id="recommended">

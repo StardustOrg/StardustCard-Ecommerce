@@ -105,7 +105,11 @@
                                 <div class="delivery">Free</div>
                             </div>
                         </div>
+                        <% if (myUser != null) {%>
                         <button class="checkout">Checkout</button>
+                        <% } else { %>
+                        <button class="checkout" onclick="window.location.href='${pageContext.request.contextPath}/Login'">Login</button>
+                        <% }%>
                     </div>
                 </div>
                 <%} else { %>
