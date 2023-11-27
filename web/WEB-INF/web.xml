@@ -88,6 +88,14 @@
         <servlet-name>CartPageServlet</servlet-name>
         <servlet-class>controller.shoppingcart.CartPageServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateQuantityServlet</servlet-name>
+        <servlet-class>controller.shoppingcart.UpdateQuantityServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RemoveAllItemsServlet</servlet-name>
+        <servlet-class>controller.shoppingcart.RemoveAllItemsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -179,6 +187,14 @@
     <servlet-mapping>
         <servlet-name>CartPageServlet</servlet-name>
         <url-pattern>/Cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateQuantityServlet</servlet-name>
+        <url-pattern>/UpdateQuantity</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveAllItemsServlet</servlet-name>
+        <url-pattern>/RemoveAllItems</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

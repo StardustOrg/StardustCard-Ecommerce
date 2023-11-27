@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Yanna
  */
 public class ShoppingCart {
+
     private int totalItems;
     private Map<Integer, Integer> items;
 
@@ -42,16 +43,11 @@ public class ShoppingCart {
         totalItems += quantity;
     }
 
-    public void removeItem(int productId, int quantity) {
+    public void updateQuantity(int productId, int newQuantity) {
         if (items.containsKey(productId)) {
-            int existingQuantity = items.get(productId);
-            if (existingQuantity <= quantity) {
-                items.remove(productId);
-                totalItems -= existingQuantity;
-            } else {
-                items.put(productId, existingQuantity - quantity);
-                totalItems -= quantity;
-            }
+            int currentQuantity = items.get(productId);
+            totalItems = totalItems - currentQuantity + newQuantity;
+            items.put(productId, newQuantity);
         }
     }
 
@@ -68,7 +64,6 @@ public class ShoppingCart {
         totalItems = 0;
     }
 
-
     public static ShoppingCart getOrCreateCart(HttpServletRequest request) throws UnsupportedEncodingException {
         // Try to get the cart from the cookies
         Cookie[] cookies = request.getCookies();
@@ -84,7 +79,7 @@ public class ShoppingCart {
         // If no cart cookie exists, create a new cart
         return new ShoppingCart();
     }
-    
+
     public void saveCartInCookie(HttpServletResponse response) throws IOException {
         String cartData = new Gson().toJson(this, ShoppingCart.class);
         String encodedCartData = URLEncoder.encode(cartData, "UTF-8");
