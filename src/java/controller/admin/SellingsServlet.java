@@ -5,15 +5,15 @@
 package controller.admin;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.user.User;
+import model.sale.Sale;
+import model.sale.SaleDAO;
 
 /**
  *
@@ -25,13 +25,11 @@ public class SellingsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
-        User user = (User) session.getAttribute("stardust_user");
-        if (user != null && user.isAdmin()) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/sellings.jsp");
-            dispatcher.forward(request, response);
-        } else {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Don't have access");
-        }
+        SaleDAO saleDAO = new SaleDAO();
+        List<Sale> sales = saleDAO.getAll();
+        
+        request.setAttribute("sales", sales);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/sellings.jsp");
+        dispatcher.forward(request, response);
     }
 }

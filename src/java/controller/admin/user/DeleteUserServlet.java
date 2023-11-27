@@ -20,7 +20,6 @@ public class DeleteUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userId = req.getParameter("id");
-
         if (userId != null && !userId.isEmpty()) {
             try {
                 long id = Long.parseLong(userId);
