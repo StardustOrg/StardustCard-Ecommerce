@@ -5,6 +5,11 @@
         <group>
             <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/src/java/controller/access/LoginServlet.java</file>
             <file>file:/D:/Documentos/Development/Stardust/StardustCard-Ecommerce/src/java/controller/sale/SaleServlet.java</file>
+            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/src/java/model/sale/Sale.java</file>
+            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/src/java/controller/admin/SellingsServlet.java</file>
+            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/src/java/config/Config.java</file>
+            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/src/java/model/sale/SaleDAO.java</file>
+            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/src/java/model/DAO.java</file>
         </group>
     </open-files>
 </project-private>

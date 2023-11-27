@@ -27,6 +27,7 @@
                 <% if (!empty) {
                         Map<Product, Integer> products = (Map<Product, Integer>) request.getAttribute("products");
                 %>
+
                 <div class="cart-container">
                     <div class="cart-products-cont">
                         <%
@@ -119,6 +120,7 @@
                     <a href="${pageContext.request.contextPath}/Home"><button style="margin-top: 0">Go shopping!</button></a>
                 </div>
                 <% }%>
+
             </div>
         </div>
         <%@include file="./components/footer.jsp" %>
