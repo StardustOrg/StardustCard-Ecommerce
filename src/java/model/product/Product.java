@@ -84,4 +84,14 @@ public class Product {
         this.artists = artists;
     }
 
+    public void updateQuantity(int quantityToSubtract) {
+        // Assuming that quantity is never negative
+        if (this.amount >= quantityToSubtract) {
+            this.amount -= quantityToSubtract;
+        } else {
+            // Handle insufficient quantity error
+            // You can throw an exception or handle it according to your needs
+            throw new IllegalArgumentException("Insufficient quantity in stock");
+        }
+    }
 }

@@ -4,6 +4,7 @@
     Author     : Yanna
 --%>
 
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="controller.product.RandomSequenceGenerator"%>
 <%@page import="model.artist.Artist"%>
 <%@page import="java.util.List"%>
@@ -14,6 +15,7 @@
     <%
         request.setAttribute("pageTitle", "StardustCard - Artists");
 
+        DecimalFormat decfor = new DecimalFormat("0.00");
         Product product = (Product) request.getAttribute("product");
     %>
     <%@include file="./components/head.jsp" %>
@@ -48,7 +50,7 @@
                     </div>
                     <form id="addProduct" style="margin: 0" action="${pageContext.request.contextPath}/AddProduct" method="POST">
                         <div class="product-details">
-                            <div class="price-tag" style="margin-top: 10px;">R$ <%= product.getPrice()%></div>
+                            <div class="price-tag" style="margin-top: 10px;">R$ <%= decfor.format(product.getPrice())%></div>
                             <%
                                 String stock;
                                 String color = "#379635";
@@ -66,17 +68,36 @@
                             <div class="product-quantity">
                                 <label style="margin: 0;">Quantity:</label>
                                 <select id="quantitySelector" name="quantity">
-                                    <% for (int i = 1; i <= j; i++) { %>
+                                    <% for (int i = 1; i <= j; i++) {%>
                                     <option value="<%= i%>"><%= i%></option>
                                     <% } %>
                                 </select>
                             </div>
                         </div>
                     </form>
+                    <%
+                        if (product.getAmount() != 0) {
+                    %>
                     <div class="product-actions">
                         <button onclick="submitForm('addProduct')">Add to card</button>
-                        <button class="secondary-button">Buy now</button>
+                        <button class="secondary-button" onclick="updateFormAndSubmit()">Buy now</button>
                     </div>
+                    <%
+                        } else {
+                    %>
+                    <div class="product-actions">
+                        <i>Not in stock</i>
+                    </div>
+                    <%
+                        }
+                    %>
+                    <script>
+                        function updateFormAndSubmit() {
+                            var form = document.getElementById('addProduct');
+                            form.action = "${pageContext.request.contextPath}/BuyNow";
+                            submitForm('addProduct');
+                        }
+                    </script>
                 </div>
             </div>
             <div class="bundles" id="recommended">

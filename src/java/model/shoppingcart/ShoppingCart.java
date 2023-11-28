@@ -10,6 +10,8 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.product.Product;
+import model.product.ProductDAO;
 
 /**
  *
@@ -34,13 +36,35 @@ public class ShoppingCart {
     }
 
     public void addItem(int productId, int quantity) {
+        int maxAllowed = getMaxAllowedQuantity(productId);
+
         if (items.containsKey(productId)) {
             int existingQuantity = items.get(productId);
-            items.put(productId, existingQuantity + quantity);
+            int newQuantity = existingQuantity + quantity;
+
+            // Validate against the maximum allowed quantity
+            if (newQuantity > maxAllowed) {
+                newQuantity = maxAllowed;
+            }
+
+            totalItems = totalItems - existingQuantity + newQuantity;
+            items.put(productId, newQuantity);
         } else {
+            // Validate against the maximum allowed quantity
+            if (quantity > maxAllowed) {
+                quantity = maxAllowed;
+            }
+
+            totalItems += quantity;
             items.put(productId, quantity);
         }
-        totalItems += quantity;
+    }
+
+    private int getMaxAllowedQuantity(int productId) {
+        ProductDAO productDAO = new ProductDAO();
+        Product product = productDAO.getOne(productId);
+        
+        return (product.getAmount() < 5) ? 1 : 5;
     }
 
     public void updateQuantity(int productId, int newQuantity) {

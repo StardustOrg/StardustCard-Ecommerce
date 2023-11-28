@@ -83,8 +83,8 @@
                                 <td><%= sale.getId()%></td>
                                 <%
                                     double amount = 0.0;
-                                    List<String> photocards = new ArrayList<String>();
-                                    for (Product product : sale.getProduct()) {
+                                    List<String> photocards = new ArrayList<>();
+                                    for (Product product : sale.getProducts().keySet()) {
                                         amount += product.getAmount() * product.getPrice();
                                         photocards.add(product.getDescription());
                                     }

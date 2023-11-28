@@ -1,18 +1,18 @@
 package controller.shoppingcart;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.product.Product;
 import model.product.ProductDAO;
 import model.shoppingcart.ShoppingCart;
+import model.user.User;
 
 /**
  *
@@ -43,10 +43,15 @@ public class CartPageServlet extends HttpServlet {
                     products.put(myProduct, quantity);
                 }
             }
-
             request.setAttribute("products", products);
         }
-
+        HttpSession session = request.getSession(true);
+        User user = (User) session.getAttribute("stardust_user");
+        if (user != null && user.isAdmin() == false) {
+            request.setAttribute("user", user);
+        } else {
+            request.setAttribute("user", null);
+        }
         RequestDispatcher dispatcher = request.getRequestDispatcher("/client/cart_page.jsp");
         dispatcher.forward(request, response);
     }

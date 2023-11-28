@@ -7,53 +7,85 @@ package controller.sale;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.product.Product;
+import model.product.ProductDAO;
 import model.sale.Sale;
 import model.sale.SaleDAO;
+import model.shoppingcart.ShoppingCart;
+import model.user.User;
 
 /**
  *
- * @author joaov
+ * @author Yanna
  */
 public class SaleServlet extends HttpServlet {
 
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession(true);
+        User user = (User) session.getAttribute("stardust_user");
+        ShoppingCart cart = ShoppingCart.getOrCreateCart(request);
+        request.setAttribute("totalCart", cart.getTotalItems());
 
-        req.setCharacterEncoding("UTF-8");
-        try {
-            String userId = req.getParameter("user-id");
-            String[] productsIds = req.getParameterValues("productsIds");
-            String[] productsQuantities = req.getParameterValues("productsQuantities");
+        if (user != null && user.isAdmin() == false) {
+            request.setAttribute("user", user);
 
-            List<Product> products = new ArrayList<>();
-            for (int i = 0; i < productsIds.length; i++) {
-                Product product = new Product();
-                product.setId(Long.parseLong(productsIds[i]));
-                product.setAmount(Integer.parseInt(productsQuantities[i]));
-                products.add(product);
-            }
-
-            /* Cria a venda */
-            Sale sale = new Sale(0, Timestamp.from(Instant.MIN), Long.parseLong(userId));
-            sale.setProduct(products);
-            SaleDAO s = new SaleDAO();
-            boolean checkout = s.insert(sale);
-            if (checkout) {
-                resp.sendRedirect("Home");
+            if (cart.getTotalItems() == 0) {
+                String alertMessage = "Empty Cart. Please add a item before closing.";
+                String redirectScript = "<script>alert('" + alertMessage + "');  window.location.href = 'Home';</script>";
+                response.getWriter().write(redirectScript);
             } else {
-                resp.sendError(HttpServletResponse.SC_FORBIDDEN, "Failed to checkout products");
+                ProductDAO productDAO = new ProductDAO();
+                Map<Product, Integer> products = new HashMap<>();
+                Map<Integer, Integer> myItems = cart.getItems();
+
+                for (Map.Entry<Integer, Integer> entry : myItems.entrySet()) {
+                    int productId = entry.getKey();
+                    int quantity = entry.getValue();
+                    Product myProduct = productDAO.getOne(productId);
+
+                    if (myProduct != null) {
+                        products.put(myProduct, quantity);
+                    }
+                }
+
+                Sale mySale = new Sale(Timestamp.from(Instant.now()), user.getId());
+                mySale.setProduct(products);
+
+                SaleDAO saleDAO = new SaleDAO();
+                try {
+                    boolean success = saleDAO.insert(mySale);
+                    if (success) {
+                        cart.clearCart();
+                        cart.saveCartInCookie(response);
+                        response.sendRedirect("Home");
+                    } else {
+                        String alertMessage = "Empty Cart. Please add a item before closing.";
+                        String redirectScript = "<script>alert('" + alertMessage + "');  window.location.href = 'Home';</script>";
+                        response.getWriter().write(redirectScript);
+                    }
+                } catch (Exception ex) {
+                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Don't have access");
+                }
             }
-        } catch (Exception e) {
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal server error");
+        } else {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Don't have access");
         }
     }
-
 }

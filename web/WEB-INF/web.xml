@@ -117,6 +117,10 @@
         <servlet-class>controller.admin.Testes</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>BuyNowServlet</servlet-name>
+        <servlet-class>controller.shoppingcart.BuyNowServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>SaleServlet</servlet-name>
         <servlet-class>controller.sale.SaleServlet</servlet-class>
     </servlet>
@@ -231,6 +235,10 @@
     <servlet-mapping>
         <servlet-name>Testes</servlet-name>
         <url-pattern>/Testes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BuyNowServlet</servlet-name>
+        <url-pattern>/BuyNow</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SaleServlet</servlet-name>
