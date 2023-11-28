@@ -30,15 +30,12 @@
             <main>
                 <!-- Search -->
                 <div class="search">
-                    <input type="text" placeholder="Search.." class="search-bar">
+                    <input type="text" placeholder="Search.." class="search-bar" onkeyup="filterPhotocardsBySearch(this.value)">
                 </div>
                 <div class="photocards-row">
                     <!-- Filters -->
                     <section class="filters">
-                        <button class="dropbtn">Artists</button>
-                        <button class="dropbtn">Trending</button>
-                        <button class="dropbtn">Last units</button>
-                        <button class="dropbtn">Price</button>
+                        <button id="lastUnits" class="dropbtn" onclick="filterLastUnits()">Last units</button>
                     </section>
 
                     <!-- Photocards -->
@@ -123,7 +120,7 @@
                         <%
                             for (Product photocard : photocards) {
                         %>
-                        <div class="column-container">
+                        <div class="photocard-card column-container">
                             <div class="single-product">
                                 <div class="part-1">
                                     <% StringBuffer desciption = new StringBuffer();
@@ -278,6 +275,50 @@
                                                         }
                                                     }
 
+                                                    // Filtrar por últimas unidades (menor ou igual a 4)
+                                                    function filterLastUnits() {
+                                                        let products = document.querySelectorAll('.photocard-card');
+                                                        let btn = document.getElementById("lastUnits");
+                                                        let applied = false;
+
+                                                        products.forEach(product => {
+                                                            let unitsElement = product.querySelector('.product-units');
+                                                            let units = parseInt(unitsElement.textContent.split(' ')[0]); // Obtém o número de unidades
+                                                            if (units <= 4) {
+                                                                product.style.display = 'block'; // Mostra o produto se tiver 4 unidades ou menos
+                                                            } else {
+                                                                if (product.style.display === 'none') {
+                                                                    product.style.display = 'block';
+                                                                    applied = false;
+                                                                } else {
+                                                                    product.style.display = 'none';
+                                                                    applied = true;
+                                                                }
+                                                            }
+                                                        });
+
+                                                        if (applied) // Correção no nome da propriedade style
+                                                            btn.style.backgroundColor = "#E1B4F4";
+                                                        else
+                                                            btn.style.backgroundColor = "#6622CC";
+                                                    }
+
+                                                   
+                                                    function filterPhotocardsBySearch(searchText) {
+                                                        let photocards = document.querySelectorAll('.photocard-card');
+
+                                                        // Iterar por todos os photocards
+                                                        photocards.forEach(photocard => {
+                                                            let description = photocard.querySelector('.product-title').textContent.toLowerCase();
+
+                                                            // Verificar se o texto pesquisado está contido na descrição do photocards
+                                                            if (description.toLowerCase().includes(searchText.toLowerCase())) {
+                                                                photocard.style.display = 'block'; // Exibe o photocard se a descrição corresponder à pesquisa
+                                                            } else {
+                                                                photocard.style.display = 'none'; // Oculta o photocard se a descrição não corresponder à pesquisa
+                                                            }
+                                                        });
+                                                    }
 
 
 

@@ -11,7 +11,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import model.DAO;
 import model.product.Product;
 
@@ -23,62 +27,66 @@ public class SaleDAO implements DAO<Sale> {
 
     @Override
     public boolean insert(Sale sale) {
-        try {
-            Class.forName(Config.JDBC_DRIVER);
-            Connection connection = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
-            connection.setAutoCommit(false); // Desativar o commit automático
+        try (Connection connection = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD)) {
+            connection.setAutoCommit(false);
 
-            // Inserção da venda na tabela 'sale'
-            PreparedStatement saleStatement = connection.prepareStatement("INSERT INTO sale (user_id, date_time) VALUES (?, CURRENT_TIMESTAMP)", Statement.RETURN_GENERATED_KEYS);
-            saleStatement.setLong(1, sale.getUserId());
+            // Insert sale details
+            try (PreparedStatement saleStatement = connection.prepareStatement("INSERT INTO sale (user_id, date_time) VALUES (?, CURRENT_TIMESTAMP)", Statement.RETURN_GENERATED_KEYS)) {
+                saleStatement.setLong(1, sale.getUserId());
 
-            int rowsAffected = saleStatement.executeUpdate();
-            long saleId = -1; // Inicializa o ID da venda
+                int rowsAffected = saleStatement.executeUpdate();
+                long saleId = -1;
 
-            if (rowsAffected > 0) {
-                ResultSet generatedKeys = saleStatement.getGeneratedKeys();
-                if (generatedKeys.next()) {
-                    saleId = generatedKeys.getLong(1); // Obtém o ID da venda gerado
-                }
-                generatedKeys.close();
-            }
-
-            saleStatement.close();
-
-            if (saleId != -1) { // Se a inserção da venda foi bem-sucedida
-                // Inserção dos produtos vendidos na tabela 'sale_product'
-                PreparedStatement productStatement = connection.prepareStatement("INSERT INTO sale_product (sale_id, product_id, quantity) VALUES (?, ?, ?)");
-
-                for (Product product : sale.getProduct()) {
-                    productStatement.setLong(1, saleId);
-                    productStatement.setLong(2, product.getId());
-                    productStatement.setInt(3, product.getAmount());
-
-                    productStatement.addBatch();
-                }
-
-                int[] productsRowsAffected = productStatement.executeBatch();
-                productStatement.close();
-
-                for (int rows : productsRowsAffected) {
-                    if (rows <= 0) {
-                        connection.rollback();
-                        connection.close();
-                        return false;
+                if (rowsAffected > 0) {
+                    try (ResultSet generatedKeys = saleStatement.getGeneratedKeys()) {
+                        if (generatedKeys != null && generatedKeys.next()) {
+                            saleId = generatedKeys.getLong(1); // Obtain the generated sale ID
+                        }
                     }
                 }
 
-                connection.commit();
-                connection.close();
-                return true;
+                if (saleId == -1) {
+                    connection.rollback();
+                    return false;
+                }
+
+                // Insert sale products into the sale_product table
+                try (PreparedStatement productStatement = connection.prepareStatement("INSERT INTO sale_product (sale_id, product_id, quantity) VALUES (?, ?, ?)")) {
+                    for (Map.Entry<Product, Integer> entry : sale.getProducts().entrySet()) {
+                        Product product = entry.getKey();
+                        int quantity = entry.getValue();
+
+                        productStatement.setLong(1, saleId);
+                        productStatement.setLong(2, product.getId());
+                        productStatement.setInt(3, quantity);
+
+                        productStatement.addBatch();
+
+                        // Update product quantity in the product table
+                        try (PreparedStatement updateProductStatement = connection.prepareStatement("UPDATE product SET amount = amount - ? WHERE id = ?")) {
+                            updateProductStatement.setInt(1, quantity);
+                            updateProductStatement.setLong(2, product.getId());
+                            updateProductStatement.executeUpdate();
+                        }
+                    }
+
+                    int[] productsRowsAffected = productStatement.executeBatch();
+
+                    for (int rows : productsRowsAffected) {
+                        if (rows <= 0) {
+                            connection.rollback();
+                            return false;
+                        }
+                    }
+
+                    connection.commit();
+                    return true;
+                }
             }
-
-            connection.close();
-        } catch (ClassNotFoundException | SQLException ex) {
-            System.out.println(ex);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
         }
-
-        return false;
     }
 
     @Override
@@ -88,10 +96,69 @@ public class SaleDAO implements DAO<Sale> {
 
     @Override
     public List<Sale> getAll() {
+<<<<<<< HEAD
 
         return null;
 
         }
+=======
+        List<Sale> sales = new ArrayList<>();
+        try {
+            Class.forName(Config.JDBC_DRIVER);
+            Connection connection = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM SALE");
+
+            while (resultSet.next()) {
+                long saleId = resultSet.getLong("id");
+                long userId = resultSet.getLong("user_id");
+                Timestamp dateTime = resultSet.getTimestamp("date_time");
+
+                Sale sale = new Sale(saleId, dateTime, userId);
+                sales.add(sale);
+            }
+
+            resultSet.close();
+            statement.close();
+
+            for (Sale sale : sales) {
+                PreparedStatement productStatement = connection.prepareStatement(
+                        "SELECT PR.DESCRIPTION, PR.PRICE, PR.ID, PR.AMOUNT, SP.QUANTITY "
+                        + "FROM SALE AS S "
+                        + "INNER JOIN SALE_PRODUCT AS SP ON S.ID = SP.SALE_ID "
+                        + "INNER JOIN PRODUCT AS PR ON SP.PRODUCT_ID = PR.ID "
+                        + "WHERE S.ID = ?");
+
+                productStatement.setLong(1, sale.getId());
+                ResultSet productResultSet = productStatement.executeQuery();
+
+                Map<Product, Integer> products = new HashMap<>();
+                while (productResultSet.next()) {
+                    String description = productResultSet.getString("description");
+                    double price = productResultSet.getDouble("price");
+                    int quantity = productResultSet.getInt("quantity");
+                    int amount = productResultSet.getInt("amount");
+                    long id = productResultSet.getLong("id");
+
+                    Product product = new Product(id, description, amount, null, price, null);
+                    products.put(product, quantity);
+                }
+
+                productResultSet.close();
+                productStatement.close();
+
+                sale.setProduct(products);
+            }
+
+            connection.close();
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
+        }
+
+        return sales;
+    }
+>>>>>>> cb98231740b0ee733a2fdbbc3c66f187dcd16d60
 
     @Override
     public boolean update(Sale t) {
@@ -100,7 +167,33 @@ public class SaleDAO implements DAO<Sale> {
 
     @Override
     public boolean delete(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+        try {
+            Class.forName(Config.JDBC_DRIVER);
+            Connection connection = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
+            connection.setAutoCommit(false);
 
+            PreparedStatement deleteProductsStatement = connection.prepareStatement("DELETE FROM SALE_PRODUCT WHERE SALE_PRODUCT.SALE_ID = ?");
+            deleteProductsStatement.setLong(1, id);
+            int rowsAffectedInProducts = deleteProductsStatement.executeUpdate();
+            deleteProductsStatement.close();
+
+            PreparedStatement deleteSaleStatement = connection.prepareStatement("DELETE FROM SALE WHERE SALE.ID = ?");
+            deleteSaleStatement.setLong(1, id);
+            int rowsAffectedInSale = deleteSaleStatement.executeUpdate();
+            deleteSaleStatement.close();
+
+            if (rowsAffectedInProducts > 0 && rowsAffectedInSale > 0) {
+                connection.commit();
+                connection.close();
+                return true;
+            } else {
+                connection.rollback(); 
+                connection.close();
+                return false;
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
+            return false;
+        }
+    }
 }

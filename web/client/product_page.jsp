@@ -4,6 +4,7 @@
     Author     : Yanna
 --%>
 
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="controller.product.RandomSequenceGenerator"%>
 <%@page import="model.artist.Artist"%>
 <%@page import="java.util.List"%>
@@ -14,6 +15,7 @@
     <%
         request.setAttribute("pageTitle", "StardustCard - Artists");
 
+        DecimalFormat decfor = new DecimalFormat("0.00");
         Product product = (Product) request.getAttribute("product");
     %>
     <%@include file="./components/head.jsp" %>
@@ -23,12 +25,6 @@
                 request.setAttribute("activePage", "artists");
             %>
             <%@include file="./components/navbar.jsp" %>
-            <!--            <div class="navigation_path">
-                            <a href="${pageContext.request.contextPath}/Home">Home</a> >
-                            <a href="${pageContext.request.contextPath}/Artists">Artists</a> >
-                            <a href="${pageContext.request.contextPath}/Artists/NewJeans">NewJeans</a> >
-                            <a href="${pageContext.request.contextPath}/Artists/NewJeans/Hanni">Hanni</a>
-                        </div>-->
             <div class="product" style="margin-top: 25px;">
                 <img src="<%= product.getPicture()%>">
                 <div class="product-container" style="margin-top: 30px; max-width: 45%;">
@@ -52,34 +48,56 @@
                             %>
                         </div>
                     </div>
-                    <div class="product-details">
-                        <div class="price-tag" style="margin-top: 10px;">R$ <%= product.getPrice()%></div>
-                        <%
-                            String stock;
-                            String color = "#379635";
-                            if (product.getAmount() <= 5) {
-                                stock = "Only " + product.getAmount() + " units left";
-                                color = "#CC224B";
-                            } else {
-                                stock = "In Stock";
-                            }
-                        %>
-                        <div class="product-stock" style="color: <%= color%>;"><%= stock%></div>
-                        <div class="product-quantity">
-                            <label style="margin: 0;">Quantity:</label>
-                            <select id="quantitySelector">
-                                <option value=" 1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
+                    <form id="addProduct" style="margin: 0" action="${pageContext.request.contextPath}/AddProduct" method="POST">
+                        <div class="product-details">
+                            <div class="price-tag" style="margin-top: 10px;">R$ <%= decfor.format(product.getPrice())%></div>
+                            <%
+                                String stock;
+                                String color = "#379635";
+                                int j = 5;
+                                if (product.getAmount() <= 5) {
+                                    stock = "Only " + product.getAmount() + " units left";
+                                    color = "#CC224B";
+                                    j = 1;
+                                } else {
+                                    stock = "In Stock";
+                                }
+                            %>
+                            <div class="product-stock" style="color: <%= color%>;"><%= stock%></div>
+                            <input name="productId" value="<%= product.getId()%>" type="hidden"/>
+                            <div class="product-quantity">
+                                <label style="margin: 0;">Quantity:</label>
+                                <select id="quantitySelector" name="quantity">
+                                    <% for (int i = 1; i <= j; i++) {%>
+                                    <option value="<%= i%>"><%= i%></option>
+                                    <% } %>
+                                </select>
+                            </div>
                         </div>
-                    </div>
+                    </form>
+                    <%
+                        if (product.getAmount() != 0) {
+                    %>
                     <div class="product-actions">
-                        <button>Add to card</button>
-                        <button class="secondary-button">Buy now</button>
+                        <button onclick="submitForm('addProduct')">Add to card</button>
+                        <button class="secondary-button" onclick="updateFormAndSubmit()">Buy now</button>
                     </div>
+                    <%
+                        } else {
+                    %>
+                    <div class="product-actions">
+                        <i>Not in stock</i>
+                    </div>
+                    <%
+                        }
+                    %>
+                    <script>
+                        function updateFormAndSubmit() {
+                            var form = document.getElementById('addProduct');
+                            form.action = "${pageContext.request.contextPath}/BuyNow";
+                            submitForm('addProduct');
+                        }
+                    </script>
                 </div>
             </div>
             <div class="bundles" id="recommended">

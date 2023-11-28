@@ -35,7 +35,7 @@ public class DeleteAccountServlet extends HttpServlet {
                 response.sendRedirect("Profile");
             }
         } else {
-            response.sendRedirect("Login");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Don't have access");
         }
     }
 

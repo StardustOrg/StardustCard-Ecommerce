@@ -2,6 +2,7 @@
 <div class="navbar">
     <% String activePage = (String) request.getAttribute("activePage");
         User myUser = (User) request.getAttribute("user");
+        int totalCart = (int) request.getAttribute("totalCart");
     %>
     <a href="${pageContext.request.contextPath}/Home"><div class="logo">StardustCard</div></a>
     <ul class="navbar_pages">
@@ -17,11 +18,11 @@
             </span>
         </div>
         <div id="cart">
-            <a>
+            <a href="${pageContext.request.contextPath}/Cart">
                 <span class="material-symbols-rounded">
                     shopping_cart
                 </span>
-                <span class="shopping-cart-value">1</span>
+                <span class="shopping-cart-value"><%= totalCart%></span>
             </a>
         </div>
         <% if (myUser == null) { %> 

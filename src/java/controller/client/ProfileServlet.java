@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.shoppingcart.ShoppingCart;
 import model.user.User;
 import model.user.UserDAO;
 
@@ -26,8 +27,11 @@ public class ProfileServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/client/profile_page.jsp");
             dispatcher.forward(request, response);
         } else {
-            response.sendRedirect("Login");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Don't have access");
         }
+        
+        ShoppingCart cart = ShoppingCart.getOrCreateCart(request);
+        request.setAttribute("totalCart", cart.getTotalItems());
     }
 
     @Override
@@ -52,7 +56,7 @@ public class ProfileServlet extends HttpServlet {
             response.sendRedirect("Profile");
             }
         } else {
-            response.sendRedirect("Login");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Don't have access");
         }
     }
 
