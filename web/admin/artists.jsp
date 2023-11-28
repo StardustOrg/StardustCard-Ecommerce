@@ -27,14 +27,13 @@
             <main>
                 <!-- Search -->
                 <div class="search">
-                    <input type="text" placeholder="Search.." class="search-bar">
+                    <input type="text" placeholder="Search.." class="search-bar" onkeyup="filterBySearch(this.value)">
                 </div>
                 <div class="artists-row">
                     <!-- Filters -->
                     <section class="filters">
-                        <button onclick="myFunction()" class="dropbtn">Artistas</button>
-                        <button onclick="myFunction()" class="dropbtn">Grupos</button>
-                        <button onclick="myFunction()" class="dropbtn">Mais populares</button>
+                        <button id="filterByArtists" onclick="filterByArtists()" class="dropbtn">Artistas</button>
+                        <button id="filterByGroups" onclick="filterByGroups()" class="dropbtn">Grupos</button>
                     </section>
                     <section class="artists">
                         <%List<Artist> artists = (List<Artist>) request.getAttribute("artists");%>
@@ -116,7 +115,10 @@
                         <!-- Single Product -->
                         <%for (Artist artist : artists) {%>
                         <!-- Modal para edição -->
-                        <div class="artist-card">
+                        <%
+                            String isGroup = artist.getGroupId() == 0 ? "group" : "non-group";
+                        %>
+                        <div class="artist-card <%= isGroup%>">
                             <div class="artist-image">
                                 <img src="<%= artist.getIcon()%>" />
                                 <div class="overlay"></div>
@@ -245,8 +247,57 @@
                                                         }
                                                     }
 
+                                                    function filterByArtists() {
+                                                        let cards = document.getElementsByClassName("group");
+                                                        let filterByArtists = document.getElementById("filterByArtists");
+                                                        // Converter a coleção HTML em um array para usar forEach
+                                                        Array.from(cards).forEach((card) => {
+                                                            if (card.style.display !== "none") {
+                                                                card.style.display = "none";
+                                                            } else {
+                                                                card.style.display = "flex";
+                                                            }
+                                                        });
+                                                        if (Array.from(cards)[0].style.display === "none")
+                                                            filterByArtists.style.backgroundColor = "#E1B4F4";
+                                                        else
+                                                            filterByArtists.style.backgroundColor = "#6622CC";
 
+                                                    }
 
+                                                    function filterByGroups() {
+                                                        let cards = document.getElementsByClassName("non-group");
+                                                        let filterByGroups = document.getElementById("filterByGroups");
+                                                        // Converter a coleção HTML em um array para usar forEach
+                                                        Array.from(cards).forEach((card) => {
+                                                            if (card.style.display !== "none") {
+                                                                card.style.display = "none";
+                                                            } else {
+                                                                card.style.display = "flex";
+                                                            }
+                                                        });
+                                                        if (Array.from(cards)[0].style.display === "none")
+                                                            filterByGroups.style.backgroundColor = "#E1B4F4";
+                                                        else
+                                                            filterByGroups.style.backgroundColor = "#6622CC";
+
+                                                    }
+
+                                                    function filterBySearch(searchText) {
+                                                        let cards = document.querySelectorAll('.artist-card');
+
+                                                        // Iterar por todos os artist-cards
+                                                        cards.forEach(card => {
+                                                            let artistName = card.querySelector('.image-caption').textContent.toLowerCase();
+
+                                                            // Verificar se o texto pesquisado está contido no nome do artista
+                                                            if (artistName.toLowerCase().includes(searchText.toLowerCase())) {
+                                                                card.style.display = 'block'; // Exibe o card se o nome corresponder à pesquisa
+                                                            } else {
+                                                                card.style.display = 'none'; // Oculta o card se o nome não corresponder à pesquisa
+                                                            }
+                                                        });
+                                                    }
 </script>
 </body>
 
