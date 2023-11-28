@@ -40,6 +40,7 @@ public class Sale {
     public void setDate(LocalDateTime date) {
         this.date = date;
     }
+    
 
     public long getUserId() {
         return userId;

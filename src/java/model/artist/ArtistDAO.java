@@ -91,7 +91,7 @@ public class ArtistDAO implements DAO<Artist> {
                 Artist artist = new Artist(id, name, iconURL, coverURL, groupId);
                 artists.add(artist);
             }
-
+            
             rs.close();
             stmt.close();
             c.close();
