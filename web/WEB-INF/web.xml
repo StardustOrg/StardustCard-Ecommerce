@@ -124,6 +124,10 @@
         <servlet-name>SaleServlet</servlet-name>
         <servlet-class>controller.sale.SaleServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReportsServlet</servlet-name>
+        <servlet-class>controller.admin.ReportsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -243,6 +247,10 @@
     <servlet-mapping>
         <servlet-name>SaleServlet</servlet-name>
         <url-pattern>/Sale</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportsServlet</servlet-name>
+        <url-pattern>/Admin/Reports</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

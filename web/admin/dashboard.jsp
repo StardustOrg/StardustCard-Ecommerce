@@ -28,15 +28,19 @@
             <!-- Content -->
             <main>
                 <!-- Higlights -->
+                <%String dailyBilling = (String) request.getAttribute("dailyBilling");%>
+                <%String trendingPhotocard = (String) request.getAttribute("trendingPhotocard");%>
+                <%String trendingArtist = (String) request.getAttribute("trendingArtist");%>
+
                 <div class="highlights">
                     <%  List<Highlight> highlights = new ArrayList<>();
-                        highlights.add(new Highlight("Daily Billing", "2000.00", "billing"));
-                        highlights.add(new Highlight("Trending Photocard", "NewJeans Photocard 'Bunnyland' Version", "trending-photocard"));
-                        highlights.add(new Highlight("Trending Artist", "BTS", "trending-artist"));
+                        highlights.add(new Highlight("Daily Billing", dailyBilling, "billing"));
+                        highlights.add(new Highlight("Trending Photocard", trendingPhotocard, "trending-photocard"));
+                        highlights.add(new Highlight("Trending Artist", trendingArtist, "trending-artist"));
 
                         for (Highlight highlight : highlights) {
                     %>
-                    
+
                     <%request.setAttribute("highlightTitle", highlight.getHighlightTitle());%>
                     <%request.setAttribute("highlightDescription", highlight.getHighlightDescription());%>
                     <%request.setAttribute("typeClass", highlight.getTypeClass());%>
@@ -54,8 +58,8 @@
                         <canvas id="weekSales" style="width: 100%; height: 80%;"></canvas>
                     </div>
                 </div>
-                
-                
+
+
                 <!-- Last Sales -->
                 <div class="sales">
                     <table>

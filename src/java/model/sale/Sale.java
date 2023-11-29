@@ -41,6 +41,7 @@ public class Sale {
     public void setDate(Timestamp date) {
         this.date = date;
     }
+    
 
     public long getUserId() {
         return userId;

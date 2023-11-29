@@ -94,4 +94,10 @@ public class Product {
             throw new IllegalArgumentException("Insufficient quantity in stock");
         }
     }
+
+    @Override
+    public String toString() {
+        return "ID: " + this.getId() + ", DESCIPTION: " + this.getDescription() + ", PRICE: $" + this.getPrice();
+    }
+
 }

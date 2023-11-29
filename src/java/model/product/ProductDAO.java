@@ -134,7 +134,8 @@ public class ProductDAO implements DAO<Product> {
         try {
             Class.forName(Config.JDBC_DRIVER);
             Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
-            PreparedStatement ps = c.prepareStatement("SELECT pr.id, pr.description, pr.amount, pr.picture_path, pr.price, ar.id as artist_id, ar.name, ar.icon_url, ar.cover_url, ar.group_id "
+            PreparedStatement ps = c.prepareStatement("SELECT pr.id, pr.description, pr.amount, pr.picture_path, pr.price, ar.id as artist_id, "
+                    + "ar.name, ar.icon_url, ar.cover_url, ar.group_id "
                     + "FROM product AS pr "
                     + "JOIN product_artist AS pa ON pr.id = pa.product_id "
                     + "JOIN artist AS ar ON pa.artist_id = ar.id");

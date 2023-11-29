@@ -76,8 +76,8 @@ a {
 }
 
 .user-info img {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
 }
 
 .user-info h4,
@@ -680,7 +680,8 @@ canvas {
 
 .user-data .group-data-user input[type="text"],
 .user-data .group-data-user input[type="email"],
-.user-data .group-data-user input[type="password"] {
+.user-data .group-data-user input[type="password"],
+.user-data .group-data-user select{
     width: 100%;
     max-width: 300px;
     padding: 12px;

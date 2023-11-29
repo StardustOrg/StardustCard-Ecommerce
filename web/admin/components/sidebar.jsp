@@ -13,7 +13,7 @@
         <!-- User info -->
         <div class="user-info">
             <a class="link-img" href="/StardustCard-Ecommerce/Admin/User">
-                <img src="${pageContext.request.contextPath}/admin/assets/user.png" alt="Foto do Usuário">
+                <img src="${pageContext.request.contextPath}/admin/assets/user.png" style="width: 90px; height: 90px;" alt="Foto do Usuário">
                 <h4><%=adminUser.getName()%></h4>
                 <h5>Stardust Manager</h5>
             </a>
@@ -47,6 +47,12 @@
                     groups
                 </span>
                 <span class="link-text">Artists</span>
+            </a>
+            <a href="/StardustCard-Ecommerce/Admin/Reports"  class="<%= (activePage.equals("reports")) ? "active" : ""%>">
+                <span class="material-symbols-outlined small">
+                    flag
+                </span>
+                <span class="link-text">Reports</span>
             </a>
         </nav>
     </div>
