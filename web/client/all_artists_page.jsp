@@ -64,9 +64,9 @@
                             String uri = RandomSequenceGenerator.generateRandomSequence(15);
                             Product product = artistProduct.get(j);
                     %>
-                    <form id="form<%= artist.getName()%>_<%= i%>" method="POST" action="${pageContext.request.contextPath}/Artists/Product/<%= uri%>" class="photocard-form">
+                    <form id="form<%= artist.getName()%>_<%= j%>" method="POST" action="${pageContext.request.contextPath}/Artists/Product/<%= uri%>" class="photocard-form">
                         <input type="hidden" name="productId" value="<%= product.getId() %>">
-                        <div class="card" onclick="submitForm('form<%= artist.getName()%>_<%= i%>')">
+                        <div class="card" onclick="submitForm('form<%= artist.getName()%>_<%= j%>')">
                             <div id="photo">
                                 <img src="<%= product.getPicture()%>" alt="Avatar">
                             </div>
