@@ -1018,7 +1018,8 @@ hr.rounded {
     line-height: normal;
 }
 
-.profile-option:hover {
+.profile-option:hover,
+.profile-option:active {
     background: rgba(142, 220, 230, 0.50);
     cursor: pointer;
 }

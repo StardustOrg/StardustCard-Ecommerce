@@ -26,7 +26,7 @@
                             My Details
                         </div>
                     </a>
-                    <a>
+                    <a href="Orders">
                         <div class="profile-option">
                             <span class="material-symbols-rounded">
                                 orders
