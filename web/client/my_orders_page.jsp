@@ -52,12 +52,12 @@
                         DecimalFormat decfor = new DecimalFormat("00.00");
                     %>
                     <div class="orders-cont">
-                        <table  class="order-item">
+                        <table>
                             <tr>
                                 <th>Order Number</th>
+                                <th>Products</th>
                                 <th>Date</th>
                                 <th>Total</th>
-                                <th>Products</th>
                             </tr>
 
                             <%
@@ -78,10 +78,8 @@
                             %>
                             <tr>
                                 <td>#<%= formattedNumber%></td>
-                                <td><%= date%></td>
-                                <td>R$ <%= price%></td>
                                 <td>
-                                    <div>
+                                    <ul style="text-align: left; padding: 0">
                                         <%
                                             for (Map.Entry<Product, Integer> entry : sale.getProducts().entrySet()) {
                                                 Product p = entry.getKey();
@@ -91,8 +89,11 @@
                                         <%
                                             }
                                         %>
-                                    </div>
+                                    </ul>
                                 </td>
+                                <td><%= date%></td>
+                                <td>R$ <%= price%></td>
+                                
                             </tr>
                             <%
                                 }
