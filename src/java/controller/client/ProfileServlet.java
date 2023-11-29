@@ -22,6 +22,9 @@ public class ProfileServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         User user = (User) session.getAttribute("stardust_user");
+        
+        ShoppingCart cart = ShoppingCart.getOrCreateCart(request);
+        request.setAttribute("totalCart", cart.getTotalItems());
         if (user != null && user.isAdmin() == false) {
             request.setAttribute("user", user);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/client/profile_page.jsp");
@@ -29,9 +32,6 @@ public class ProfileServlet extends HttpServlet {
         } else {
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "Don't have access");
         }
-        
-        ShoppingCart cart = ShoppingCart.getOrCreateCart(request);
-        request.setAttribute("totalCart", cart.getTotalItems());
     }
 
     @Override

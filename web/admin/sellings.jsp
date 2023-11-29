@@ -62,6 +62,9 @@
                 </div>
                 <!-- Sales -->
                 <% List<Sale> sales = (List<Sale>) request.getAttribute("sales");%>
+                <form id="salesForms" method="POST">
+                    <input type="hidden" id="saleId" name="saleId">
+                </form>
                 <div class="sales">
                     <table>
                         <thead>
@@ -107,7 +110,7 @@
                                     String date = localDateTime.format(formatter);
                                 %>
                                 <td><%= date%></td>
-                                <td><button class="options-btn">&#8942;</button></td>
+                                <td><button class="options-btn" onclick="deleteSale('<%= sale.getId()%>')">&#8942;</button></td>
                             </tr>
                             <% }%>
 
@@ -119,6 +122,18 @@
         </div>
 
         <script src="${pageContext.request.contextPath}/admin/main.js"></script>
+        <script>
+                                    function deleteSale(id) {
+                                        var confirmed = confirm("Tem certeza que deseja excluir este venda?");
+                                        if (confirmed) {
+                                            document.getElementById("saleId").value = id;
+                                            var form = document.getElementById("salesForms");
+                                            form.submit();
+                                        } else {
+                                            alert("Exclusão cancelada");
+                                        }
+                                    }
+        </script>
     </body>
 
 </html>

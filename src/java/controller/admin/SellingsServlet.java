@@ -27,9 +27,27 @@ public class SellingsServlet extends HttpServlet {
             throws ServletException, IOException {
         SaleDAO saleDAO = new SaleDAO();
         List<Sale> sales = saleDAO.getAll();
-        
+
         request.setAttribute("sales", sales);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/sellings.jsp");
         dispatcher.forward(request, response);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String saleIdStr = req.getParameter("saleId");
+        if (saleIdStr != null && !saleIdStr.isEmpty()) {
+            long saleId = Long.parseLong(saleIdStr);
+
+            SaleDAO saleDAO = new SaleDAO();
+            boolean deleted = saleDAO.delete(saleId);
+
+            if (deleted) {
+                resp.sendRedirect("Sellings");
+                return;
+            }
+        }
+        resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal server error");
+    }
+
 }

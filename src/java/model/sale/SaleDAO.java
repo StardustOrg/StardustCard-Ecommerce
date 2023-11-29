@@ -160,7 +160,33 @@ public class SaleDAO implements DAO<Sale> {
 
     @Override
     public boolean delete(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+        try {
+            Class.forName(Config.JDBC_DRIVER);
+            Connection connection = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
+            connection.setAutoCommit(false);
 
+            PreparedStatement deleteProductsStatement = connection.prepareStatement("DELETE FROM SALE_PRODUCT WHERE SALE_PRODUCT.SALE_ID = ?");
+            deleteProductsStatement.setLong(1, id);
+            int rowsAffectedInProducts = deleteProductsStatement.executeUpdate();
+            deleteProductsStatement.close();
+
+            PreparedStatement deleteSaleStatement = connection.prepareStatement("DELETE FROM SALE WHERE SALE.ID = ?");
+            deleteSaleStatement.setLong(1, id);
+            int rowsAffectedInSale = deleteSaleStatement.executeUpdate();
+            deleteSaleStatement.close();
+
+            if (rowsAffectedInProducts > 0 && rowsAffectedInSale > 0) {
+                connection.commit();
+                connection.close();
+                return true;
+            } else {
+                connection.rollback(); 
+                connection.close();
+                return false;
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
+            return false;
+        }
+    }
 }
