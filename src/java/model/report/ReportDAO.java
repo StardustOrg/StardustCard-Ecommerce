@@ -10,15 +10,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import model.DAO;
-import model.artist.Artist;
 import model.product.Product;
-import model.user.User;
 
 /**
  *
@@ -51,36 +48,32 @@ public class ReportDAO implements DAO<Report> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    public List<Map<String, Object>> getClientReport(int timeInterval) {
-        List<Map<String, Object>> clients = new ArrayList<>();
-        String query = "SELECT client.id, client.name, COUNT(sale.user_id) AS sales_amount "
-                + "FROM stardust_user AS client "
-                + "LEFT JOIN sale ON client.id = sale.user_id "
-                + "WHERE sale.date_time >= CURRENT_DATE - INTERVAL '" + timeInterval + "' DAY "
-                + "GROUP BY client.id, client.name";
+    public List<SaleReport> getClientSalesReport() {
+        List<SaleReport> reports = new ArrayList<>();
+        String query = """
+                       SELECT su.id AS customer_id, su.name AS customer_name, COUNT(s.id) AS total_purchases
+                       FROM stardust_user AS su
+                       JOIN sale AS s ON su.id = s.user_id
+                       WHERE s.date_time >= CURRENT_DATE - INTERVAL '30' DAY
+                       GROUP BY su.id, su.name
+                       ORDER BY total_purchases DESC
+                       """;
 
         try (Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD); PreparedStatement pstmt = c.prepareStatement(query)) {
-
-            pstmt.setString(1, String.valueOf(timeInterval));
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                long id = rs.getLong("id");
-                String name = rs.getString("name");
-                int salesAmount = rs.getInt("sales_amount");
+                long id = rs.getLong("customer_id");
+                String name = rs.getString("customer_name");
+                int salesAmount = rs.getInt("total_purchases");
 
-                Map<String, Object> clientMap = new HashMap<>();
-                clientMap.put("id", id);
-                clientMap.put("name", name);
-                clientMap.put("salesAmount", salesAmount);
-                clients.add(clientMap);
+                reports.add(new SaleReport(id, name, salesAmount));
             }
 
         } catch (SQLException ex) {
-            ex.printStackTrace(); // Tratar a exceção de forma apropriada, seja registrando, relançando ou tratando de outra maneira.
+            ex.printStackTrace();
         }
-
-        return clients;
+        return reports;
     }
 
     public List<Product> getNoStockProducts() {

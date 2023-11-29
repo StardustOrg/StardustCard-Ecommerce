@@ -4,6 +4,7 @@
     Author     : joaov
 --%>
 
+<%@page import="model.report.card.CardSaleReport"%>
 <%@page import="model.user.UserDAO"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.time.LocalDateTime"%>
@@ -20,7 +21,11 @@
 
     <body>
         <!-- Sidebar -->
-        <%request.setAttribute("activePage", "sellings");%>
+        <%
+            request.setAttribute("activePage", "sellings");
+
+            DecimalFormat df = new DecimalFormat("#.##");
+        %>
         <%@include file="./components/sidebar.jsp" %>
         <!-- Content Page -->
         <div class="content">
@@ -32,12 +37,12 @@
             <!-- Content -->
             <main>
                 <!-- Highlights -->
+                <% CardSaleReport card = (CardSaleReport) request.getAttribute("cardSales"); %>
                 <div class="sellings-higlight">
                     <%  List<Highlight> highlights = new ArrayList<>();
-                        highlights.add(new Highlight("Total Sales", "$30,000.00", ""));
-                        highlights.add(new Highlight("Net Profit", "$15,000.00", ""));
-                        highlights.add(new Highlight("Items Sold", "500", ""));
-                        highlights.add(new Highlight("Average Price", "$60.00", ""));
+                        highlights.add(new Highlight("Total Sales", "R$ " + df.format(card.getTotalValue()), ""));
+                        highlights.add(new Highlight("Items Sold", df.format(card.getTotalItems()), ""));
+                        highlights.add(new Highlight("Average Price", "R$ "+ df.format(card.getAverageValue()), ""));
 
                         for (Highlight highlight : highlights) {
                     %>
@@ -89,7 +94,6 @@
                                         int q = entry.getValue();
                                         amount += q * p.getPrice();
                                     }
-                                    DecimalFormat df = new DecimalFormat("#.##");
                                     String total = df.format(amount);
                                     UserDAO u = new UserDAO();
                                     User user = u.getOne(sale.getUserId());
