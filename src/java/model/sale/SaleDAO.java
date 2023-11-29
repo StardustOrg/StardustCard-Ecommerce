@@ -96,12 +96,6 @@ public class SaleDAO implements DAO<Sale> {
 
     @Override
     public List<Sale> getAll() {
-<<<<<<< HEAD
-
-        return null;
-
-        }
-=======
         List<Sale> sales = new ArrayList<>();
         try {
             Class.forName(Config.JDBC_DRIVER);
@@ -158,7 +152,6 @@ public class SaleDAO implements DAO<Sale> {
 
         return sales;
     }
->>>>>>> cb98231740b0ee733a2fdbbc3c66f187dcd16d60
 
     @Override
     public boolean update(Sale t) {

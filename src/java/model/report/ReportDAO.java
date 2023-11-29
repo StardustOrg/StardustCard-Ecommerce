@@ -24,7 +24,7 @@ import model.user.User;
  *
  * @author vladi
  */
-public class ReportDAO implements DAO<Report>{
+public class ReportDAO implements DAO<Report> {
 
     @Override
     public boolean insert(Report t) {
@@ -50,55 +50,46 @@ public class ReportDAO implements DAO<Report>{
     public boolean delete(long id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    
+
     public List<Map<String, Object>> getClientReport(int timeInterval) {
-    List<Map<String, Object>> clients = new ArrayList<>();
+        List<Map<String, Object>> clients = new ArrayList<>();
+        String query = "SELECT client.id, client.name, COUNT(sale.user_id) AS sales_amount "
+                + "FROM stardust_user AS client "
+                + "LEFT JOIN sale ON client.id = sale.user_id "
+                + "WHERE sale.date_time >= CURRENT_DATE - INTERVAL '" + timeInterval + "' DAY "
+                + "GROUP BY client.id, client.name";
 
-        try{
-            Class.forName(Config.JDBC_DRIVER);
-            Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
-            Statement stmt = c.createStatement();
+        try (Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD); PreparedStatement pstmt = c.prepareStatement(query)) {
 
-            String query = "SELECT client.id,client.name, COUNT(sale.user_id) AS sales_amount" +
-                    "FROM stardust_user AS client" +
-                    "LEFT JOIN sale ON client.id = sale.user_id" +
-                    "WHERE sale.date_time >= CURRENT_DATE - INTERVAL '"+timeInterval
-                    +"' DAY" + "GROUP BY client.id, client.name;";
-            ResultSet rs = stmt.executeQuery(query);
-            
-            
-            while(rs.next()){
-            long id = rs.getLong("id");
-            String name = rs.getString("name");
-            int salesAmount = rs.getInt("sales_amount");
+            pstmt.setString(1, String.valueOf(timeInterval));
+            ResultSet rs = pstmt.executeQuery();
 
-            Map<String, Object> clientMap = new HashMap<>();
-            clientMap.put("id", id);
-            clientMap.put("name", name);
-            clientMap.put("salesAmount", salesAmount);
-            clients.add(clientMap);
+            while (rs.next()) {
+                long id = rs.getLong("id");
+                String name = rs.getString("name");
+                int salesAmount = rs.getInt("sales_amount");
+
+                Map<String, Object> clientMap = new HashMap<>();
+                clientMap.put("id", id);
+                clientMap.put("name", name);
+                clientMap.put("salesAmount", salesAmount);
+                clients.add(clientMap);
             }
-            
-            rs.close();
-            stmt.close();
-            c.close();
-            
-        }catch (ClassNotFoundException | SQLException ex) {
-            System.out.println(ex);
+
+        } catch (SQLException ex) {
+            ex.printStackTrace(); // Tratar a exceção de forma apropriada, seja registrando, relançando ou tratando de outra maneira.
         }
+
         return clients;
-        
     }
-    
-    
-    public List<Product> getNoStockProducts(){
-        List <Product> noStockProducts = new ArrayList<>();
-    try {
+
+    public List<Product> getNoStockProducts() {
+        List<Product> noStockProducts = new ArrayList<>();
+        try {
             Class.forName(Config.JDBC_DRIVER);
             Connection c = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
             PreparedStatement ps = c.prepareStatement("SELECT id, description,"
-                    + "amount, price FROM product WHERE amount <= 0"); 
+                    + "amount, price FROM product WHERE amount <= 0");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -117,7 +108,6 @@ public class ReportDAO implements DAO<Report>{
             ex.printStackTrace();
         }
         return noStockProducts;
-    
-    
+
     }
 }

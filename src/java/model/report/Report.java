@@ -10,7 +10,7 @@ import model.user.User;
 
 /**
  *
- * @author vladi
+ * @author vladia
  */
 public class Report {
     private List<User> clients;

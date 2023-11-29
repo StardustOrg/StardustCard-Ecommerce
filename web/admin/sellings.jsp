@@ -84,23 +84,30 @@
                                 <%
                                     double amount = 0.0;
                                     List<String> photocards = new ArrayList<>();
-                                    for (Product product : sale.getProducts().keySet()) {
-                                        amount += product.getAmount() * product.getPrice();
-                                        photocards.add(product.getDescription());
+                                    for (Map.Entry<Product, Integer> entry : sale.getProducts().entrySet()) {
+                                        Product p = entry.getKey();
+                                        int q = entry.getValue();
+                                        amount += q * p.getPrice();
                                     }
                                     DecimalFormat df = new DecimalFormat("#.##");
                                     String total = df.format(amount);
                                     UserDAO u = new UserDAO();
                                     User user = u.getOne(sale.getUserId());
                                 %>
-
                                 <td>
-                                    <ul style="text-align: left; padding: 0">
-                                        <% for (String photocard : photocards) {%>
-                                        <li><%= photocard%></li>
-                                            <%}%>
-                                    </ul>
+                                    <div>
+                                        <%
+                                            for (Map.Entry<Product, Integer> entry : sale.getProducts().entrySet()) {
+                                                Product p = entry.getKey();
+                                                int q = entry.getValue();
+                                        %>
+                                        <p><%= p.getDescription()%> (Quant: <%= q%>)</p>
+                                        <%
+                                            }
+                                        %>
+                                    </div>
                                 </td>
+
                                 <td>R$ <%= total%></td>
                                 <td><%= user.getName()%></td>
                                 <%

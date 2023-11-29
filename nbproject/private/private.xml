@@ -3,8 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/vladi/OneDrive/Documentos/STARDUSTCARD%20ECOMMERCE/StardustCard-Ecommerce/src/java/model/report/Report.java</file>
-            <file>file:/C:/Users/vladi/OneDrive/Documentos/STARDUSTCARD%20ECOMMERCE/StardustCard-Ecommerce/src/java/model/report/ReportDAO.java</file>
+            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/web/admin/style.css</file>
+            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/src/java/controller/admin/ReportsServlet.java</file>
+            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/web/admin/components/sidebar.jsp</file>
+            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/web/admin/photocards.jsp</file>
+            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/web/admin/reports.jsp</file>
+            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/web/admin/user.jsp</file>
+            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/src/java/config/Config.java</file>
+            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/web/admin/components/photocard.jsp</file>
+            <file>file:/C:/Users/joaov/Stardust/StardustCard-Ecommerce/src/java/model/report/ReportDAO.java</file>
         </group>
     </open-files>
 </project-private>
