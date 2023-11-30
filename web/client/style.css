@@ -1091,33 +1091,29 @@ a {
 .photocard-form {
     margin: 0 25px;
 }
-
-.orders-cont {
-    margin-top: 3%;
-    margin-bottom: 5%;
+/* Dashboard - last sales */
+.sales {
+    margin-top: 20px;
 }
 
-.orders-cont table {
+.sales table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.orders-cont th,
-.orders-cont td {
-    padding: 10px;
+.sales th,
+.sales td {
     text-align: left;
 }
 
-.orders-cont td {
-    border-bottom: 1px solid #6622CC;
+.sales td {
+    border-bottom: 1px solid #E1B4F4;
 }
 
-.orders-cont th {
+.sales th {
     color: #6622CC;
 }
 
-td ul {
-    display: flex;
-    flex-direction: column;
-    list-style: none;
+.sales tbody tr:hover {
+    background-color: #dedede;
 }

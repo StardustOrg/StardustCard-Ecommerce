@@ -51,53 +51,56 @@
                         SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
                         DecimalFormat decfor = new DecimalFormat("00.00");
                     %>
-                    <div class="orders-cont">
+                    <div class="sales">
                         <table>
-                            <tr>
-                                <th>Order Number</th>
-                                <th>Products</th>
-                                <th>Date</th>
-                                <th>Total</th>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <th style="text-align: left;">Order Number</th>
+                                    <th style="text-align: left; margin-right: 15px">Products</th>
+                                    <th style="text-align: left;">Date</th>
+                                    <th style="text-align: right;">Total (R$)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%
+                                    for (int i = 0; i < mySales.size(); i++) {
+                                        Sale sale = mySales.get(i);
 
-                            <%
-                                for (int i = 0; i < mySales.size(); i++) {
-                                    Sale sale = mySales.get(i);
+                                        double amount = 0.0;
+                                        List<Product> photocards = new ArrayList<>();
+                                        for (Map.Entry<Product, Integer> entry : sale.getProducts().entrySet()) {
+                                            Product product = entry.getKey();
+                                            int q = entry.getValue();
+                                            amount += q * product.getPrice();
+                                            photocards.add(product);
+                                        }
+                                        String formattedNumber = String.format("%04d", sale.getId());
+                                        String date = dateFormatter.format(sale.getDate());
+                                        String price = decfor.format(amount);
+                                %>
+                                <tr>
+                                    <td>#<%= formattedNumber%></td>
+                                    <td style="">
+                                        <div style="text-align: left; padding: 0; margin-right: 15px;">
+                                            <%
+                                                for (Map.Entry<Product, Integer> entry : sale.getProducts().entrySet()) {
+                                                    Product p = entry.getKey();
+                                                    int q = entry.getValue();
+                                            %>
+                                            <p><%= p.getDescription()%> (Quant: <%= q%>)</p>
+                                            <%
+                                                }
+                                            %>
+                                        </div>
+                                    </td>
+                                    <td style="text-align: left; padding: 0;"><%= date%></td>
+                                    <td style="text-align: right; padding: 0;"><%= price%></td>
 
-                                    double amount = 0.0;
-                                    List<Product> photocards = new ArrayList<>();
-                                    for (Map.Entry<Product, Integer> entry : sale.getProducts().entrySet()) {
-                                        Product product = entry.getKey();
-                                        int q = entry.getValue();
-                                        amount += q * product.getPrice();
-                                        photocards.add(product);
+                                </tr>
+                                <%
                                     }
-                                    String formattedNumber = String.format("%04d", sale.getId());
-                                    String date = dateFormatter.format(sale.getDate());
-                                    String price = decfor.format(amount);
-                            %>
-                            <tr>
-                                <td>#<%= formattedNumber%></td>
-                                <td>
-                                    <ul style="text-align: left; padding: 0">
-                                        <%
-                                            for (Map.Entry<Product, Integer> entry : sale.getProducts().entrySet()) {
-                                                Product p = entry.getKey();
-                                                int q = entry.getValue();
-                                        %>
-                                        <p><%= p.getDescription()%> (Quant: <%= q%>)</p>
-                                        <%
-                                            }
-                                        %>
-                                    </ul>
-                                </td>
-                                <td><%= date%></td>
-                                <td>R$ <%= price%></td>
-                                
-                            </tr>
-                            <%
-                                }
-                            %>
+                                %>
+                            </tbody>
                         </table>
                     </div>
                 </div>
