@@ -5,6 +5,8 @@
 package controller.admin;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.report.card.CardReportDAO;
 import model.sale.Sale;
 import model.sale.SaleDAO;
 
@@ -27,7 +30,9 @@ public class SellingsServlet extends HttpServlet {
             throws ServletException, IOException {
         SaleDAO saleDAO = new SaleDAO();
         List<Sale> sales = saleDAO.getAll();
-
+        Collections.sort(sales, Comparator.comparing(Sale::getDate).reversed());
+        CardReportDAO c = new CardReportDAO();
+        request.setAttribute("cardSales", c.salesReport());
         request.setAttribute("sales", sales);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/sellings.jsp");
         dispatcher.forward(request, response);

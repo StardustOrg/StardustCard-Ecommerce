@@ -4,6 +4,7 @@
     Author     : joaov
 --%>
 
+<%@page import="model.report.card.CardSaleReport"%>
 <%@page import="model.user.UserDAO"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.time.LocalDateTime"%>
@@ -20,7 +21,11 @@
 
     <body>
         <!-- Sidebar -->
-        <%request.setAttribute("activePage", "sellings");%>
+        <%
+            request.setAttribute("activePage", "sellings");
+
+            DecimalFormat df = new DecimalFormat("#.##");
+        %>
         <%@include file="./components/sidebar.jsp" %>
         <!-- Content Page -->
         <div class="content">
@@ -32,12 +37,12 @@
             <!-- Content -->
             <main>
                 <!-- Highlights -->
+                <% CardSaleReport card = (CardSaleReport) request.getAttribute("cardSales"); %>
                 <div class="sellings-higlight">
                     <%  List<Highlight> highlights = new ArrayList<>();
-                        highlights.add(new Highlight("Total Sales", "$30,000.00", ""));
-                        highlights.add(new Highlight("Net Profit", "$15,000.00", ""));
-                        highlights.add(new Highlight("Items Sold", "500", ""));
-                        highlights.add(new Highlight("Average Price", "$60.00", ""));
+                        highlights.add(new Highlight("Total Sales", "R$ " + df.format(card.getTotalValue()), ""));
+                        highlights.add(new Highlight("Items Sold", df.format(card.getTotalItems()), ""));
+                        highlights.add(new Highlight("Average Price", "R$ "+ df.format(card.getAverageValue()), ""));
 
                         for (Highlight highlight : highlights) {
                     %>
@@ -84,23 +89,29 @@
                                 <%
                                     double amount = 0.0;
                                     List<String> photocards = new ArrayList<>();
-                                    for (Product product : sale.getProducts().keySet()) {
-                                        amount += product.getAmount() * product.getPrice();
-                                        photocards.add(product.getDescription());
+                                    for (Map.Entry<Product, Integer> entry : sale.getProducts().entrySet()) {
+                                        Product p = entry.getKey();
+                                        int q = entry.getValue();
+                                        amount += q * p.getPrice();
                                     }
-                                    DecimalFormat df = new DecimalFormat("#.##");
                                     String total = df.format(amount);
                                     UserDAO u = new UserDAO();
                                     User user = u.getOne(sale.getUserId());
                                 %>
-
                                 <td>
-                                    <ul style="text-align: left; padding: 0">
-                                        <% for (String photocard : photocards) {%>
-                                        <li><%= photocard%></li>
-                                            <%}%>
-                                    </ul>
+                                    <div>
+                                        <%
+                                            for (Map.Entry<Product, Integer> entry : sale.getProducts().entrySet()) {
+                                                Product p = entry.getKey();
+                                                int q = entry.getValue();
+                                        %>
+                                        <p><%= p.getDescription()%> (Quant: <%= q%>)</p>
+                                        <%
+                                            }
+                                        %>
+                                    </div>
                                 </td>
+
                                 <td>R$ <%= total%></td>
                                 <td><%= user.getName()%></td>
                                 <%
