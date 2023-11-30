@@ -125,6 +125,10 @@
         <servlet-class>controller.sale.SaleServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ClientOrdersServlet</servlet-name>
+        <servlet-class>controller.client.ClientOrdersServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ReportsServlet</servlet-name>
         <servlet-class>controller.admin.ReportsServlet</servlet-class>
     </servlet>
@@ -247,6 +251,10 @@
     <servlet-mapping>
         <servlet-name>SaleServlet</servlet-name>
         <url-pattern>/Sale</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ClientOrdersServlet</servlet-name>
+        <url-pattern>/Orders</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ReportsServlet</servlet-name>

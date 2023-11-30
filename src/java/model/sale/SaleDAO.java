@@ -152,6 +152,64 @@ public class SaleDAO implements DAO<Sale> {
 
         return sales;
     }
+    
+    public List<Sale> getAllFromClient(long clientId) {
+        List<Sale> sales = new ArrayList<>();
+        try {
+            Class.forName(Config.JDBC_DRIVER);
+            Connection connection = DriverManager.getConnection(Config.JDBC_URL, Config.USER, Config.PASSWORD);
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM SALE WHERE user_id = " + clientId);
+
+            while (resultSet.next()) {
+                long saleId = resultSet.getLong("id");
+                long userId = resultSet.getLong("user_id");
+                Timestamp dateTime = resultSet.getTimestamp("date_time");
+
+                Sale sale = new Sale(saleId, dateTime, userId);
+                sales.add(sale);
+            }
+
+            resultSet.close();
+            statement.close();
+
+            for (Sale sale : sales) {
+                PreparedStatement productStatement = connection.prepareStatement(
+                        "SELECT PR.DESCRIPTION, PR.PRICE, PR.ID, PR.AMOUNT, SP.QUANTITY "
+                        + "FROM SALE AS S "
+                        + "INNER JOIN SALE_PRODUCT AS SP ON S.ID = SP.SALE_ID "
+                        + "INNER JOIN PRODUCT AS PR ON SP.PRODUCT_ID = PR.ID "
+                        + "WHERE S.ID = ?");
+
+                productStatement.setLong(1, sale.getId());
+                ResultSet productResultSet = productStatement.executeQuery();
+
+                Map<Product, Integer> products = new HashMap<>();
+                while (productResultSet.next()) {
+                    String description = productResultSet.getString("description");
+                    double price = productResultSet.getDouble("price");
+                    int quantity = productResultSet.getInt("quantity");
+                    int amount = productResultSet.getInt("amount");
+                    long id = productResultSet.getLong("id");
+
+                    Product product = new Product(id, description, amount, null, price, null);
+                    products.put(product, quantity);
+                }
+
+                productResultSet.close();
+                productStatement.close();
+
+                sale.setProduct(products);
+            }
+
+            connection.close();
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
+        }
+
+        return sales;
+    }
 
     @Override
     public boolean update(Sale t) {

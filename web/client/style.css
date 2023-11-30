@@ -1018,7 +1018,8 @@ hr.rounded {
     line-height: normal;
 }
 
-.profile-option:hover {
+.profile-option:hover,
+.profile-option:active {
     background: rgba(142, 220, 230, 0.50);
     cursor: pointer;
 }
@@ -1089,4 +1090,30 @@ a {
 
 .photocard-form {
     margin: 0 25px;
+}
+/* Dashboard - last sales */
+.sales {
+    margin-top: 20px;
+}
+
+.sales table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.sales th,
+.sales td {
+    text-align: left;
+}
+
+.sales td {
+    border-bottom: 1px solid #E1B4F4;
+}
+
+.sales th {
+    color: #6622CC;
+}
+
+.sales tbody tr:hover {
+    background-color: #dedede;
 }
